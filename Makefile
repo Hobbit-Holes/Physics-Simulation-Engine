@@ -1,5 +1,5 @@
 OBJS = main.cpp
-OBJ_NAME = test.exe
+OBJ_NAME = loop.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib

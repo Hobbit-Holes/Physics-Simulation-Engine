@@ -88,7 +88,7 @@ void update() {
 }
 
 void render() {
-    SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255);
+    SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
     SDL_RenderClear(renderer);
 
     SDL_Rect box = {player_x, player_y, 10, 10};
