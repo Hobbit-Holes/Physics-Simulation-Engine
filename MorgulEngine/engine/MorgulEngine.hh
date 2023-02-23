@@ -5,6 +5,7 @@
 #include "Mouse.hh"
 #include "Keyboard.hh"
 #include "Graphics.hh"
+#include "Color.hh"
 
 class MorgulEngine {
     private:
