@@ -12,22 +12,29 @@ int main(int argc, char *argv[]) {
     float player_y = 20;
     float player_width = 10;
     float player_heigth = 10;
-    float player_speed = 50;
+    float player_speed = 60;
 
     // Game Loop
     while (engine.NextFrame()) {
         // Update Engine
-
+        engine.Update();
 
         // Custom Logic
+        double dt = engine.GetDeltaTime();
+        
+        player_x += player_speed * dt;
+        player_y += player_speed * dt;
+
+        engine.DrawFillRect(player_x, player_y, player_width, player_heigth, Color::Orange());
+
         Logger::Info("Player position: " + std::to_string(player_x) + ", " + std::to_string(player_y));
 
         // Engine Render
-
+        engine.Render();
     }
 
     // Destroy the Engine
-
+    engine.CloseWindow();
 
     return 0;
 }

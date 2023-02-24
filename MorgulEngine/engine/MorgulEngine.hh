@@ -12,7 +12,7 @@ class MorgulEngine {
         bool debug = false;
         bool running = false;
         double dt = 0;              // Delta Time
-        int last_frame_time = 0;   // ms
+        int last_frame_time = 0;    // ms
 
     public:
         // Constructor and Deconstructor
@@ -25,4 +25,10 @@ class MorgulEngine {
 
         // Game Loop
         bool NextFrame();
+        void CheckInput();
+        void Update();
+        void Render();
+        double GetDeltaTime();
+        int GetTotalTimeInMilliSeconds();
+        double GetTotalTimeInSeconds();
 };

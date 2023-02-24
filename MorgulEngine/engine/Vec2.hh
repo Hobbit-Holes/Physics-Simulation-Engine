@@ -25,7 +25,7 @@ struct Vec2 {
 
     Vec2& Normalize();
     Vec2 UnitVector() const;
-    Vec2 Normala() const;
+    Vec2 Normal() const;
 
     float Dot(const Vec2& v) const;
     float Cross(const Vec2& v) const;

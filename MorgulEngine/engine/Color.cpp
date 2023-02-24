@@ -12,10 +12,30 @@ Color::Color(uint32_t color) {
 }
 
 // FUNCTIONS
+uint32_t Color::ToARG8888() {
 
+}
+
+Color Color::Darkerned(float p) {
+
+}
+
+Color Color::Lightened(float p) {
+
+}
+
+Color Color::ApplyFactor(float p) {
+
+}
+
+Color Color::Lerp(Color color_1, Color color_2, float t) {
+
+}
 
 // OPERATORS
-
+Color Color::operator + (const Color& c) const {
+    
+}
 
 // COLORS
 Color Color::Red() {

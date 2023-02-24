@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 
 #include "Logger.hh"
+#include "Vec2.hh"
+#include "Color.hh"
 
 class Graphics {
     private:
@@ -8,6 +10,8 @@ class Graphics {
         static int windowHeigth;
         static SDL_Window* window;
         static SDL_Renderer* renderer;
+        static uint32_t* color_buffer;
+        static SDL_Texture* color_buffer_texture;
     
     public:
         static bool OpenWindow(int width, int heigth);
@@ -15,7 +19,13 @@ class Graphics {
         static void CleanUpScreen();
         static void RenderFrame();
 
-        //static void DrawLine(int x0, int y0, int x1, int y1, Color color);
-        //static void DrawCircle(int x, int y, int radius, Color color);
-        //static void DrawRect(int x, int y, int width, int heigth, Color color);
+        // Draw Functions
+        static void DrawPixel(int x, int y, Uint32 color);
+        static void DrawGrid(void);
+        static void DrawLine(int x0, int y0, int x1, int y1, Color color);
+        static void DrawRect(int x, int y, int width, int heigth, Color color);
+        static void DrawFillRect(int x, int y, int width, int heigth, Color color);
+        static void DrawPolygon(int x, int y, const std::vector<Vec2>& vertices, Color color);
+        static void DrawCircle(int x0, int y0, int radius, float angle, Color color);
+        static void DrawFillCircle(int x0, int y0, int radius, float angle, Color color);
 };
