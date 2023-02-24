@@ -17,12 +17,14 @@ struct Color {
     Color(uint32_t color);
     ~Color() = default;
 
+    // Functions
     uint32_t ToARG8888();
     Color Darkerned(float p);
     Color Lightened(float p);
     Color ApplyFactor(float p);
     static Color Lerp(Color color_1, Color color_2, float t);
 
+    // Operators
     Color operator + (const Color& c) const;
 
     // Colors
@@ -31,7 +33,10 @@ struct Color {
     static Color Blue();
     static Color Orange();
     static Color Yellow();
+    static Color Magenta();
+    static Color Cyan();
     static Color White();
+    static Color Grey();
     static Color Black();
 
     friend std::ostream& operator<<(std::ostream& os, const Color& c);
