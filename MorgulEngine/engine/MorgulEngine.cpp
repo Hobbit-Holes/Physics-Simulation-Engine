@@ -107,5 +107,5 @@ int MorgulEngine::GetTotalTimeInMilliSeconds() {
 }
 
 double MorgulEngine::GetTotalTimeInSeconds() {
-
+    return 0;
 }

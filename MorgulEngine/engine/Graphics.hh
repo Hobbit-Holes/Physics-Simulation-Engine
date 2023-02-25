@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <cstring>
 
 #include "Logger.hh"
 #include "Vec2.hh"

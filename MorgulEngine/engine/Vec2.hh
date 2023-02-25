@@ -2,6 +2,7 @@
 #define VEC2_H
 
 #include <iostream>
+#include <math.h>
 
 struct Vec2 {
     float x;

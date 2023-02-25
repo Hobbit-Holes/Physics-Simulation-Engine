@@ -1,6 +1,4 @@
 #include "Vec2.hh"
-#include <math.h>
-#include <iostream>
 
 // CONSTRUCTORS
 Vec2::Vec2(): x(0.0), y(0.0) {}
@@ -37,35 +35,35 @@ float Vec2::Magnitude() const {
 }
 
 float Vec2::MagnitudeSquared() const {
-
+    return 0;
 }
 
 float Vec2::Angle() const {
-
+    return 0;
 }
 
 Vec2& Vec2::Normalize() {
-
+    return *this;
 }
 
 Vec2 Vec2::UnitVector() const {
-
+    return Vec2();
 }
 
 Vec2 Vec2::Normal() const {
-
+    return Vec2();
 }
 
 float Vec2::Dot(const Vec2& v) const {
-
+    return 0;
 }
 
 float Vec2::Cross(const Vec2& v) const {
-
+    return 0;
 }
 
 Vec2 Vec2::Lerp(Vec2 a, Vec2 b, float t) {
-
+    return Vec2();
 }
 
 // OPERATORS
