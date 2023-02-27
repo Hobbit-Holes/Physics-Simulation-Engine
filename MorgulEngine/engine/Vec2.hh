@@ -13,7 +13,7 @@ struct Vec2 {
     Vec2(float x, float y);
     ~Vec2() = default;
 
-    // Functions
+    // Simple operations
     void Add(const Vec2& v);
     void Sub(const Vec2& v);
     void Scale(const float n);
@@ -29,10 +29,12 @@ struct Vec2 {
     Vec2 UnitVector() const;
     Vec2 Normal() const;
 
+    // Projections
     Vec2 Projection() const;
     Vec2 ScalarProjection() const;
     Vec2 OrthogonalProjection() const;
 
+    // Dot and Cross
     float Dot(const Vec2& v) const;
     float Cross(const Vec2& v) const;
 

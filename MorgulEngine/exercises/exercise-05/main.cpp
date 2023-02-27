@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
     std::cout << "v1 = " << v1 << std::endl;
     std::cout << "v2 = " << v2 << std::endl << std::endl;
 
+    // Simple operations
     std::cout << "v1 + v2 = " << v1 + v2 << std::endl;
     std::cout << "v1 - v2 = " << v1 - v2 << std::endl;
     std::cout << "v1 * 2 = " << v1 * 2 << std::endl;
@@ -27,11 +28,19 @@ int main(int argc, char *argv[]) {
     std::cout << "(Unit Vector) v1 = " << v1.UnitVector() << std::endl;
     std::cout << "(Normal) v1 = " << v1.Normal() << std::endl << std::endl;
 
-    std::cout << "(Dot) v1 = " << v1.Dot(v2) << std::endl;
-    std::cout << "(Cross) v1 = " << v1.Cross(v2) << std::endl;
-    std::cout << "(Lerp) v1 = " << v1.Lerp(v2, v2, 2) << std::endl << std::endl;
+    // Projections
+    std::cout << "(Projection) v1 = " << v1.Projection() << std::endl;
+    std::cout << "(Scalar Projection) v1 = " << v1.ScalarProjection() << std::endl;
+    std::cout << "(Orthogonal Projection) v1 = " << v1.OrthogonalProjection() << std::endl << std::endl;
     
+    // Dot and Cross operations
+    std::cout << "(Dot) v1 * v2 = " << v1.Dot(v2) << std::endl;
+    std::cout << "(Cross) v1 * v2 = " << v1.Cross(v2) << std::endl;
+    std::cout << "(Lerp) v1 * v2 = " << v1.Lerp(v1, v2, 0.1) << std::endl << std::endl;
+
+    // Other operators
     Vec2 v3 = v1;
+    
     std::cout << "v1 = v3 = " << v3 << std::endl;
     std::cout << "v1 == v2: " << (v1 == v2) << std::endl;
     std::cout << "v1 != v2: " << (v1 != v2) << std::endl;

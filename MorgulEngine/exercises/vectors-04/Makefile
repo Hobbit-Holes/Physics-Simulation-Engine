@@ -1,6 +1,6 @@
 OBJS = main.cpp
 CCPS = ./../../engine/Vec2.cpp
-OBJ_NAME = vectors-01.exe
+OBJ_NAME = vectors-04.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib

@@ -16,6 +16,7 @@ void Vec2::Sub(const Vec2& v) {
     y -= v.y;
 }
 
+
 void Vec2::Scale(const float n) {
     x *= n;
     y *= n;
@@ -47,6 +48,7 @@ float Vec2::Angle(const Vec2& v) {
     return acos((x * v.x + y * v.y) / (sqrtf(x * x + y * y) * sqrtf(v.x * v.x + v.y * v.y)));
 }
 
+
 Vec2& Vec2::Normalize() {
     return *this;
 }
@@ -59,6 +61,21 @@ Vec2 Vec2::UnitVector() const {
 Vec2 Vec2::Normal() const {
     return Vec2();
 }
+
+
+Vec2 Vec2::Projection() const {
+    return Vec2();
+}
+
+Vec2 Vec2::ScalarProjection() const {
+    return Vec2();
+}
+
+Vec2 Vec2::OrthogonalProjection() const {
+    return Vec2();
+}
+
+
 
 float Vec2::Dot(const Vec2& v) const {
     return (x * v.x + y * v.y);
