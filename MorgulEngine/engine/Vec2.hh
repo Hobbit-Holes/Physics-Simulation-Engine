@@ -23,10 +23,15 @@ struct Vec2 {
     float Magnitude() const;
     float MagnitudeSquared() const;
     float Angle() const;
+    float Angle(const Vec2& v);
 
     Vec2& Normalize();
     Vec2 UnitVector() const;
     Vec2 Normal() const;
+
+    Vec2 Projection() const;
+    Vec2 ScalarProjection() const;
+    Vec2 OrthogonalProjection() const;
 
     float Dot(const Vec2& v) const;
     float Cross(const Vec2& v) const;

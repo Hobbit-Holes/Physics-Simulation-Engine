@@ -22,7 +22,8 @@ void Vec2::Scale(const float n) {
 }
 
 void Vec2::Scale(const Vec2& v) {
-
+    x *= v.x;
+    y *= v.y;
 }
 
 void Vec2::Rotate(const float angle) const {
@@ -35,11 +36,15 @@ float Vec2::Magnitude() const {
 }
 
 float Vec2::MagnitudeSquared() const {
-    return 0;
+    return (x * x + y * y);
 }
 
 float Vec2::Angle() const {
-    return 0;
+    return atan(x / y);
+}
+
+float Vec2::Angle(const Vec2& v) {
+    return acos((x * v.x + y * v.y) / (sqrtf(x * x + y * y) * sqrtf(v.x * v.x + v.y * v.y)));
 }
 
 Vec2& Vec2::Normalize() {
@@ -47,7 +52,8 @@ Vec2& Vec2::Normalize() {
 }
 
 Vec2 Vec2::UnitVector() const {
-    return Vec2();
+    float normal = sqrtf(x * x + y * y);
+    return Vec2(x / normal, y / normal);
 }
 
 Vec2 Vec2::Normal() const {
@@ -55,11 +61,11 @@ Vec2 Vec2::Normal() const {
 }
 
 float Vec2::Dot(const Vec2& v) const {
-    return 0;
+    return (x * v.x + y * v.y);
 }
 
 float Vec2::Cross(const Vec2& v) const {
-    return 0;
+    return ((x * v.y - y * v.x) / 1);
 }
 
 Vec2 Vec2::Lerp(Vec2 a, Vec2 b, float t) {

@@ -1,4 +1,5 @@
 # Physics-Simulation-Engine
+
 Repository to track and delivary the examples, exercises and final project of the course Physics Simulation Engines. This team is composed of <b>Borja Sanz de Bremond O'Neill</b> and <b>Laura Ferrer Haba</b>, and the name of the team is <b><code>Hobbit Holes</code></b>.
 
 ## Index
@@ -31,7 +32,7 @@ In this section we have implemented a functionality where the engine can manage 
 
 In this section there is a example called [Bootstrap](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/bootstrap) that draw a filled rectangle with the struct created. The result obtained is the folllowing: 
 
-[Bootstrap]()
+![Bootstrap]()
 
 ## Rendering Primitives
 
@@ -43,7 +44,9 @@ At this point we know how to draw some pixels with Colors, but we need to improv
 - <b>Polygons</b>: Draw geometric forms with lines and can be filled or not.
 - <b>Circles</b>: Draw a circle given the radius and can be filled or not.
 
-All these functions have been added to the <code>Graphics</code> files. In this section we have had an exercise <i>([Exercise 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-04))</i> where we have to scaffold our game engine and render some shapes while ge obtain some infor with the <code>Logger</code>.
+All these functions have been added to the <code>Graphics</code> files. In this section we have had an exercise <i>([Exercise 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-04))</i> where we have to scaffold our game engine and render some shapes while ge obtain some information with the <code>Logger</code>. The result is as follows: 
+
+![Exercise 04]()
 
 ## Vectors
 
@@ -58,7 +61,12 @@ Some of the operators are:
 - <b>+, -, *, /, Inverse</b>
 - <b>+=, -=, *=, /=</b>
 
-By this point we have seen a example <i>([vectors-01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-01))</i> where we can chack the good behaviour of our code and also, we have an exercise <i>([Exercise 05](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-05))</i> where we have to define more operators and functions.
+By this point we have seen the example [vectors-01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-01) where we can check the good behaviour of our code and also, we have to do the exercise [Exercise 05](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-05) where we have to define more operators and functions. The new functions and operators are the following:
+
+- <b>Angle</b>: It calculate the angle between two vectors. The another angle function only calculate it between the vector and the x axis.
+- <b>Projection</b>: 
+- <b>Scalar Projection</b>: 
+- <b>Orthogonal Projection</b>: 
 
 ...
 
