@@ -18,7 +18,7 @@ struct Color {
     ~Color() = default;
 
     // Functions
-    uint32_t ToARG8888();
+    uint32_t ToARG();
     Color Darkerned(float p);
     Color Lightened(float p);
     Color ApplyFactor(float p);

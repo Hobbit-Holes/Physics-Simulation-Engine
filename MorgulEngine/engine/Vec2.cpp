@@ -67,6 +67,10 @@ Vec2 Vec2::Lerp(Vec2 a, Vec2 b, float t) {
 }
 
 // OPERATORS
+std::ostream& operator << (std::ostream& os, const Vec2& v) {
+    return std::cout << "("<< v.x << ", " << v.y << ")";
+}
+
 Vec2& Vec2::operator = (const Vec2& v) {
     x = v.x;
     y = v.y;

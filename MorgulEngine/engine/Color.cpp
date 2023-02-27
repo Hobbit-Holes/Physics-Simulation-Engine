@@ -12,9 +12,9 @@ Color::Color(uint32_t color) {
 }
 
 // FUNCTIONS
-/*uint32_t Color::ToARG8888() {
-
-}*/
+uint32_t Color::ToARG() {
+    return uint32_t("FFFFFFFF");
+}
 
 Color Color::Darkerned(float p) {
     return Color();
@@ -35,6 +35,10 @@ Color Color::Lerp(Color color_1, Color color_2, float t) {
 // OPERATORS
 Color Color::operator + (const Color& c) const {
     return Color();
+}
+
+std::ostream& operator<<(std::ostream& os, const Color& c) {
+    return std::cout << "("<< c.r << ", " << c.g << ", " << c.b << ", " << c.a << ")";
 }
 
 // COLORS
@@ -64,10 +68,6 @@ Color Color::Magenta() {
 
 Color Color::Cyan() {
     return Color(0, 255, 255);
-}
-
-Color Color::Yellow() {
-    return Color(255, 255, 0);
 }
 
 Color Color::White() {

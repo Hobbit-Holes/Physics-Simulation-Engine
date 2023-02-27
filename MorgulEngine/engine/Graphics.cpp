@@ -78,7 +78,7 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
     float current_y = y0;
 
     for (int i = 0; i <= longest_side_length; i++) {
-        DrawPixel(round(current_x), round(current_y), color);
+        //DrawPixel(round(current_x), round(current_y), color);
         current_x += x_inc;
         current_y += y_inc;
     }

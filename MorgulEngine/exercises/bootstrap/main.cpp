@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
         player_x += player_speed * dt;
         player_y += player_speed * dt;
 
-        engine.DrawFillRect(player_x, player_y, player_width, player_heigth, Color::Orange());
+        Graphics::DrawFillRect(player_x, player_y, player_width, player_heigth, Color::Orange());
 
         Logger::Info("Player position: " + std::to_string(player_x) + ", " + std::to_string(player_y));
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Destroy the Engine
-    engine.CloseWindow();
+    Graphics::CloseWindow();
 
     return 0;
 }
