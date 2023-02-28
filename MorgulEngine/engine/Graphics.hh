@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <cstring>
+#include <stdint.h>
 
 #include "Logger.hh"
 #include "Vec2.hh"
@@ -21,7 +22,7 @@ class Graphics {
         static void RenderFrame();
 
         // Draw Functions
-        static void DrawPixel(int x, int y, Uint32 color);
+        static void DrawPixel(int x, int y, uint32_t color);
         static void DrawGrid(void);
         static void DrawLine(int x0, int y0, int x1, int y1, Color color);
         static void DrawRect(int x, int y, int width, int heigth, Color color);

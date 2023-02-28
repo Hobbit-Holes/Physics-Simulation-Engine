@@ -1,6 +1,6 @@
 OBJS = main.cpp
 CPPS = ./../../engine/*.cpp
-OBJ_NAME = bootstrap.exe
+OBJ_NAME = exercise-04.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib

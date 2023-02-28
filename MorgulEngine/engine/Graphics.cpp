@@ -2,6 +2,8 @@
 
 SDL_Window* Graphics::window = NULL;
 SDL_Renderer* Graphics::renderer = NULL;
+uint32_t* Graphics::color_buffer = NULL;
+SDL_Texture* Graphics::color_buffer_texture = NULL;
 int Graphics::windowWidth, Graphics::windowHeigth = 0;
 
 bool Graphics::OpenWindow(int width, int heigth) {
@@ -12,18 +14,24 @@ bool Graphics::OpenWindow(int width, int heigth) {
         Logger::Error("Error initializing SDL.");
         return false;
     }
+    Logger::Info("Initializing SDL.");
 
     window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED,  SDL_WINDOWPOS_CENTERED, width, heigth, SDL_WINDOW_BORDERLESS);
     if (!window) {
         Logger::Error("Error creating SDL Window.");
         return false;
     }
+    Logger::Info("Creating SDL Window.");
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
         Logger::Error("Error creating SDL renderer.");
         return false;
     }
+    Logger::Error("Creating SDL renderer.");
+
+    int resolution = windowHeigth * windowWidth;
+    color_buffer = (uint32_t*) malloc(sizeof(uint32_t) * resolution);
 
     return true;
 }
@@ -53,7 +61,7 @@ void Graphics::RenderFrame() {
 }
 
 // DRAW FUNCTIONS
-void Graphics::DrawPixel(int x, int y, Uint32 color) {
+void Graphics::DrawPixel(int x, int y, uint32_t color) {
     if (x >= 0 && x < windowWidth && y >= 0 && y < windowHeigth) {
         color_buffer[(windowWidth * y) + x] = color;
     }
@@ -67,18 +75,18 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
     //SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
     //SDL_RenderDrawLine(renderer, x0, y0, x1, y1);
 
-    int delta_x = x1 -x0;
+    int delta_x = x1 - x0;
     int delta_y = y1 - y0;
     int longest_side_length = (abs(delta_x) >= abs(delta_y)) ? abs(delta_x) : abs(delta_y);
 
-    float x_inc = delta_x  / (float)longest_side_length;
-    float y_inc = delta_y  / (float)longest_side_length;
+    float x_inc = delta_x / (float)longest_side_length;
+    float y_inc = delta_y / (float)longest_side_length;
 
     float current_x = x0;
     float current_y = y0;
 
     for (int i = 0; i <= longest_side_length; i++) {
-        //DrawPixel(round(current_x), round(current_y), color);
+        DrawPixel(round(current_x), round(current_y), color.ToARG());
         current_x += x_inc;
         current_y += y_inc;
     }
@@ -86,13 +94,13 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
 
 void Graphics::DrawRect(int x, int y, int width, int heigth, Color color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_Rect box = {x = width/2, y - heigth/2, width, heigth};
+    SDL_Rect box = {x = x/2, y - y/2, width, heigth};
     SDL_RenderDrawRect(renderer, &box);
 }
 
 void Graphics::DrawFillRect(int x, int y, int width, int heigth, Color color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_Rect box = {x = width/2, y - heigth/2, width, heigth};
+    SDL_Rect box = {x = x/2, y - y/2, width, heigth};
     SDL_RenderFillRect(renderer, &box);
 }
 

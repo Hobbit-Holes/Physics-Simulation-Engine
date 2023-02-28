@@ -95,7 +95,7 @@ void MorgulEngine::Update() {
 }
 
 void MorgulEngine::Render() {
-
+    Graphics::RenderFrame();
 }
 
 double MorgulEngine::GetDeltaTime() {

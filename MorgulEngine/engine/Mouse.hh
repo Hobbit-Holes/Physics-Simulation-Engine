@@ -17,7 +17,7 @@ struct Mouse
     // Functions
     const Vec2& GetPosition() const { return pos; }
     const Vec2& GetPrevPosition() const { return prevPos; }
-    void UpdatePosition(int x, int y);
+    void UpdatePosition(int x, int y) {}
 };
 
 #endif
