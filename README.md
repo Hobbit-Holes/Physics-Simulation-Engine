@@ -1,6 +1,6 @@
 # Physics-Simulation-Engine
 
-![PSE Animation](./Screenshots/PSE%20Animation.gif)
+![PSE Animation](https://file.io/yHN3YP4nlOJe)
 
 Repository to track and delivary the examples, exercises and final project of the course Physics Simulation Engines. This team is composed of <b>Borja Sanz de Bremond O'Neill</b> and <b>Laura Ferrer Haba</b>, and the name of the team is <b><code>Hobbit Holes</code></b>.
 
