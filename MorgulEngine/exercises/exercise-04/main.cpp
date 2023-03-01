@@ -55,6 +55,8 @@ int main(int argc, char *argv[]) {
         player4_x -= player_speed * dt;
         player4_y -= player_speed * dt;
 
+        Graphics::DrawGrid(10, true, true);
+
         Graphics::DrawFillRect(player1_x, player1_y, player1_width, player1_heigth, Color::Red());
         Graphics::DrawRect(player2_x, player2_y, player2_width, player2_heigth, Color::Cyan());
         Graphics::DrawCircle(player3_x, player3_y, radius3, 0, Color::Orange());

@@ -13,7 +13,7 @@ Color::Color(uint32_t color) {
 
 // FUNCTIONS
 uint32_t Color::ToARG() {
-    return uint32_t("FFFFFFFF");
+    return uint32_t(((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
 Color Color::Darkerned(float p) {

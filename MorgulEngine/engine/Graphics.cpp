@@ -67,8 +67,30 @@ void Graphics::DrawPixel(int x, int y, uint32_t color) {
     }
 }
 
-void Graphics::DrawGrid(void) {
+void Graphics::DrawGrid(int space, bool gridX, bool gridY) {
+    if (gridX == true) {
+        int iterationsX = (int)(windowWidth / space);
+        
+        int x = 0;
+        int y = 0;
 
+        for (int i = 0; i < iterationsX; i++) {
+            DrawLine(x, y, x, y + windowHeigth, Color(217, 217, 217));
+            x += space;
+        }
+    }
+
+    if (gridY == true) {
+        int iterationsY = (int)(windowHeigth / space);
+
+        int x = 0;
+        int y = 0;
+
+        for (int i = 0; i < iterationsY; i++) {
+            DrawLine(x, y, x + windowWidth, y, Color(217, 217, 217));
+            y += space;
+        }
+    }    
 }
 
 void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
@@ -141,7 +163,7 @@ void Graphics::DrawCircle(int x0, int y0, int radius, float angle, Color color) 
         }
     }
 
-    SDL_RenderDrawLine(renderer, x0, y0, x0 + cos(angle) * radius, y0 + sin(angle) * radius);
+    //SDL_RenderDrawLine(renderer, x0, y0, x0 + cos(angle) * radius, y0 + sin(angle) * radius);
 }
 
 void Graphics::DrawFillCircle(int x0, int y0, int radius, float angle, Color color) {
@@ -157,8 +179,8 @@ void Graphics::DrawFillCircle(int x0, int y0, int radius, float angle, Color col
     while (x >= y) {
         SDL_RenderDrawLine(renderer, x0 + x, y0 - y, x0 + x, y0 + y);
         SDL_RenderDrawLine(renderer, x0 - x, y0 - y, x0 - x, y0 + y);
-        SDL_RenderDrawLine(renderer, x0 + x, y0 - y, x0 + x, y0 + y);
-        SDL_RenderDrawLine(renderer, x0 + x, y0 - y, x0 + x, y0 + y);
+        SDL_RenderDrawLine(renderer, x0 + y, y0 - x, x0 + y, y0 + x);
+        SDL_RenderDrawLine(renderer, x0 - y, y0 - x, x0 - y, y0 + x);
 
         if (error <= 0) {
             ++y;
@@ -168,8 +190,8 @@ void Graphics::DrawFillCircle(int x0, int y0, int radius, float angle, Color col
 
         if (error > 0) {
             --x;
-            error += (tx - diameter);
             tx += 2;
+            error += (tx - diameter);
         }
     }
 }

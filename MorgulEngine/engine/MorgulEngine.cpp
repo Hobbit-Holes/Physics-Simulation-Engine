@@ -109,3 +109,9 @@ int MorgulEngine::GetTotalTimeInMilliSeconds() {
 double MorgulEngine::GetTotalTimeInSeconds() {
     return 0;
 }
+
+Vec2 MorgulEngine::GetMousePosition() {
+    int mouseX, mouseY;
+    SDL_GetMouseState(&mouseX, &mouseY);
+    return Vec2(mouseX, mouseY);
+}

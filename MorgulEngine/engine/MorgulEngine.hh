@@ -6,6 +6,8 @@
 #include "Keyboard.hh"
 #include "Graphics.hh"
 #include "Color.hh"
+#include "Logger.hh"
+#include "Vec2.hh"
 
 class MorgulEngine {
     private:
@@ -31,4 +33,5 @@ class MorgulEngine {
         double GetDeltaTime();
         int GetTotalTimeInMilliSeconds();
         double GetTotalTimeInSeconds();
+        Vec2 GetMousePosition();
 };
