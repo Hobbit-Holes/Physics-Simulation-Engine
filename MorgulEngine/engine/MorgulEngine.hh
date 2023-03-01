@@ -9,6 +9,10 @@
 #include "Logger.hh"
 #include "Vec2.hh"
 
+//Entity Component System
+#include "entt/entt.hpp"
+#include "ECS/Components/TransformComponent.hh"
+
 class MorgulEngine {
     private:
         bool debug = false;
@@ -34,4 +38,7 @@ class MorgulEngine {
         int GetTotalTimeInMilliSeconds();
         double GetTotalTimeInSeconds();
         Vec2 GetMousePosition();
+
+        //EnTT (ECS)
+        entt::registry world;
 };

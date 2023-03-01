@@ -29,5 +29,5 @@ class Graphics {
         static void DrawFillRect(int x, int y, int width, int heigth, Color color);
         static void DrawPolygon(int x, int y, const std::vector<Vec2>& vertices, Color color);
         static void DrawCircle(int x0, int y0, int radius, float angle, Color color);
-        static void DrawFillCircle(int x0, int y0, int radius, float angle, Color color);
+        static void DrawFillCircle(int x0, int y0, int radius, Color color);
 };

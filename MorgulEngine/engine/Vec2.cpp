@@ -48,7 +48,6 @@ float Vec2::Angle(const Vec2& v) {
     return acos((x * v.x + y * v.y) / (sqrtf(x * x + y * y) * sqrtf(v.x * v.x + v.y * v.y)));
 }
 
-
 Vec2& Vec2::Normalize() {
     return *this;
 }
