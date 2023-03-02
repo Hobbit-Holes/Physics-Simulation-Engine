@@ -44,7 +44,7 @@ float Vec2::Angle() const {
 }
 
 float Vec2::Angle(float a, float b) {
-    return acos((x * a + y * b) / (sqrtf(x * x + y * y) * sqrtf(a * a + b* b)));
+    return acos((x * a + y * b) / (sqrtf(x * x + y * y) * sqrtf(a * a + b * b)));
 }
 
 Vec2 Vec2::FromModuleAngle(float a, float b) {
@@ -85,6 +85,7 @@ Vec2 Vec2::OrthonormalProjection(Vec2 w) const {
     float b = (x*x + y*y);
     Vec2 c((a/b)*x, (a/b)*y);
     float module = sqrt(c.x*c.x + c.y*c.y);
+    
     return Vec2(c.x/module, c.y/module);
 }
 

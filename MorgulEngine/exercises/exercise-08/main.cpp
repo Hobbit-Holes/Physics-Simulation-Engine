@@ -1,7 +1,7 @@
 #include "MorgulEngine.hh"
 #include <math.h>
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
     
     std::vector<entt::entity> filledParticles;
     std::vector<entt::entity> particles;
@@ -21,38 +21,39 @@ int main(int argc, char *argv[]){
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
 
-    for(int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
         const auto filledBall = engine.world.create();
         Vec2 position = position.FromModuleAngle(300, (2* PI /2) * (i));
         engine.world.emplace<TransformComponent>(filledBall,  position + Vec2(450,450));
         filledParticles.push_back(filledBall);
     }
 
-    for(int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
         const auto ball = engine.world.create();
         Vec2 position = position.FromModuleAngle(300, (2* PI /3) * (i));
         engine.world.emplace<TransformComponent>(ball,  position + Vec2(400,400));
         particles.push_back(ball);
     }
 
-    for(int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
         const auto filledRect = engine.world.create();
         Vec2 position = position.FromModuleAngle(300, (2* PI /2) * (i));
         engine.world.emplace<TransformComponent>(filledRect,  position + Vec2(500,500));
         filledRectangles.push_back(filledRect);
     }
 
-    for(int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
         const auto rect = engine.world.create();
         Vec2 position = position.FromModuleAngle(300, (2* PI /3) * (i));
         engine.world.emplace<TransformComponent>(rect,  position + Vec2(480,480));
         rectangles.push_back(rect);
     }
 
-    while(engine.NextFrame()){
+    while (engine.NextFrame()) {
+        Graphics::CleanUpScreen();
         engine.Update();
 
-        for(auto& filledBall: filledParticles){
+        for (auto& filledBall: filledParticles) {
             auto i = &filledBall - &filledParticles[0];
             auto& transform = engine.world.get<TransformComponent>(filledBall);
             
@@ -60,7 +61,7 @@ int main(int argc, char *argv[]){
             Graphics::DrawFillCircle(transform.position.x, transform.position.y, particleRadius, color);
         }
 
-        for(auto& ball: particles){
+        for (auto& ball: particles) {
             auto i = &ball - &particles[0];
             auto& transform = engine.world.get<TransformComponent>(ball);
             
@@ -68,7 +69,7 @@ int main(int argc, char *argv[]){
             Graphics::DrawCircle(transform.position.x, transform.position.y, particleRadius, angle, color);
         }
 
-        for(auto& filledRect: filledRectangles){
+        for (auto& filledRect: filledRectangles) {
             auto i = &filledRect - &filledRectangles[0];
             auto& transform = engine.world.get<TransformComponent>(filledRect);
             
@@ -76,7 +77,7 @@ int main(int argc, char *argv[]){
             Graphics::DrawFillRect(transform.position.x, transform.position.y,  w, h, color);
         }
 
-        for(auto& rect: rectangles){
+        for (auto& rect: rectangles) {
             auto i = &rect - &rectangles[0];
             auto& transform = engine.world.get<TransformComponent>(rect);
             

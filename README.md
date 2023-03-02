@@ -8,6 +8,7 @@ Here you can see the different sections that have been carried out during the co
 
 - [Introduction](#introduction)
 - [Game Loop](#game-loop)
+- [Project Architecture](#project-architecture)
 - [Color](#color)
 - [Rendering Primitives](#rendering-primitives)
 - [Vectors](#vectors)
@@ -19,7 +20,24 @@ This project consists on...
 
 ## Game Loop
 
-...
+For this firt part of the course and the begining of the creating of the game engine, we have make some game loops to understand how it works. All this can be seen in the folder [Game Loops](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/Game-Loops) where we have created some folder per each game loop learn in the course. As the course progresses, the same loops will be created but with the structure of the game engine.
+
+## Project Architecture
+
+The creating of a game engine is difficult, so it is so important to have the project well structured and don't commit errors or redundance. The idea is to separate in different files <i>(Classes and structures)</i> the physics, graphics, inputs, etc. Here we have to create a class to handle and rule <i>(like the One Ring)</i> all the functionalities, classes and other stuff, in our case, we have called our game engine <b><code>MorgulEngine</code></b>.
+
+Some of these classes are the <code>Graphics</code> or the <code>Logger</code>. The first one handle the visual aspects of the screen, per example: 
+
+- <b>Open Window</b>
+- <b>Close Window</b>
+- <b>Render Frame</b>
+- Etc
+
+And the second one give us information of the process during the execution of the game engine. When the message appear, it also show us the time that occurs. There are three main types that are: 
+
+- <b>Info</b>
+- <b>Warning</b>
+- <b>Error</b>
 
 ## Color
 
@@ -44,31 +62,47 @@ At this point we know how to draw some pixels with Colors, but we need to improv
 - <b>Polygons</b>: Draw geometric forms with lines and can be filled or not.
 - <b>Circles</b>: Draw a circle given the radius and can be filled or not.
 
-All these functions have been added to the <code>Graphics</code> files. In this section we have had an exercise <i>([Exercise 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-04))</i> where we have to scaffold our game engine and render some shapes while ge obtain some information with the <code>Logger</code>. The result is as follows: 
+All these functions have been added to the <code>Graphics</code> files. In this section we have had an exercise <i>([Exercise 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-04))</i> where we have to scaffold our game engine and render some shapes and a grid, while we obtain some information with the <code>Logger</code>. The result is as follows: 
 
 ![Exercise 04]()
 
 ## Vectors
 
-Here, we have created the files <code>Vec2.hh</code> and <code>Vec2.cpp</code> to add Vectors to our game engine. With these vectors we can manage the data in a easier way, per example, when we want to do some calculus between vectors or to determine the position of a object. Inside the scripts there are functions and operators. Some of the functions are: 
+Here, we have created the files <code>Vec2.hh</code> and <code>Vec2.cpp</code> to add our custom Vectors to our game engine. With these vectors we can manage the data in a easier way, per example, when we want to do some calculus between vectors or to determine the position of a object. Inside the scripts, there are functions and operators. Some of the functions are: 
 
 - <b>Sume, subtraction, multiplication...</b>.
-- <b>Magnitude, Normal...</b>
+- <b>Magnitude, Normal, Lerp...</b>
+- <b>Dot, Cross...</b>
 
-Some of the operators are: 
+And some of the operators are: 
 
 - <b>=, == , !=</b>
 - <b>+, -, *, /, Inverse</b>
 - <b>+=, -=, *=, /=</b>
 
-By this point we have seen the example [vectors-01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-01) where we can check the good behaviour of our code and also, we have to do the exercise [Exercise 05](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-05) where we have to define more operators and functions. The new functions and operators are the following:
+By this point we have seen the example [Vectors 01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-01) where we can check the good behaviour of our code and also, we have to do the exercise [Exercise 05](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-05) where we have to define more operators and functions. The new functions and operators are the following:
 
 - <b>Angle</b>: It calculate the angle between two vectors. The another angle function only calculate it between the vector and the x axis.
-- <b>Projection</b>: 
-- <b>Scalar Projection</b>: 
-- <b>Orthogonal Projection</b>: 
+- <b>FromModuleAngle</b>: It create a vector given the module and the angle.
+- <b>Projection</b>: We obtain the projection of our principal vector into a given one.
+- <b>Scalar Projection</b>: Give us the scalar value of the projection define above.
+- <b>Orthonormal Projection</b>: It is the normal projection of the projection of a vector into another.
 
-...
+With all these function, operations and operators we can do some problems with more complexity, like the example [Vectors 02](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-02). In this example, we have two objects, the player and a enemy. The enemy will go against the player depending in the direction that the player and the enemy are. The speed of the enemy can variate because it depends only in the direction, and this vector can be larger or shorter dependind in the distance with the player. 
+
+This is resolve in the [Exercise 06](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-06) where the speed of the enemy is constant because we use the unit vector of the direction. Also, the player is moved with the mouse thanks to the SDL. The result obtained is as follow: 
+
+![Exercise 06]()
+
+At this point, we can also make a more difficult game. In the [Exercise 07](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-07) we have to create a mechanic where the enemy can only chase the player if the player is in front of him <i>(With a 180º FOV)</i>. Finally, for this exercise we have use a variable that change the FOV grades of the enemy. The result obtained is:
+
+![Exercise 07]()
+
+To finish with this unit on vectors, we have carried out two more exercises. In the first one <i>([Vectors 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have the vertex of a cube that rotate in a direction. In the second example <i>([Vectors 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have different objects whose behaviour varies.
+
+![Vectors 03]()
+
+![Vectors 04]()
 
 ## Entity Component System
 

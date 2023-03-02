@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         Graphics::CleanUpScreen();
         engine.Update();
 
-        if (enemy.position.FromModuleAngle(player.position) < 0) {
+        if (enemy.position.Angle(player.position.x, player.position.y) < 0) {
             enemy.detect = true;
         }
         
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
         Graphics::DrawFillRect(player.position.x, player.position.y, player.width, player.heigth, player.color);
         Graphics::DrawFillRect(enemy.position.x, enemy.position.y, enemy.width, enemy.heigth, enemy.color);
 
-        Logger::Info("Angle Player and Enemy: " + std::to_string(enemy.position.FromModuleAngle(player.position)));
+        Logger::Info("Angle Player and Enemy: " + std::to_string(enemy.position.Angle(player.position.x, player.position.y)));
 
         engine.Render();
     }
