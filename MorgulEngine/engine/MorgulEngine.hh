@@ -12,6 +12,7 @@
 //Entity Component System
 #include "entt/entt.hpp"
 #include "ECS/Components/TransformComponent.hh"
+#include "ECS/Components/KinematicComponent.hh"
 
 class MorgulEngine {
     private:
