@@ -26,10 +26,10 @@ int main(int argc, char *argv[]) {
         box.rotation += dt;
         
         for (int i = 0; i < 4; i++) {
-            //Vec2 vertex = box;
+            Vec2 vertex = box.local_vertices[i];
+            vertex.Rotate(box.rotation);
+            box.world_vertices[i] = box.position + vertex * box.scale;
         }
-        
-        Logger::Info("Angle Player and Enemy: " + std::to_string(0));
 
         engine.Render();
     }

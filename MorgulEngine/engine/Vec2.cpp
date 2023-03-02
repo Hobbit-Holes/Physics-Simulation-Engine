@@ -43,12 +43,12 @@ float Vec2::Angle() const {
     return atan(x / y);
 }
 
-float Vec2::Angle(const Vec2& v) {
-    return acos((x * v.x + y * v.y) / (sqrtf(x * x + y * y) * sqrtf(v.x * v.x + v.y * v.y)));
+float Vec2::Angle(float a, float b) {
+    return acos((x * a + y * b) / (sqrtf(x * x + y * y) * sqrtf(a * a + b* b)));
 }
 
-float Vec2::FromModuleAngle(float m, float a) {
-    return acos(Vec2::Dot(Vec2(m,a))/(m*a));
+Vec2 Vec2::FromModuleAngle(float a, float b) {
+    return Vec2(a*cos(b), a*sin(b));
 }
 
 Vec2& Vec2::Normalize() {
@@ -67,16 +67,25 @@ Vec2 Vec2::Normal() const {
     return Vec2(-y, x);
 }
 
-Vec2 Vec2::Projection() const {
-    return Vec2();
+Vec2 Vec2::Projection(Vec2 w) const {
+    float a = (x*w.x + y*w.y);
+    float b = (x*x + y*y);
+    return Vec2((a/b)*x, (a/b)*y);
 }
 
-Vec2 Vec2::ScalarProjection() const {
-    return Vec2();
+float Vec2::ScalarProjection(Vec2 w) const {
+    float a = (x*w.x + y*w.y);
+    float b = (x*x + y*y);
+    Vec2 c((a/b)*x, (a/b)*y);
+    return (sqrt(c.x*c.x + c.y*c.y));
 }
 
-Vec2 Vec2::OrthogonalProjection() const {
-    return Vec2();
+Vec2 Vec2::OrthonormalProjection(Vec2 w) const {
+    float a = (x*w.x + y*w.y);
+    float b = (x*x + y*y);
+    Vec2 c((a/b)*x, (a/b)*y);
+    float module = sqrt(c.x*c.x + c.y*c.y);
+    return Vec2(c.x/module, c.y/module);
 }
 
 float Vec2::Dot(const Vec2& v) const {

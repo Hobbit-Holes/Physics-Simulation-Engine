@@ -1,5 +1,5 @@
 OBJS = main.cpp
-CCPS = ./../../engine/Vec2.cpp
+CCPS = ./../../engine/*.cpp
 OBJ_NAME = vectors-03.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/ -I./../../libs/
