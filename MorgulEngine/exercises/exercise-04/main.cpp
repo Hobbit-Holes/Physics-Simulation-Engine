@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
         Graphics::DrawFillRect(player1_x, player1_y, player1_width, player1_heigth, Color::Red());
         Graphics::DrawRect(player2_x, player2_y, player2_width, player2_heigth, Color::Cyan());
         Graphics::DrawCircle(player3_x, player3_y, radius3, 0, Color::Orange());
-        Graphics::DrawFillCircle(player4_x, player4_y, radius4, 0, Color(182, 255, 230));
+        Graphics::DrawFillCircle(player4_x, player4_y, radius4, Color(182, 255, 230));
 
         Logger::Info("Player 1 position: " + std::to_string(player1_x) + ", " + std::to_string(player1_y));
         Logger::Info("Player 2 position: " + std::to_string(player2_x) + ", " + std::to_string(player2_y));

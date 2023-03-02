@@ -1,6 +1,6 @@
 OBJS = main.cpp
 CCPS = ./../../engine/*.cpp
-OBJ_NAME = transform-component-01.exe
+OBJ_NAME = transform-component-02.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib

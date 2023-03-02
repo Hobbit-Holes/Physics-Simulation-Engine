@@ -18,12 +18,13 @@ struct Vec2 {
     void Sub(const Vec2& v);
     void Scale(const float n);
     void Scale(const Vec2& v);
-    void Rotate(const float angle) const;
+    void Rotate(const float angle);
 
     float Magnitude() const;
     float MagnitudeSquared() const;
     float Angle() const;
     float Angle(const Vec2& v);
+    float FromModuleAngle(float m, float a);
 
     Vec2& Normalize();
     Vec2 UnitVector() const;

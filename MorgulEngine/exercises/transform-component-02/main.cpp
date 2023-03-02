@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
     for(int i = 0; i < totalParticles; i++){
         const auto ball = engine.world.create();
         Vec2 position = Vec2::FromModuleAngle(300, (2* PI /totalParticles) * (i));
-        engine.world.emplace<TransformComponent>(ball, position + Vec2(400,400));
+        engine.world.emplace<TransformComponent>(ball,  position + Vec2(400,400));
         particles.push_back(ball);
     }
 
