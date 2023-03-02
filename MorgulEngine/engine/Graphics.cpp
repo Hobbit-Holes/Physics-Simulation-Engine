@@ -68,29 +68,37 @@ void Graphics::DrawPixel(int x, int y, uint32_t color) {
 }
 
 void Graphics::DrawGrid(int space, bool gridX, bool gridY) {
+    Color color = Color(217, 217, 217, 50);
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+
     if (gridX == true) {
-        int iterationsX = (int)(windowWidth / space);
+        int iterationsX = (int)(windowWidth / space) - 1;
         
-        int x = 0;
+        int x = space;
         int y = 0;
 
         for (int i = 0; i < iterationsX; i++) {
-            DrawLine(x, y, x, y + windowHeigth, Color(217, 217, 217));
+            SDL_RenderDrawLine(renderer, x, y, x, y + windowHeigth);
             x += space;
         }
     }
 
     if (gridY == true) {
-        int iterationsY = (int)(windowHeigth / space);
+        int iterationsY = (int)(windowHeigth / space) - 1;
 
         int x = 0;
-        int y = 0;
+        int y = space;
 
         for (int i = 0; i < iterationsY; i++) {
-            DrawLine(x, y, x + windowWidth, y, Color(217, 217, 217));
+            SDL_RenderDrawLine(renderer, x, y, x + windowWidth, y);
             y += space;
         }
     }    
+}
+
+void Graphics::DrawLineSDL(int x0, int y0, int x1, int y1, Color color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    SDL_RenderDrawLine(renderer, x0, y0, x1, y1);
 }
 
 void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
@@ -116,13 +124,13 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
 
 void Graphics::DrawRect(int x, int y, int width, int heigth, Color color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_Rect box = {x = x/2, y - y/2, width, heigth};
+    SDL_Rect box = {x, y, width, heigth};
     SDL_RenderDrawRect(renderer, &box);
 }
 
 void Graphics::DrawFillRect(int x, int y, int width, int heigth, Color color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_Rect box = {x = x/2, y - y/2, width, heigth};
+    SDL_Rect box = {x, y, width, heigth};
     SDL_RenderFillRect(renderer, &box);
 }
 

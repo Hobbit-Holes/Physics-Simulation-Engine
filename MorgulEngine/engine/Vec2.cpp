@@ -52,6 +52,9 @@ float Vec2::FromModuleAngle(float m, float a) {
 }
 
 Vec2& Vec2::Normalize() {
+    float normal = sqrtf(x * x + y * y);
+    x /= normal;
+    y /= normal;
     return *this;
 }
 
@@ -61,7 +64,7 @@ Vec2 Vec2::UnitVector() const {
 }
 
 Vec2 Vec2::Normal() const {
-    return Vec2();
+    return Vec2(-y, x);
 }
 
 Vec2 Vec2::Projection() const {
@@ -85,7 +88,7 @@ float Vec2::Cross(const Vec2& v) const {
 }
 
 Vec2 Vec2::Lerp(Vec2 a, Vec2 b, float t) {
-    return Vec2();
+    return Vec2(a * (1 - t) + b * t);
 }
 
 // OPERATORS

@@ -2,6 +2,7 @@
 
 struct object {
     Vec2 position;
+    int speed;
     int width;
     int heigth;
     Color color;
@@ -22,6 +23,7 @@ int main(int argc, char *argv[]) {
 
     enemy.width = 10;
     enemy.heigth = 10;
+    enemy.speed = 150;
     enemy.position = Vec2(width, heigth);
     enemy.color = Color::Red();
 
@@ -30,8 +32,9 @@ int main(int argc, char *argv[]) {
         engine.Update();
 
         double dt = engine.GetDeltaTime();
+        Vec2 direction = (player.position - enemy.position).UnitVector();
 
-        enemy.position += (player.position - enemy.position) * dt;
+        enemy.position += direction * enemy.speed * dt;
         player.position = engine.GetMousePosition();
 
         Graphics::DrawFillRect(player.position.x, player.position.y, player.width, player.heigth, player.color);

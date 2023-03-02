@@ -15,8 +15,11 @@ int main(int argc, char *argv[]) {
     std::cout << "v1 / 2 = " << v1 / 2 << std::endl;
     std::cout << "(Inverse) v1 = " << -v1 << std::endl << std::endl;
 
-    //std::cout << "(Scale) v1 * 5 = " << v1.Scale(5) << std::endl;
-    //std::cout << "(Scale) v1 * v2 = " << v1.Scale(v2) << std::endl;
+    v1.Scale(5);
+    std::cout << "(Scale) v1 * 5 = " << v1 << std::endl;
+    v1.Scale(v2);
+    std::cout << "(Scale) v1 * v2 = " << v1 << std::endl;
+    v1 = Vec2(3, 4);
     std::cout << "(Rotate 30) v1 = " << v1 << std::endl << std::endl;
 
     std::cout << "(Magnitude) v1 = " << v1.Magnitude() << std::endl;
@@ -36,7 +39,7 @@ int main(int argc, char *argv[]) {
     // Dot and Cross operations
     std::cout << "(Dot) v1 * v2 = " << v1.Dot(v2) << std::endl;
     std::cout << "(Cross) v1 * v2 = " << v1.Cross(v2) << std::endl;
-    std::cout << "(Lerp) v1 * v2 = " << v1.Lerp(v1, v2, 0.1) << std::endl << std::endl;
+    std::cout << "(Lerp) v1, v2, 0.1 = " << v1.Lerp(v1, v2, 0.1) << std::endl << std::endl;
 
     // Other operators
     Vec2 v3 = v1;

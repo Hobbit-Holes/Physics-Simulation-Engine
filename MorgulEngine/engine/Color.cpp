@@ -13,7 +13,7 @@ Color::Color(uint32_t color) {
 
 // FUNCTIONS
 uint32_t Color::ToARG() {
-    return uint32_t(((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+    return uint32_t(((r & 0xFF) << 16) + ((g & 0xFF) << 8) + (b & 0xFF));
 }
 
 Color Color::Darkerned(float p) {
@@ -29,12 +29,16 @@ Color Color::ApplyFactor(float p) {
 }
 
 Color Color::Lerp(Color color_1, Color color_2, float t) {
-    return Color();
+    float r1 = color_1.r * (1 - t) + color_2.r * t;
+    float g1 = color_1.g * (1 - t) + color_2.g * t;
+    float b1 = color_1.b * (1 - t) + color_2.b * t;
+    float a1 = color_1.a * (1 - t) + color_2.a * t;
+    return Color(r1, g1, b1, a1);
 }
 
 // OPERATORS
 Color Color::operator + (const Color& c) const {
-    return Color();
+    return Color((r + c.r) / 2, (g + c.g) / 2, (b + c.b) / 2, (a + c.a) / 2);
 }
 
 std::ostream& operator<<(std::ostream& os, const Color& c) {
