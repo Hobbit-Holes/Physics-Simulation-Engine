@@ -30,6 +30,17 @@ int main(int argc, char *argv[]) {
     float player4_y = heigth - 20;
     float radius4 = 10;
 
+    // Player 5
+    float player5_x = 0;
+    float player5_y = heigth / 2;
+    std::vector<Vec2> vertices;
+    vertices.push_back(Vec2(-10, -10));
+    vertices.push_back(Vec2(10, -10));
+    vertices.push_back(Vec2(20, 0));
+    vertices.push_back(Vec2(10, 10));
+    vertices.push_back(Vec2(-10, 10));
+    vertices.push_back(Vec2(-20, 0));
+
     // Game Loop
     while (engine.NextFrame()) {
         // Update Engine
@@ -55,12 +66,17 @@ int main(int argc, char *argv[]) {
         player4_x -= player_speed * dt;
         player4_y -= player_speed * dt;
 
+        // Player 5
+        player5_x += player_speed * 2 * dt;
+
         Graphics::DrawGrid(20, true, true);
 
         Graphics::DrawFillRect(player1_x, player1_y, player1_width, player1_heigth, Color::Red());
         Graphics::DrawRect(player2_x, player2_y, player2_width, player2_heigth, Color::Cyan());
         Graphics::DrawCircle(player3_x, player3_y, radius3, 0, Color::Orange());
         Graphics::DrawFillCircle(player4_x, player4_y, radius4, Color(182, 255, 230));
+
+        Graphics::DrawPolygon(player5_x, player5_y, vertices, Color::Magenta());
 
         Logger::Info("Player 1 position: " + std::to_string(player1_x) + ", " + std::to_string(player1_y));
         Logger::Info("Player 2 position: " + std::to_string(player2_x) + ", " + std::to_string(player2_y));

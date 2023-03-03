@@ -68,7 +68,7 @@ void Graphics::DrawPixel(int x, int y, uint32_t color) {
 }
 
 void Graphics::DrawGrid(int space, bool gridX, bool gridY) {
-    Color color = Color(217, 217, 217, 50);
+    Color color = Color(217, 217, 217, 20);
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
     if (gridX == true) {
@@ -135,7 +135,13 @@ void Graphics::DrawFillRect(int x, int y, int width, int heigth, Color color) {
 }
 
 void Graphics::DrawPolygon(int x, int y, const std::vector<Vec2>& vertices, Color color) {
-
+    for (int i = 0; i < (int)vertices.size(); i++) {
+        int j = i + 1;
+        if (j == (int)vertices.size()) {
+            j = 0;
+        }
+        DrawLineSDL(x + vertices[i].x, y + vertices[i].y, x + vertices[j].x, y + vertices[j].y, color);
+    }
 }
 
 void Graphics::DrawCircle(int x0, int y0, int radius, float angle, Color color) {

@@ -26,9 +26,8 @@ void Vec2::Scale(const Vec2& v) {
     y *= v.y;
 }
 
-void Vec2::Rotate(const float angle) {
-    x = x * cos(angle) - y * sin(angle);
-    y = x * sin(angle) - y * cos(angle);
+Vec2 Vec2::Rotate(const float angle) {
+    return Vec2(x * cos(angle) - y * sin(angle), x * sin(angle) + y * cos(angle));
 }
 
 float Vec2::Magnitude() const {
@@ -48,7 +47,7 @@ float Vec2::Angle(float a, float b) {
 }
 
 Vec2 Vec2::FromModuleAngle(float a, float b) {
-    return Vec2(a*cos(b), a*sin(b));
+    return Vec2(a * cos(b), a * sin(b));
 }
 
 Vec2& Vec2::Normalize() {

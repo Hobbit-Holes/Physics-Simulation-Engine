@@ -1,6 +1,8 @@
 #include "Vec2.hh"
 #include <iostream>
 
+float pi = 3.14159265;
+
 int main(int argc, char *argv[]) {
     Vec2 v1(3, 4);
     Vec2 v2(-1, 7);
@@ -20,10 +22,8 @@ int main(int argc, char *argv[]) {
     v1.Scale(v2);
     std::cout << "(Scale) v1 * v2 = " << v1 << std::endl;
     v1 = Vec2(3, 4);
-    v1.Rotate(30);
-    std::cout << "(Rotate 30) v1 = " << v1 << std::endl << std::endl;
+    std::cout << "(Rotate 45) v1 = " << v1.Rotate(pi/4) << std::endl << std::endl;
 
-    v1 = Vec2(3, 4);
     std::cout << "(Magnitude) v1 = " << v1.Magnitude() << std::endl;
     std::cout << "(Magnitude Squared) v1 = " << v1.MagnitudeSquared() << std::endl;
     std::cout << "(Angle) v1 = " << v1.Angle() << std::endl;

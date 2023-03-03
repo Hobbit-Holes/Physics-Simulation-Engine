@@ -18,7 +18,7 @@ struct Vec2 {
     void Sub(const Vec2& v);
     void Scale(const float n);
     void Scale(const Vec2& v);
-    void Rotate(const float angle);
+    Vec2 Rotate(const float angle);
 
     float Magnitude() const;
     float MagnitudeSquared() const;
