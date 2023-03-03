@@ -50,7 +50,7 @@ In this section we have implemented a functionality where the engine can manage 
 
 In this section there is a example called [Bootstrap](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/bootstrap) that draw a filled rectangle with the struct created. The result obtained is the folllowing: 
 
-<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Bootstrap.gif" alt="Bootstrap" height="400"/></p>
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Bootstrap.gif" alt="Bootstrap" height="300"/></p>
 
 ## Rendering Primitives
 
@@ -64,7 +64,7 @@ At this point we know how to draw some pixels with Colors, but we need to improv
 
 All these functions have been added to the <code>Graphics</code> files. In this section we have had an exercise <i>([Exercise 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-04))</i> where we have to scaffold our game engine and render some shapes and a grid, while we obtain some information with the <code>Logger</code>. The result is as follows: 
 
-<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise04.gif" alt="Exercise 04" height="400"/></p>
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise04.gif" alt="Exercise 04" height="300"/></p>
 
 ## Vectors
 
@@ -92,22 +92,22 @@ With all these function, operations and operators we can do some problems with m
 
 This is resolve in the [Exercise 06](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-06) where the speed of the enemy is constant because we use the unit vector of the direction. Also, the player is moved with the mouse thanks to the SDL. The result obtained is as follow: 
 
-<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise06.gif" alt="Exercise 06" height="400"/></p>
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise06.gif" alt="Exercise 06" height="300"/></p>
 
 At this point, we can also make a more difficult game. In the [Exercise 07](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-07) we have to create a mechanic where the enemy can only chase the player if the player is in front of him <i>(With a 180º FOV)</i>. Finally, for this exercise we have use a variable that change the FOV grades of the enemy. The result obtained is:
 
-<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise07.gif" alt="Exercise 07" height="400"/></p>
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise07.gif" alt="Exercise 07" height="300"/></p>
 
-To finish with this unit on vectors, we have carried out two more exercises. In the first one <i>([Vectors 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have the vertex of a cube that rotate in a direction, and in the second example <i>([Vectors 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have different objects whose behaviour varies.
+To finish with this unit on vectors, we have carried out some more examples. One is about a object moving accross the screen with a random desviation that make the object travel with noise <i>([Random Rotation](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/random-rotation))</i>. Another one is about the same logic that the mentioned before, but the object chase the player with additional logic <i>([Steering Rocket](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/steering-rocket))</i>. Finally, the last examples we have made are about the vectors, in the first one <i>([Vectors 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have the vertex of a cube that rotate in a direction, and in the last example <i>([Vectors 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have different objects whose behaviour varies, making the movement go at different speeds but reaching the objective at the same time. The results of the last two examples are: 
 
-<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Vectors03.gif" alt="Vectors 03" height="400"/></p>
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Vectors03.gif" alt="Vectors 03" height="300"/></p>
 
-<p align="center"><img src="" alt="Vectors 04" height="400"/></p>
+<p align="center"><img src="" alt="Vectors 04" height="300"/></p>
 
 ## Entity Component System
 
 ...
 
-<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise08.gif" alt="Exercise 08" height="400"/></p>
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise08.gif" alt="Exercise 08" height="300"/></p>
 
 
