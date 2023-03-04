@@ -106,7 +106,9 @@ To finish with this unit on vectors, we have carried out some more examples. One
 
 ## Entity Component System
 
-...
+In this part we have created a new folder called ESC where we have put two more folders. One will be used to store the components of our engine, such as Transform Component and the other will store the systems to be able to use those components. The first component we have created is <code>TransformComponent.hh</code>, which gets the position, scale and rotation of a particular object.
+
+By this point we have seen two examples: [TrasformComponent 01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/transform-component-01) and [TrasformComponent 02](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/transform-component-02) where we can check the good behaviour of our code and also, we have to do the exercise [Exercise 08](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-08) where we have to implement de library EnTT to our proyect in order to be able to register and use the entities to be able to use the components and systems we have created. And finally, we have to add the ESC paradigm to be able to use all the above. The result obtained is:
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise08.gif" alt="Exercise 08" height="300"/></p>
 
