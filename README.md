@@ -16,7 +16,7 @@ Here you can see the different sections that have been carried out during the co
 
 ## Introduction
 
-This project consists on...
+This project consists of creating our own graphic engine from scratch, for it, in this repository you can find and show the functionalities that we will be adding. These can be mathematical functions, such as adding vectors between them, to graphics rendering functions.
 
 ## Game Loop
 
