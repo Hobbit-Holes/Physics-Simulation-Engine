@@ -68,7 +68,7 @@ All these functions have been added to the <code>Graphics</code> files. In this 
 
 ## Vectors
 
-Here, we have created the files <code>Vec2.hh</code> and <code>Vec2.cpp</code> to add our custom Vectors to our game engine. With these vectors we can manage the data in a easier way, per example, when we want to do some calculus between vectors or to determine the position of a object. Inside the scripts, there are functions and operators. Some of the functions are: 
+Here, we have created the files <code>Vec2.hh</code> and <code>Vec2.cpp</code> to add our custom Vectors of 2 dimensions to our game engine. With these vectors we can manage the data in a easier way, per example, when we want to do some calculus between vectors or to determine the position of a object. Inside the scripts, there are functions and operators. Some of the functions are: 
 
 - <b>Sume, subtraction, multiplication...</b>.
 - <b>Magnitude, Normal, Lerp...</b>
