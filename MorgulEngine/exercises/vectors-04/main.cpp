@@ -22,24 +22,24 @@ int main(int argc, char *argv[]) {
         Graphics::CleanUpScreen();
         engine.Update();
 
-        //Setting up the timers
+        // Setting up the timers
         float seconds = SDL_GetTicks()/1000.0f;
         float timer_speed = 3.0f;
         float t1 = fmod(seconds/timer_speed, 1);
-        float t2 = 1 - fabs (fmod(seconds/timer_speed, 2) - 1);
+        float t2 = 1 - fabs(fmod(seconds/timer_speed, 2) - 1);
 
-        //Patrolling positions
+        // Patrolling positions
         object_a = Vec2::Lerp(start_position, end_position, t1);
         object_b = Vec2::Lerp(start_position + Vec2(0, 50), end_position+ Vec2(0, 50), t2);
-        object_c = Vec2::Lerp(start_position + Vec2(0, 100), end_position+ Vec2(0, 100), MathUtiles::easeInSine(t2));
-        object_d = Vec2::Lerp(start_position + Vec2(0, 150), end_position+ Vec2(0, 150), MathUtiles::easeOutSine(t2));
+        object_c = Vec2::Lerp(start_position + Vec2(0, 100), end_position+ Vec2(0, 100), MathUtils::easeInSine(t2));
+        object_d = Vec2::Lerp(start_position + Vec2(0, 150), end_position+ Vec2(0, 150), MathUtils::easeOutSine(t2));
 
-        //Learing the box size and color
-        box.width = MathUtiles::Lerp(50, 100, MathUtiles::easeInSine(t2));
-        box.height = MathUtiles::Lerp(50, 100, MathUtiles::easeInSine(t2));
-        box.color = Color(255, MathUtiles::Lerp(0, 255, MathUtiles::easeOutSine(t2)), 200, MathUtiles::Lerp(0, 255, MathUtiles::easeInSine(t2)));
+        // Learing the box size and color
+        box.width = MathUtils::Lerp(50, 100, MathUtils::easeInSine(t2));
+        box.height = MathUtils::Lerp(50, 100, MathUtils::easeInSine(t2));
+        box.color = Color(255, MathUtils::Lerp(0, 255, MathUtils::easeOutSine(t2)), 200, MathUtils::Lerp(0, 255, MathUtils::easeInSine(t2)));
 
-        //Graphics
+        // Graphics
         Graphics::DrawFillRect(object_a.x, object_a.y, 10, 10, Color::White());
         Graphics::DrawFillRect(object_b.x, object_b.y, 10, 10, Color::White());
         Graphics::DrawFillRect(object_c.x, object_c.y, 10, 10, Color::White());

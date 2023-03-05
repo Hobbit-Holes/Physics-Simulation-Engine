@@ -39,11 +39,26 @@ float Vec2::MagnitudeSquared() const {
 }
 
 float Vec2::Angle() const {
-    return atan(x / y);
+    if (y > 0 || y < 0) {
+        return atan(x / y);
+    }
+    return 0;
+}
+
+float Vec2::Angle(Vec2 v) {
+    float aux = sqrtf(x * x + y * y) * sqrtf(v.x * v.x + v.y * v.y);
+    if (aux > 0 || aux < 0) {
+        return acos((x * v.x + y * v.y) / aux);
+    } 
+    return 0;
 }
 
 float Vec2::Angle(float a, float b) {
-    return acos((x * a + y * b) / (sqrtf(x * x + y * y) * sqrtf(a * a + b * b)));
+    float aux = sqrtf(x * x + y * y) * sqrtf(a * a + b * b);
+    if (aux > 0 || aux < 0) {
+        return acos((x * a + y * b) / aux);
+    }
+    return 0;
 }
 
 Vec2 Vec2::FromModuleAngle(float a, float b) {

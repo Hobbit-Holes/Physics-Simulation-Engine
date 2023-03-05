@@ -8,7 +8,7 @@
 #include "Color.hh"
 #include "Logger.hh"
 #include "Vec2.hh"
-#include "MathUtiles.hh"
+#include "MathUtils.hh"
 
 //Entity Component System
 #include "entt/entt.hpp"

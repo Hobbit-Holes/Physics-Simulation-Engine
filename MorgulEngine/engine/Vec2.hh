@@ -23,6 +23,7 @@ struct Vec2 {
     float Magnitude() const;
     float MagnitudeSquared() const;
     float Angle() const;
+    float Angle(Vec2 v);
     float Angle(float a, float b);
     Vec2 FromModuleAngle(float a, float b);
 
