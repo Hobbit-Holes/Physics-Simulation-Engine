@@ -18,7 +18,7 @@ Here you can see the different sections that have been carried out during the co
 
 ## Introduction
 
-This project consists of creating our own graphic engine from scratch, for it, in this repository you can find and show the functionalities that we will be adding. These can be mathematical functions, such as adding vectors between them, to graphics rendering functions.
+This project consists of creating our own graphic engine from scratch, for it, in this repository you can find and show the functionalities that we will be adding. These can be mathematical functions, such as adding vectors between them, to graphics rendering functions and much more. The main goal is to be able to create videogames, focusing in 2 dimensional view.
 
 ## Game Loop
 
@@ -100,7 +100,7 @@ At this point, we can also make a more difficult game. In the [Exercise 07](http
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise07.gif" alt="Exercise 07" height="300"/></p>
 
-To finish with this unit on vectors, we have carried out some more examples. One is about a object moving accross the screen with a random desviation that make the object travel with noise <i>([Random Rotation](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/random-rotation))</i>. Another one is about the same logic that the mentioned before, but the object chase the player with additional logic <i>([Steering Rocket](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/steering-rocket))</i>. Finally, the last examples we have made are about the vectors, in the first one <i>([Vectors 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have the vertex of a cube that rotate in a direction, and in the last example <i>([Vectors 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have different objects whose behaviour varies, making the movement go at different speeds but reaching the objective at the same time. The results of the last two examples are: 
+To finish with this unit on vectors, we have carried out some more examples. One is about a object moving accross the screen with a random desviation that make the object travel with noise <i>([Random Rotation](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/random-rotation))</i>. Another one is about the same logic that the mentioned before, but the object chase the player with additional logic <i>([Steering Rocket](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/steering-rocket))</i>. Finally, the last examples we have made are about the vectors, in the first one <i>([Vectors 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have the vertex of a cube that rotate in a direction, and in the last example <i>([Vectors 04](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/vectors-03))</i> we have different objects whose behaviour varies thanks to the <code>MathUtils</code> library that we have create, making the movement go at different speeds but reaching the objective at the same time. The results of the last two examples are: 
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Vectors03.gif" alt="Vectors 03" height="300"/></p>
 
@@ -108,7 +108,7 @@ To finish with this unit on vectors, we have carried out some more examples. One
 
 ## Entity Component System
 
-In this part we have created a new folder called ESC where we have put two more folders. One will be used to store the components of our engine, such as Transform Component and the other will store the systems to be able to use those components. The first component we have created is <code>TransformComponent</code>, which gets the position, scale and rotation of a particular object.
+In this part we have created a system no manage the objects in a easier way. This approach, the Entity Component System, will let us create objects and apply some physics, transformations and more. We have two parts, the components with the information of th eobject and the system that manage these components. The first component we have created is <code>TransformComponent</code>, which gets the position, scale and rotation of a particular object.
 
 By this point we have seen two examples: [TrasformComponent 01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/transform-component-01) and [TrasformComponent 02](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/transform-component-02) where we can check the good behaviour of our code and also, we have to do the exercise [Exercise 08](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-08) where we have to implement de library EnTT to our proyect in order to be able to register and use the entities to be able to use the components and systems we have created. And finally, we have to add the ESC paradigm to be able to use all the above. The result obtained is:
 
@@ -116,7 +116,9 @@ By this point we have seen two examples: [TrasformComponent 01](https://github.c
 
 ## Physics
 
-...
+The physics will manage the accelerations, velocity and displacement of the objects. To calculate the different variables, we have create the <code>KinematicComponent</code> and <code>KinematicSystem</code>, where each iteration, the system will calculate the new position and velocities. We have done two examples, the first one <i>([Gravity](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravity))</i> consist in applying a acceleration in the vertical axis and make the ball go up and then down. The second example <i>([Projectile](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile))</i> consist in dropping a ball in a diagonal direction with an initial velocity, when this ball reach the ground and the wall will stop it and don't fall.
+
+Finaly, we have to do the [Exercise 09](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-09) where we apply the Kinematic component and system to manage the acceleration into velocity and position. We have create so many entities / balls that goes in different directions <i>(The number of balls can be modified in the execution)</i>, and when the ball touch the ground or the wall, its color will change, and when the ball can't move it, the color will cahnge again.
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise09.gif" alt="Exercise 09" height="300"/></p>
 
