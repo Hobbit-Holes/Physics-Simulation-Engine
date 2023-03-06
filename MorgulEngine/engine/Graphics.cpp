@@ -124,13 +124,13 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
 
 void Graphics::DrawRect(int x, int y, int width, int heigth, Color color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_Rect box = {x, y, width, heigth};
+    SDL_Rect box = {x - width/2, y - heigth/2, width, heigth};
     SDL_RenderDrawRect(renderer, &box);
 }
 
 void Graphics::DrawFillRect(int x, int y, int width, int heigth, Color color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_Rect box = {x, y, width, heigth};
+    SDL_Rect box = {x - width/2, y - heigth/2, width, heigth};
     SDL_RenderFillRect(renderer, &box);
 }
 

@@ -1,8 +1,6 @@
 #include "MorgulEngine.hh"
-#include <math.h>
 
 int main(int argc, char *argv[]) {
-    
     std::vector<entt::entity> filledParticles;
     std::vector<entt::entity> particles;
     std::vector<entt::entity> filledRectangles;

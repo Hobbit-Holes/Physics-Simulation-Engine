@@ -92,9 +92,16 @@ void MorgulEngine::CheckInput() {
 
 void MorgulEngine::Update() {
     CheckInput();
+
+    // Systems
+    kinematicSystem.Update(dt, world);
+    particleSystem.Update(world);
 }
 
 void MorgulEngine::Render() {
+    // Systems
+    particleSystem.Render(world);
+
     Graphics::RenderFrame();
 }
 

@@ -1,5 +1,5 @@
-#ifndef TRANSFORMVOMPONENT_H
-#define TRANSFORMVOMPONENT_H
+#ifndef TRANSFORMCOMPONENT_H
+#define TRANSFORMCOMPONENT_H
 
 #include "../engine/Vec2.hh"
 

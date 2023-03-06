@@ -9,11 +9,12 @@
 #include "Logger.hh"
 #include "Vec2.hh"
 #include "MathUtils.hh"
+#include "Force.hh"
 
 //Entity Component System
 #include "entt/entt.hpp"
-#include "ECS/Components/TransformComponent.hh"
-#include "ECS/Components/KinematicComponent.hh"
+#include "ECS/Components/IncludeComponents.hh"
+#include "ECS/Systems/IncludeSystems.hh"
 
 class MorgulEngine {
     private:
@@ -43,4 +44,8 @@ class MorgulEngine {
 
         //EnTT (ECS)
         entt::registry world;
+
+        // Systems
+        KinematicSystem kinematicSystem;
+        ParticleSystem particleSystem;
 };

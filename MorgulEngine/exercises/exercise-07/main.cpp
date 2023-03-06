@@ -56,9 +56,9 @@ int main(int argc, char *argv[]) {
         Vec2 vecFOV_up = enemy1.direction.Rotate(enemy1.fov);
         Vec2 vecFOV_down = enemy1.direction.Rotate(2 * M_PI - enemy1.fov);
 
-        Graphics::DrawLineSDL(enemy1.position.x + enemy1.width/2, enemy1.position.y + enemy1.heigth/2, enemy1.position.x + enemy1.direction.x * 100, enemy1.position.y + enemy1.direction.y * 100, Color::Red());
-        Graphics::DrawLineSDL(enemy1.position.x + enemy1.width/2, enemy1.position.y + enemy1.heigth/2, enemy1.position.x + vecFOV_up.x * 1000, enemy1.position.y + vecFOV_up.y * 1000, Color(242, 135, 5, 50));
-        Graphics::DrawLineSDL(enemy1.position.x + enemy1.width/2, enemy1.position.y + enemy1.heigth/2, enemy1.position.x + vecFOV_down.x * 1000, enemy1.position.y + vecFOV_down.y * 1000, Color(242, 135, 5, 50));
+        Graphics::DrawLineSDL(enemy1.position.x, enemy1.position.y, enemy1.position.x + vecFOV_down.x * 1000, enemy1.position.y + vecFOV_down.y * 1000, Color(242, 135, 5, 50));
+        Graphics::DrawLineSDL(enemy1.position.x, enemy1.position.y, enemy1.position.x + enemy1.direction.x * 100, enemy1.position.y + enemy1.direction.y * 100, Color::Red());
+        Graphics::DrawLineSDL(enemy1.position.x, enemy1.position.y, enemy1.position.x + vecFOV_up.x * 1000, enemy1.position.y + vecFOV_up.y * 1000, Color(242, 135, 5, 50));
         
         Logger::Info("Angle Player and Enemy 1: " + std::to_string(direction.Angle(enemy1.direction)));
 
@@ -73,9 +73,9 @@ int main(int argc, char *argv[]) {
         vecFOV_up = enemy2.direction.Rotate(enemy2.fov);
         vecFOV_down = enemy2.direction.Rotate(2 * M_PI - enemy2.fov);
 
-        Graphics::DrawLineSDL(enemy2.position.x + enemy2.width/2, enemy2.position.y + enemy2.heigth/2, enemy2.position.x + enemy2.direction.x * 100, enemy2.position.y + enemy2.direction.y * 100, Color::Red());
-        Graphics::DrawLineSDL(enemy2.position.x + enemy2.width/2, enemy2.position.y + enemy2.heigth/2, enemy2.position.x + vecFOV_up.x * 1000, enemy2.position.y + vecFOV_up.y * 1000, Color(242, 135, 5, 50));
-        Graphics::DrawLineSDL(enemy2.position.x + enemy2.width/2, enemy2.position.y + enemy2.heigth/2, enemy2.position.x + vecFOV_down.x * 1000, enemy2.position.y + vecFOV_down.y * 1000, Color(242, 135, 5, 50));
+        Graphics::DrawLineSDL(enemy2.position.x, enemy2.position.y, enemy2.position.x + enemy2.direction.x * 100, enemy2.position.y + enemy2.direction.y * 100, Color::Red());
+        Graphics::DrawLineSDL(enemy2.position.x, enemy2.position.y, enemy2.position.x + vecFOV_up.x * 1000, enemy2.position.y + vecFOV_up.y * 1000, Color(242, 135, 5, 50));
+        Graphics::DrawLineSDL(enemy2.position.x, enemy2.position.y, enemy2.position.x + vecFOV_down.x * 1000, enemy2.position.y + vecFOV_down.y * 1000, Color(242, 135, 5, 50));
 
         Graphics::DrawFillRect(player.position.x, player.position.y, player.width, player.heigth, player.color);
         Graphics::DrawFillRect(enemy1.position.x, enemy1.position.y, enemy1.width, enemy1.heigth, enemy1.color);

@@ -13,6 +13,8 @@ Here you can see the different sections that have been carried out during the co
 - [Rendering Primitives](#rendering-primitives)
 - [Vectors](#vectors)
 - [Entity Component System](#entity-component-system)
+- [Physics](#physics)
+- [Force](#force)
 
 ## Introduction
 
@@ -111,5 +113,15 @@ In this part we have created a new folder called ESC where we have put two more 
 By this point we have seen two examples: [TrasformComponent 01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/transform-component-01) and [TrasformComponent 02](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/transform-component-02) where we can check the good behaviour of our code and also, we have to do the exercise [Exercise 08](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-08) where we have to implement de library EnTT to our proyect in order to be able to register and use the entities to be able to use the components and systems we have created. And finally, we have to add the ESC paradigm to be able to use all the above. The result obtained is:
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise08.gif" alt="Exercise 08" height="300"/></p>
+
+## Physics
+
+...
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise09.gif" alt="Exercise 09" height="300"/></p>
+
+## Force
+
+...
 
 
