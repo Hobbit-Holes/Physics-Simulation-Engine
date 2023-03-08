@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
+    int last_frame_time = 0;
 
     // Player 1
     int player_x = width / 2;
@@ -25,7 +26,7 @@ int main(int argc, char *argv[]) {
         engine.Update();
 
         // Custom Logic
-        double dt = engine.GetDeltaTime();
+        double dt = SDL_GetTicks() - last_frame_time;
         double delta_time = dt/1000.0f;
 
         // Player
@@ -43,6 +44,8 @@ int main(int argc, char *argv[]) {
                 direction_y = 1;
             }
         }
+
+        last_frame_time = SDL_GetTicks();
 
         Graphics::DrawFillRect(player_x, player_y, 10, 10, Color(255, 211, 147, 255));
 
