@@ -1,6 +1,6 @@
 #include "MorgulEngine.hh"
 
-int main(int argc, char *args) {
+int main(int argc, char *args[]) {
     //Initialize game engine
     MorgulEngine engine  = MorgulEngine(600, 600);
 
