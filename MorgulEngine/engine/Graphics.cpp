@@ -28,7 +28,7 @@ bool Graphics::OpenWindow(int width, int heigth) {
         Logger::Error("Error creating SDL renderer.");
         return false;
     }
-    Logger::Error("Creating SDL renderer.");
+    Logger::Info("Creating SDL renderer.");
 
     int resolution = windowHeigth * windowWidth;
     color_buffer = (uint32_t*) malloc(sizeof(uint32_t) * resolution);
