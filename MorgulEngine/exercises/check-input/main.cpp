@@ -13,9 +13,9 @@ int main(int argc, char *args[]) {
         Vec2 mouse_position = engine.mouse->GetPosition();
         std::cout << "Mouse position: " << mouse_position << std::endl;
 
-        if(engine.mouse->leftButtonPressed)
+        if (engine.mouse->leftButtonPressed)
             std::cout << "Mouse left button pressed! " << std::endl;
-        if(engine.keyboard->upKeyPressed)
+        if (engine.keyboard->upKeyPressed)
             std::cout << "Up key pressed! " << std::endl;
 
         //Engine Render

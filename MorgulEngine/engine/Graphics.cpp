@@ -67,6 +67,11 @@ void Graphics::DrawPixel(int x, int y, uint32_t color) {
     }
 }
 
+void Graphics::DrawPixel(int x, int y, Color color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    SDL_RenderDrawPoint(renderer, x, y);
+}
+
 void Graphics::DrawGrid(int space, bool gridX, bool gridY) {
     Color color = Color(217, 217, 217, 20);
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
@@ -102,9 +107,6 @@ void Graphics::DrawLineSDL(int x0, int y0, int x1, int y1, Color color) {
 }
 
 void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
-    //SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    //SDL_RenderDrawLine(renderer, x0, y0, x1, y1);
-
     int delta_x = x1 - x0;
     int delta_y = y1 - y0;
     int longest_side_length = (abs(delta_x) >= abs(delta_y)) ? abs(delta_x) : abs(delta_y);
@@ -116,7 +118,25 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color) {
     float current_y = y0;
 
     for (int i = 0; i <= longest_side_length; i++) {
-        DrawPixel(round(current_x), round(current_y), color.ToARG());
+        DrawPixel(round(current_x), round(current_y), color);//color.ToARG());
+        current_x += x_inc;
+        current_y += y_inc;
+    }
+}
+
+void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color color) {
+    int delta_x = p1.x - p0.x;
+    int delta_y = p1.y - p0.y;
+    int longest_side_length = (abs(delta_x) >= abs(delta_y)) ? abs(delta_x) : abs(delta_y);
+
+    float x_inc = delta_x / (float)longest_side_length;
+    float y_inc = delta_y / (float)longest_side_length;
+
+    float current_x = p0.x;
+    float current_y = p0.y;
+
+    for (int i = 0; i <= longest_side_length; i++) {
+        DrawPixel(round(current_x), round(current_y), color);
         current_x += x_inc;
         current_y += y_inc;
     }

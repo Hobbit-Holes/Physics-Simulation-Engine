@@ -1,6 +1,6 @@
 OBJS = main.cpp
 CCPS = ./../../engine/*.cpp
-OBJ_NAME = sdl.exe
+OBJ_NAME = setting-up-the-enviroment.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/ -I./../../libs/
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib

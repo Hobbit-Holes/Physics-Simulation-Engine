@@ -37,9 +37,9 @@ Some of these classes are the <code>Graphics</code> or the <code>Logger</code>. 
 
 And the second one give us information of the process during the execution of the game engine. When the message appear, it also show us the time that occurs. There are three main types that are: 
 
-- <b>Info</b>
-- <b>Warning</b>
-- <b>Error</b>
+- <b>Info</b>: The information displayed will appear in green.
+- <b>Warning</b>: The information displayed will appear in yellow.
+- <b>Error</b>: The information displayed will appear in red.
 
 ## Color
 

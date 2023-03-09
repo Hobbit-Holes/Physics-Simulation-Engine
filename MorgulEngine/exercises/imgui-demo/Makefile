@@ -1,5 +1,5 @@
 OBJS = main.cpp
-CCPS = ./../../engine/*.cpp
+CCPS = ./../../engine/*.cpp ./../../libs/imgui/*.cpp
 OBJ_NAME = imgui-demo.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/ -I./../../libs/
