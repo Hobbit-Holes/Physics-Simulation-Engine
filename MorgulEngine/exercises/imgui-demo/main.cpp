@@ -4,8 +4,8 @@
 #include "imgui/imstb_rectpack.h"
 #include "imgui/imstb_textedit.h"
 #include "imgui/imstb_truetype.h"
-#include "imgui/backends/imgui_impl_sdl2.h"
-#include "imgui/backends/imgui_impl_sdlrenderer.h"
+#include "imgui/imgui_impl_sdl2.h"
+#include "imgui/imgui_impl_sdlrenderer.h"
 
 int main(int argc, char *args[]) {
     MorgulEngine engine = MorgulEngine(800, 800);
