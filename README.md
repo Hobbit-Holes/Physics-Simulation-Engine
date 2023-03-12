@@ -15,6 +15,7 @@ Here you can see the different sections that have been carried out during the co
 - [Entity Component System](#entity-component-system)
 - [Physics](#physics)
 - [Force](#force)
+- [Soft Bodies](#soft-bodies)
 
 ## Introduction
 
@@ -116,14 +117,29 @@ By this point we have seen two examples: [TrasformComponent 01](https://github.c
 
 ## Physics
 
-The physics will manage the accelerations, velocity and displacement of the objects. To calculate the different variables, we have create the <code>KinematicComponent</code> and <code>KinematicSystem</code>, where each iteration, the system will calculate the new position and velocities. We have done two examples, the first one <i>([Gravity](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravity))</i> consist in applying a acceleration in the vertical axis and make the ball go up and then down. The second example <i>([Projectile](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile))</i> consist in dropping a ball in a diagonal direction with an initial velocity, when this ball reach the ground and the wall will stop it and don't fall.
+The physics will manage the accelerations, velocity and displacement of the objects. To calculate the different variables, we have create the <code>KinematicComponent</code> and <code>KinematicSystem</code>, and in each iteration, the system will calculate the new positions and velocities. We have done two examples, the first one <i>([Gravity](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravity))</i> consist in applying an acceleration in the vertical axis and make the ball go up and then down. The second example <i>([Projectile](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile))</i> consist in dropping a ball in a diagonal direction with an initial velocity, and when this ball reach the ground and the wall will stop it and don't fall.
 
-Finaly, we have to do the [Exercise 09](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-09) where we apply the Kinematic component and system to manage the acceleration into velocity and position. We have create so many entities / balls that goes in different directions <i>(The number of balls can be modified in the execution)</i>, and when the ball touch the ground or the wall, its color will change, and when the ball can't move it, the color will cahnge again.
+Finaly, we have to do the [Exercise 09](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-09) where we apply the Kinematic component and system to manage the acceleration into velocity and position. We have create so many entities / balls that goes in different directions <i>(The number of balls can be modified in the execution and use the ECS paradigm)</i>, and when the ball touch the ground or the wall, its color will change, and when the ball can't move it, the color will cahnge again. Here, we can observe how it works when we have 20 particles:
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise09.gif" alt="Exercise 09" height="300"/></p>
 
 ## Force
 
-...
+In this section we have learn more about the forces that can interact with the particles. These forces will change the acceleration of the particles depending also in the mass of itself. In order to archive this we have create the <code>Particle Component</code> that handles the particle physics and the rendering. To understand how it works we have done an example <i>([Wind Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/wind-force))</i> where two particles travel accross the screen depending a wind force that change the direction and acceleration of them. 
 
+Because there are different types of forces whose behaviours and calculations, we have create a structure to colect some of them: 
+
+- <b>Gravitational</b>: 
+- <b>Drag</b>: 
+- <b>Friction</b>: 
+- <b>Magnus</b>: 
+- <b>Spring</b>: 
+
+For each force we have made same examples to check the proper functioning of the helpers, the examples we have made are: [Gravitational Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravitational-force), [Drag Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/drag-force), [Projectile Drag](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile-drag), [Friction Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/friction-force), [Magnus Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/magnus-force) and [Spring Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/spring-force). Finally, we have the [Exercise 10](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercose10) where we have to implement the forces mentionated before and create a chain of particles using the spring force. In this chain, the head of it is arrached to the anchor and the rest of the aprticles are connected with each other. The result is as follows: 
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise10.gif" alt="Exercise 10" height="300"/></p>
+
+## Soft Bodies
+
+...
 
