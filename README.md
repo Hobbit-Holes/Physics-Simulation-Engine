@@ -127,13 +127,13 @@ Finaly, we have to do the [Exercise 09](https://github.com/Hobbit-Holes/Physics-
 
 In this section we have learn more about the forces that can interact with the particles. These forces will change the acceleration of the particles depending also in the mass of itself. In order to archive this we have create the <code>Particle Component</code> that handles the particle physics and the rendering. To understand how it works we have done an example <i>([Wind Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/wind-force))</i> where two particles travel accross the screen depending a wind force that change the direction and acceleration of them. 
 
-Because there are different types of forces whose behaviours and calculations, we have create a structure to colect some of them: 
+Because there are different types of forces whose behaviours and calculations, we have create a <code>Force</code> structure to colect some of them: 
 
-- <b>Gravitational</b>: 
-- <b>Drag</b>: 
-- <b>Friction</b>: 
-- <b>Magnus</b>: 
-- <b>Spring</b>: 
+- <b>Gravitational</b>: Every object with mass experiments a force with other objects. To obtain the force vector we need the position and mass of the objects, the Gravitational coefficient <i>(G)</i> and the minimum and maximum distance of interaction.
+- <b>Drag</b>: It is a resistive force opposite of the direction of an object that depends on velocity. We need the velocity of the particle and the coefficient of drag <i>(k)</i>.
+- <b>Friction</b>: Similar to the drag force, but it only affects the object if it is moving. We need the friction coefficient <i>(i)</i> and the velocity of the particle.
+- <b>Magnus</b>: It is a force that is generated when an object travels through air and it is perpendicular to the flow velocity, making the object to rotate. We need the coefficient of Magnus <i>(k)</i>, the velocity of the object and his angular velocity.
+- <b>Spring</b>: This force is calculated with the Hooke's law, where the force of the spring is proportional to the displacement of itself. We need the position of the object and the spring, the length of the spring and the coefficient.
 
 For each force we have made same examples to check the proper functioning of the helpers, the examples we have made are: [Gravitational Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravitational-force), [Drag Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/drag-force), [Projectile Drag](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile-drag), [Friction Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/friction-force), [Magnus Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/magnus-force) and [Spring Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/spring-force). Finally, we have the [Exercise 10](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercose10) where we have to implement the forces mentionated before and create a chain of particles using the spring force. In this chain, the head of it is arrached to the anchor and the rest of the aprticles are connected with each other. The result is as follows: 
 
