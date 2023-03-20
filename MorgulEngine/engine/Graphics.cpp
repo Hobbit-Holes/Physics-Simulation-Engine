@@ -197,7 +197,7 @@ void Graphics::DrawCircle(int x0, int y0, int radius, float angle, Color color) 
         }
     }
 
-    //SDL_RenderDrawLine(renderer, x0, y0, x0 + cos(angle) * radius, y0 + sin(angle) * radius);
+    SDL_RenderDrawLine(renderer, x0, y0, x0 + cos(angle) * radius, y0 + sin(angle) * radius);
 }
 
 void Graphics::DrawFillCircle(int x0, int y0, int radius, Color color) {

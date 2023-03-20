@@ -8,14 +8,13 @@ int main(int argc, char *argv[]) {
     const auto ball = engine.world.create();
     engine.world.emplace<TransformComponent>(ball, Vec2(width/2, height*0.9));
     engine.world.emplace<KinematicComponent>(ball);
-    engine.world.emplace<ParticleComponent>(ball, 0.01, 10, Color::White(), false, 10);
+    engine.world.emplace<ParticleComponent>(ball, 0.01, 10, Color::White(), false, 0);
 
     bool shoot = false;
     Vec2 magnusForce = Vec2();
 
     while(engine.NextFrame()) {
         engine.Update();
-        //Graphics::DrawGrid(20, true, true);
 
         const auto t = engine.world.get<TransformComponent>(ball);
         auto& k = engine.world.get<KinematicComponent>(ball);
@@ -28,7 +27,7 @@ int main(int argc, char *argv[]) {
             k.angularVelocity -= 0.1;
         
         //Should we shoot?
-        if (engine.keyboard->upKeyPressed) {
+        if (engine.keyboard->spaceKeyPressed) {
             shoot = true;
             Vec2 impulseDirection = engine.mouse->GetPosition() - t.position;
             float impulseMagnitude = MathUtils::Clamp(impulseDirection.Magnitude() * 0.001, 0.0f, 1.0f);
@@ -45,9 +44,9 @@ int main(int argc, char *argv[]) {
         Graphics::DrawFillRect(width/2, height * 0.1, 200, 25, Color::White());
 
         std::cout << "Position: " << t.position
-                  << "\n Velocity: " << k.velocity.Magnitude()
-                  << "\n Angular Velocity: " << k.angularVelocity
-                  << "\n Magnus force: " << magnusForce << std::endl;
+                  << ", Velocity: " << k.velocity.Magnitude()
+                  << ", Angular Velocity: " << k.angularVelocity
+                  << ", Magnus force: " << magnusForce << std::endl;
 
         engine.Render();
     }

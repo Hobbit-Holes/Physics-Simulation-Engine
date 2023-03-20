@@ -15,6 +15,7 @@ class ParticleSystem {
                 auto& rb = view.get<ParticleComponent>(entity);
 
                 kinematic.acceleration = rb.sumForces * rb.invMass;
+                rb.angle += kinematic.angularVelocity * M_PI/180;
                 rb.ClearForces();
             }
         }

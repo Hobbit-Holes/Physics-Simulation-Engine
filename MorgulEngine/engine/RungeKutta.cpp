@@ -1,4 +1,13 @@
 #include "RungeKutta.hh"
+RungeKutta::RungeKutta(int dimension, void (*rhs)(double, double *, double *)) {
+    this->dimension = dimension;
+    this->rhs = rhs;
+}
+
+void RungeKutta::Rsh(double t, double *y, double *dydt) {
+    dydt[0] = y[1];
+    dydt[1] = -y[0];
+}
 
 void RungeKutta::Step(float t, float dt) {
     //K1

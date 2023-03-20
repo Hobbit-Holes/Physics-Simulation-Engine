@@ -66,22 +66,40 @@ void MorgulEngine::CheckInput() {
             if (event.key.keysym.sym == SDLK_ESCAPE) {
                 running = false;
             }
+            if (event.key.keysym.sym == SDLK_SPACE) {
+                keyboard->spaceKeyPressed = true;
+            }
             if (event.key.keysym.sym == SDLK_UP) {
                 keyboard->upKeyPressed = true;
             }
             if (event.key.keysym.sym == SDLK_DOWN) {
                 keyboard->downKeyPressed = true;
             }
+            if (event.key.keysym.sym == SDLK_RIGHT) {
+                keyboard->rightKeyPressed = true;
+            }
+            if (event.key.keysym.sym == SDLK_LEFT) {
+                keyboard->leftKeyPressed = true;
+            }
             break;
         case SDL_KEYUP:
             if (event.key.keysym.sym == SDLK_F1) {
                 debug = !debug;
+            }
+            if (event.key.keysym.sym == SDLK_SPACE) {
+                keyboard->spaceKeyPressed = false;
             }
             if (event.key.keysym.sym == SDLK_UP) {
                 keyboard->upKeyPressed = false;
             }
             if (event.key.keysym.sym == SDLK_DOWN) {
                 keyboard->downKeyPressed = false;
+            }
+            if (event.key.keysym.sym == SDLK_RIGHT) {
+                keyboard->rightKeyPressed = false;
+            }
+            if (event.key.keysym.sym == SDLK_LEFT) {
+                keyboard->leftKeyPressed = false;
             }
             break;
         default:
@@ -92,6 +110,7 @@ void MorgulEngine::CheckInput() {
 
 void MorgulEngine::Update() {
     CheckInput();
+    Graphics::CleanUpScreen();
 
     // Systems
     kinematicSystem.Update(dt, world);

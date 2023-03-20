@@ -13,7 +13,7 @@ struct ParticleComponent {
     Vec2 sumForces;
     bool render;
 
-    ParticleComponent(float mass = 1, int radius = 1, Color color = Color::White(), bool render = true, float angle = 10) {
+    ParticleComponent(float mass = 1, int radius = 1, Color color = Color::White(), bool render = true, float angle = 0) {
         this->mass = mass;
         if (mass != 0) {
             this->invMass = 1 / mass;

@@ -16,6 +16,7 @@ class RungeKutta {
         RungeKutta(int dimension, void (*rhs)(double, double *, double *));
         ~RungeKutta();
         void Step(float t, float dt);
+        void Rsh(double t, double *y, double *dydt);
 };
 
 #endif

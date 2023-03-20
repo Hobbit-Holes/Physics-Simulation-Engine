@@ -1,19 +1,14 @@
-#include "MorgulEngine.hh"
+#include <iostream>
+#include "RungeKutta.hh"
 
 int main(int argc, char *argv[]) {
     double t = 0.0;
-    //float dt = 1.0f;
     float dt = 1.0/100;
-    float velocity = 0.0f;
-    float position = 0.0f;
-    float force = 10.0f;
-    float mass = 1.0f;
+    void (*rshFuction) (double, double*, double*);
+    RungeKutta runge = RungeKutta(t, rshFuction);
 
     while(t <= 10.0) {
-        std::cout << "t: " << t << ", position: " << position << ", velocity: " << velocity << std::endl;
-
-        position = position + velocity * dt;
-        velocity = velocity + (force/mass) * dt;
+        
 
         t += dt;
     }

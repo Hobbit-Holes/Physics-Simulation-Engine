@@ -165,5 +165,11 @@ float MathUtils::Lerp(float a, float b, float t) {
 
 //CLAMP
 float MathUtils::Clamp(float a, float upper, float lower) {
-    return std::min(upper, std::max(a, lower));
+    if (a < lower) {
+        return lower;
+    } else if (a > upper) {
+        return upper;
+    } else {
+        return a;
+    }
 }

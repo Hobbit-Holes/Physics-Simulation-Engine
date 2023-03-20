@@ -1,6 +1,8 @@
 #include <algorithm>
+#include <math.h>
 
 #include "Force.hh"
+# define M_PI           3.14159265358979323846  /* pi */
 
 Vec2 Force::GenerateDragVector(float k, Vec2 v) {
     Vec2 dragForce = Vec2(0, 0);
@@ -61,6 +63,14 @@ Vec2 Force::GenerateSpringVector(float k, Vec2 position, Vec2 anchor, float rest
 }
 
 Vec2 Force::GenerateMagnusVector(float k, Vec2 velocity, float angularVelocity) {
-    return Vec2(0, 0);
+    Vec2 magnusForce = Vec2(0, 0);
+    if(velocity.MagnitudeSquared() > 0) {
+        Vec2 normalVelocity = velocity.Normal();
+        Vec2 unitVector = normalVelocity.UnitVector();
+        float magnusMagnitude = k * velocity.MagnitudeSquared();
+        magnusForce = unitVector * magnusMagnitude * angularVelocity * 2;
+    }
+
+    return magnusForce;
 }
 

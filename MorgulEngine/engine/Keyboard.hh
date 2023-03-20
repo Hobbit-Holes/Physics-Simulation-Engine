@@ -7,6 +7,7 @@ struct Keyboard
     bool downKeyPressed = false;
     bool leftKeyPressed = false;
     bool rightKeyPressed = false;
+    bool spaceKeyPressed = false;
 };
 
 #endif
