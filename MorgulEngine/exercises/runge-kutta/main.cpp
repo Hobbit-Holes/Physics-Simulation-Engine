@@ -1,16 +1,26 @@
 #include <iostream>
+#include <math.h>
 #include "RungeKutta.hh"
 
-int main(int argc, char *argv[]) {
-    double t = 0.0;
-    float dt = 1.0/100;
-    void (*rshFuction) (double, double*, double*);
-    RungeKutta runge = RungeKutta(t, rshFuction);
+void rhs(double t, double *y, double *dydt) {
+    dydt[0] = y[1];
+    dydt[1] = -2.0 * y[1] - 2.0 * y[0] + cos(t);
+}
 
-    while(t <= 10.0) {
-        
+int main() {
+    double y0[2] = {0.0, 0.0};
 
-        t += dt;
+    RungeKutta rk(2, &rhs);
+    rk.x[0] = y0[0];
+    rk.x[1] = y0[1];
+
+    double t0 = 0.0;
+    double dt = 0.01;
+
+    while(t0 <= 10) {
+        rk.Step(t0, dt);
+        t0 += dt;
+        std::cout << "t = " << t0 << "\tx:" << rk.x[0] << "\tx(real) = " << rk._x[0] << std::endl;
     }
 
     return 0;

@@ -1,12 +1,36 @@
 #include "RungeKutta.hh"
+
 RungeKutta::RungeKutta(int dimension, void (*rhs)(double, double *, double *)) {
     this->dimension = dimension;
     this->rhs = rhs;
+
+    rhs_ouput = new double[dimension];
+    _x = new double[dimension];
+    k1 = new double[dimension];
+    k2 = new double[dimension];
+    k3 = new double[dimension];
+    k4 = new double[dimension];
+    x = new double[dimension];
+
+    for (int i = 0; i < dimension; i++) {
+        rhs_ouput[i] = 0.0;
+        _x[i] = 0.0;
+        k1[i] = 0.0;
+        k2[i] = 0.0;
+        k3[i] = 0.0;
+        k4[i] = 0.0;
+        x[i] = 0.0;
+    }
 }
 
-void RungeKutta::Rsh(double t, double *y, double *dydt) {
-    dydt[0] = y[1];
-    dydt[1] = -y[0];
+RungeKutta::~RungeKutta() {
+    delete[] x;
+    delete[] _x;
+    delete[] k1;
+    delete[] k2;
+    delete[] k3;
+    delete[] k4;
+    delete[] rhs_ouput;
 }
 
 void RungeKutta::Step(float t, float dt) {
