@@ -60,6 +60,9 @@ class MathUtils {
         // Lerp
         static float Lerp(float a, float b, float t);
 
+        //Clamp
+        static float Clamp(float a, float upper, float lower);
+
 };
 
 

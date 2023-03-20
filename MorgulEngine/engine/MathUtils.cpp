@@ -162,3 +162,8 @@ float MathUtils::easeInOutBounce(float x) {
 float MathUtils::Lerp(float a, float b, float t) {
     return a + t *(b-a);
 }
+
+//CLAMP
+float MathUtils::Clamp(float a, float upper, float lower) {
+    return std::min(upper, std::max(a, lower));
+}

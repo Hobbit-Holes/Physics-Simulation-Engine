@@ -15,6 +15,9 @@ class KinematicSystem {
 
                 kinematic.velocity += kinematic.acceleration * dt;
                 transform.position += kinematic.velocity * dt;
+
+                kinematic.angularVelocity += kinematic.angularAcceleration * dt;
+                transform.rotation += kinematic.angularVelocity * dt;
             }
         }
 };

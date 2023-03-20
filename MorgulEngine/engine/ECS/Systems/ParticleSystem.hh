@@ -25,8 +25,12 @@ class ParticleSystem {
             for (auto entity: view) {
                 const auto transform = view.get<TransformComponent>(entity);
                 const auto particle = view.get<ParticleComponent>(entity);
-
-                Graphics::DrawFillCircle(transform.position.x, transform.position.y, particle.radius, particle.color);
+                if(particle.render) {
+                    Graphics::DrawFillCircle(transform.position.x, transform.position.y, particle.radius, particle.color);
+                }
+                else {
+                    Graphics::DrawCircle(transform.position.x, transform.position.y, particle.radius, particle.angle, particle.color);
+                }
             }
         }
 };
