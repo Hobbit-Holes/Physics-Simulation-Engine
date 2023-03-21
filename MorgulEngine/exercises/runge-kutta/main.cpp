@@ -2,13 +2,14 @@
 #include <math.h>
 #include "RungeKutta.hh"
 
+// Hay que buscar la funcion adecuada
 void rhs(double t, double *y, double *dydt) {
     dydt[0] = y[1];
-    dydt[1] = -2.0 * y[1] - 2.0 * y[0] + cos(t);
+    dydt[1] = -y[0];
 }
 
 int main() {
-    double y0[2] = {0.0, 0.0};
+    double y0[2] = {500.0, 0.0};
 
     RungeKutta rk(2, &rhs);
     rk.x[0] = y0[0];
