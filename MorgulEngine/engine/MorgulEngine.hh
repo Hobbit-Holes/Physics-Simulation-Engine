@@ -48,4 +48,5 @@ class MorgulEngine {
         // Systems
         KinematicSystem kinematicSystem;
         ParticleSystem particleSystem;
+        RigidBodySystem rigidBodySystem;
 };

@@ -115,11 +115,13 @@ void MorgulEngine::Update() {
     // Systems
     kinematicSystem.Update(dt, world);
     particleSystem.Update(world);
+    rigidBodySystem.Update(dt, world);
 }
 
 void MorgulEngine::Render() {
     // Systems
     particleSystem.Render(world);
+    rigidBodySystem.Render(world);
 
     Graphics::RenderFrame();
 }

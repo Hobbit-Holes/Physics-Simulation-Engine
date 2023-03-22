@@ -3,6 +3,7 @@
 
 #include "../Components/TransformComponent.hh"
 #include "../Components/KinematicComponent.hh"
+#include "../Components/RigidBodyComponent.hh"
 
 class KinematicSystem {
     public:
@@ -18,6 +19,16 @@ class KinematicSystem {
 
                 kinematic.angularVelocity += kinematic.angularAcceleration * dt;
                 transform.rotation += kinematic.angularVelocity * dt;
+
+                if (world.all_of<RigidBodyComponent>(entity)) {
+                    Shape* shape;
+                    shape = world.get<RigidBodyComponent>(entity).shape;
+
+                    if (shape->GetType() == RECTANGLE || shape->GetType() == POLYGON) {
+                        PolygonShape* polygonShape = (PolygonShape*) world.get<RigidBodyComponent>(entity).shape;
+                        polygonShape->UpdateVertices(transform.rotation, transform.position)
+                    }
+                }
             }
         }
 };

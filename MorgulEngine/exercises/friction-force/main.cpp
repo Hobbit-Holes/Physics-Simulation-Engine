@@ -24,6 +24,12 @@ int main(int argc, char *argv[]) {
         auto& k = engine.world.get<KinematicComponent>(ball);
         auto& p = engine.world.get<ParticleComponent>(ball);
 
+        if (engine.keyboard->spaceKeyPressed) {
+            Vec2 impulseDirection = engine.mouse->GetPosition() - t.position;
+            float impulseMagnitude = MathUtils::Clamp(impulseDirection.Magnitude() * 0.001, 0.0f, 1.0f);
+            k.velocity = impulseDirection * impulseMagnitude * 10;
+        }
+
         Vec2 friction_vector = Force::GenerateFrictionVector(dragImpulse, k.velocity);
         std::cout << "Velocity: " << k.velocity << "\tMagnitude: " << k.velocity.Magnitude() << "\tFriction: " << friction_vector << std::endl;
         p.AddForce(friction_vector);

@@ -3,5 +3,6 @@
 
 #include "KinematicSystem.hh"
 #include "ParticleSystem.hh"
+#include "RigidBodySystem.hh"
 
 #endif

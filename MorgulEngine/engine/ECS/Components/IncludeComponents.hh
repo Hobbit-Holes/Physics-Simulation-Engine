@@ -4,5 +4,6 @@
 #include "TransformComponent.hh"
 #include "KinematicComponent.hh"
 #include "ParticleComponent.hh"
+#include "RigidBodyComponent.hh"
 
 #endif

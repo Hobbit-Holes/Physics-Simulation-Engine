@@ -4,6 +4,7 @@ int main(int argc, char *argv[]) {
     int width = 600;
     int heigth = 600;
 
+    // Spring
     Vec2 anchor = Vec2(width/2, 50);
     float coefficient = 20;
     float restLength = 150;
@@ -13,12 +14,11 @@ int main(int argc, char *argv[]) {
 
     // Objects
     const auto ball = engine.world.create();
-    engine.world.emplace<TransformComponent>(ball, Vec2(width/2, 250));
+    engine.world.emplace<TransformComponent>(ball, Vec2(width/2, 300));
     engine.world.emplace<KinematicComponent>(ball);
     engine.world.emplace<ParticleComponent>(ball, 1, 10);
 
     while (engine.NextFrame()) {
-        Graphics::CleanUpScreen();
         engine.Update();
 
         const auto t = engine.world.get<TransformComponent>(ball);
@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
         Vec2 weightForce = Vec2(0, 20);
         p.AddForce(weightForce);
         Vec2 springForce = Force::GenerateSpringVector(coefficient, t.position, anchor, restLength);
+        p.AddForce(springForce);
 
         Graphics::DrawLine(t.position, anchor, Color::White());
         Graphics::DrawFillRect(anchor.x, anchor.y, 40, 10, Color::Orange());
