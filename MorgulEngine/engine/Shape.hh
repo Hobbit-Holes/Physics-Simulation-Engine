@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "Color.hh"
-#include "Graphics.hh"
 #include "Vec2.hh"
 #include "./ECS/Components/TransformComponent.hh"
 

@@ -26,7 +26,7 @@ class KinematicSystem {
 
                     if (shape->GetType() == RECTANGLE || shape->GetType() == POLYGON) {
                         PolygonShape* polygonShape = (PolygonShape*) world.get<RigidBodyComponent>(entity).shape;
-                        polygonShape->UpdateVertices(transform.rotation, transform.position)
+                        polygonShape->UpdateVertices(transform.rotation, transform.position);
                     }
                 }
             }

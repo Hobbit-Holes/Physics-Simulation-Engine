@@ -19,7 +19,7 @@ struct RigidBodyComponent {
 
     Shape* shape;
 
-    RigidBodyComponent(Shape shape, float mass = 1.0f) {
+    RigidBodyComponent(float mass, Shape& shape) {
         this->shape = shape.Clone();
         this->mass = mass;
 

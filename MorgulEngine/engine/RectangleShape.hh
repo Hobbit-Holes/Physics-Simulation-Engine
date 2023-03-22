@@ -15,15 +15,15 @@ struct RectangleShape: public PolygonShape {
 
         // Local Vertices
         localVertices.push_back(Vec2(-width / 2.0, -heigth / 2.0));
-        localVertices.push_back(Vec2(width / 2.0, -heigth / 2.0));
-        localVertices.push_back(Vec2(width / 2.0, heigth / 2.0));
-        localVertices.push_back(Vec2(-width / 2.0, heigth / 2.0));
+        localVertices.push_back(Vec2(+width / 2.0, -heigth / 2.0));
+        localVertices.push_back(Vec2(+width / 2.0, +heigth / 2.0));
+        localVertices.push_back(Vec2(-width / 2.0, +heigth / 2.0));
 
         // World Vertices
         worldVertices.push_back(Vec2(-width / 2.0, -heigth / 2.0));
-        worldVertices.push_back(Vec2(width / 2.0, -heigth / 2.0));
-        worldVertices.push_back(Vec2(width / 2.0, heigth / 2.0));
-        worldVertices.push_back(Vec2(-width / 2.0, heigth / 2.0));
+        worldVertices.push_back(Vec2(+width / 2.0, -heigth / 2.0));
+        worldVertices.push_back(Vec2(+width / 2.0, +heigth / 2.0));
+        worldVertices.push_back(Vec2(-width / 2.0, +heigth / 2.0));
     }
 
     Shape* Clone() const {
@@ -35,14 +35,14 @@ struct RectangleShape: public PolygonShape {
     }
 
     float GetMomentOfInertia() const {
-        return 0.0833333 * (width * width + heigth * heigth);
+        return (0.0833333) * (width * width + heigth * heigth);
     }
 
     void Render(TransformComponent transform) const override {
         if (this->filled) {
             Graphics::DrawFillRect(transform.position.x, transform.position.y, this->width, this->heigth, this->color);
         } else {
-            Graphics::DrawPolygon(transform.position.x, transform.position.y, this->worldVertices, this->color);
+            Graphics::DrawRect(transform.position.x, transform.position.y, this->width, this->heigth, this->color);
         }
     }
 };
