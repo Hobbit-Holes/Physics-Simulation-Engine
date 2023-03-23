@@ -10,20 +10,21 @@ struct RectangleShape: public PolygonShape {
     RectangleShape(float width = 1.0f, float heigth = 1.0f, Color color = Color::White(), bool filled = true) {
         this->width = width;
         this->heigth = heigth;
+        
         this->color = color;
         this->filled = filled;
 
         // Local Vertices
-        localVertices.push_back(Vec2(-width / 2.0, -heigth / 2.0));
-        localVertices.push_back(Vec2(+width / 2.0, -heigth / 2.0));
-        localVertices.push_back(Vec2(+width / 2.0, +heigth / 2.0));
-        localVertices.push_back(Vec2(-width / 2.0, +heigth / 2.0));
+        this->localVertices.push_back(Vec2(-width / 2.0, -heigth / 2.0));
+        this->localVertices.push_back(Vec2(+width / 2.0, -heigth / 2.0));
+        this->localVertices.push_back(Vec2(+width / 2.0, +heigth / 2.0));
+        this->localVertices.push_back(Vec2(-width / 2.0, +heigth / 2.0));
 
         // World Vertices
-        worldVertices.push_back(Vec2(-width / 2.0, -heigth / 2.0));
-        worldVertices.push_back(Vec2(+width / 2.0, -heigth / 2.0));
-        worldVertices.push_back(Vec2(+width / 2.0, +heigth / 2.0));
-        worldVertices.push_back(Vec2(-width / 2.0, +heigth / 2.0));
+        this->worldVertices.push_back(Vec2(-width / 2.0, -heigth / 2.0));
+        this->worldVertices.push_back(Vec2(+width / 2.0, -heigth / 2.0));
+        this->worldVertices.push_back(Vec2(+width / 2.0, +heigth / 2.0));
+        this->worldVertices.push_back(Vec2(-width / 2.0, +heigth / 2.0));
     }
 
     Shape* Clone() const {
@@ -42,7 +43,8 @@ struct RectangleShape: public PolygonShape {
         if (this->filled) {
             Graphics::DrawFillRect(transform.position.x, transform.position.y, this->width, this->heigth, this->color);
         } else {
-            Graphics::DrawRect(transform.position.x, transform.position.y, this->width, this->heigth, this->color);
+            //Graphics::DrawPolygon(transform.position.x, transform.position.y, this->worldVertices, this->color);
+            Graphics::DrawPolygon(0, 0, this->worldVertices, this->color);
         }
     }
 };

@@ -13,13 +13,17 @@ struct PolygonShape: public Shape {
     virtual Shape* Clone() const = 0;
     virtual ShapeType GetType() const = 0;
     virtual float GetMomentOfInertia() const = 0;
+
     void UpdateVertices(float angle, const Vec2& position) {
         worldVertices.clear();
-        for (const auto& localVertex : localVertices) {
+        for (const auto& localVertex : this->localVertices) {
             float sinAngle = sin(angle);
             float cosAngle = cos(angle);
-            Vec2 rotatedVertex(cosAngle * localVertex.x - sinAngle * localVertex.y,
-                                sinAngle * localVertex.x + cosAngle * localVertex.y);
+
+            float xAxis = cosAngle * localVertex.x - sinAngle * localVertex.y;
+            float yAxis = sinAngle * localVertex.x + cosAngle * localVertex.y;
+
+            Vec2 rotatedVertex(xAxis, yAxis);
             worldVertices.push_back(rotatedVertex + position);
         }
     }

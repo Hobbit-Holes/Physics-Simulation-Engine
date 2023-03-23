@@ -4,6 +4,7 @@
 #include "../../Shape.hh"
 #include "../../CircleShape.hh"
 #include "../../PolygonShape.hh"
+#include "../../RegularPolygonShape.hh"
 #include "../../RectangleShape.hh"
 
 struct RigidBodyComponent {
@@ -48,7 +49,7 @@ struct RigidBodyComponent {
         sumForces = Vec2(0, 0);
     }
 
-    void AddTroque(float torque) {
+    void AddTorque(float torque) {
         sumTorques += torque;
     }
 

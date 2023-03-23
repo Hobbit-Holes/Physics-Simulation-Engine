@@ -37,10 +37,10 @@ int main(int argc, char *argv[]) {
         engine.Update();
 
         auto& circleRb = engine.world.get<RigidBodyComponent>(circle);
-        circleRb.AddTroque(500);
+        circleRb.AddTorque(500);
 
         auto& rectangleRb = engine.world.get<RigidBodyComponent>(rectangle);
-        rectangleRb.AddTroque(500);
+        rectangleRb.AddTorque(500);
 
         std::cout << "Rectangle Angular velocity: " << engine.world.get<KinematicComponent>(rectangle).angularVelocity <<
         "\tCircle Angular velocity: " << engine.world.get<KinematicComponent>(circle).angularVelocity << std::endl;
