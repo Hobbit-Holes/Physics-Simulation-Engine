@@ -21,7 +21,7 @@ void Point::SetPosition(float x, float y)
 	pos.y = y;
 }
 
-void Point::Update(float deltaTime, float drag, const Vec2& acceleration, float elasticity, Mouse* mouse, int windowWidth, int windowHeight)
+void Point::Update(double deltaTime, float drag, const Vec2& acceleration, float elasticity, Mouse* mouse, int windowWidth, int windowHeight)
 {
 	Vec2 cursorToPosDir = pos - mouse->GetPosition();
 	float cursorToPosDist = cursorToPosDir.x * cursorToPosDir.x + cursorToPosDir.y * cursorToPosDir.y;

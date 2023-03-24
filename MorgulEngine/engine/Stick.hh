@@ -16,15 +16,13 @@ class Stick {
         bool isActive = false;
         bool isSelected = false;
 
-        Color color;
-        Color colorWhenSelected;
     public:
         Stick(Point& p0, Point& p1, float length);
         ~Stick() = default;
 
         void SetIsSelected(bool value);
         void Update();
-        void Draw();
+        void Draw() const;
         void Break();
 };
 

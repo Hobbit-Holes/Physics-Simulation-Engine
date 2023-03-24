@@ -28,7 +28,7 @@ class Point {
         const Vec2& GetPosition() const  { return pos; };
         void SetPosition(float x, float y);
         void Pin();
-        void Update(float deltaTime, float drag, const Vec2& acceleration, float elasticity, Mouse* mouse, int windowWidth, int windowHeight);
+        void Update(double deltaTime, float drag, const Vec2& acceleration, float elasticity, Mouse* mouse, int windowWidth, int windowHeight);
 };
 
 #endif

@@ -35,7 +35,7 @@ Cloth::Cloth(int width, int height, int spacing, int startX, int startY)
 	}
 }
 
-void Cloth::Update(Mouse* mouse, float deltaTime, int width, int height)
+void Cloth::Update(Mouse* mouse, double deltaTime, int width, int height)
 {
 	for (std::vector<Point*>::size_type i = 0; i < points.size(); i++)
 	{
@@ -43,7 +43,7 @@ void Cloth::Update(Mouse* mouse, float deltaTime, int width, int height)
 		p->Update(deltaTime, drag, gravity, elasticity, mouse, width, height);
 	};
 
-	for (std::vector<Stick*>::size_type i = 0; i < points.size(); i++)
+	for (std::vector<Stick*>::size_type i = 0; i < sticks.size(); i++)
 	{
 		sticks[i]->Update();
 	};
@@ -51,7 +51,7 @@ void Cloth::Update(Mouse* mouse, float deltaTime, int width, int height)
 
 void Cloth::Draw()
 {
-	for (std::vector<Stick*>::size_type i = 0; i < points.size(); i++)
+	for (std::vector<Stick*>::size_type i = 0; i < sticks.size(); i++)
 	{
 		sticks[i]->Draw();
 	}

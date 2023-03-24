@@ -20,14 +20,14 @@ void Stick::Update() {
 }
 
 
-void Stick::Draw() {
+void Stick::Draw() const {
 	if (!isActive)
 		return;
 
 	Vec2 p0Pos = p0.GetPosition();
 	Vec2 p1Pos = p1.GetPosition();
 
-	Graphics::DrawLine(p0Pos.x, p0Pos.y, p1Pos.x, p1Pos.y, Color::Black());
+	Graphics::DrawLineSDL(p0Pos.x, p0Pos.y, p1Pos.x + 100, p1Pos.y + 200,  Color::White());
 }
 
 void Stick::Break() {
