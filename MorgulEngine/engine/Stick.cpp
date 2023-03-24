@@ -27,7 +27,7 @@ void Stick::Draw() const {
 	Vec2 p0Pos = p0.GetPosition();
 	Vec2 p1Pos = p1.GetPosition();
 
-	Graphics::DrawLineSDL(p0Pos.x, p0Pos.y, p1Pos.x + 100, p1Pos.y + 200,  Color::White());
+	Graphics::DrawLineSDL(p0Pos.x, p0Pos.y, p1Pos.x, p1Pos.y,  Color::White());
 }
 
 void Stick::Break() {

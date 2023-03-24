@@ -51,10 +51,13 @@ void Cloth::Update(Mouse* mouse, double deltaTime, int width, int height)
 
 void Cloth::Draw()
 {
-	for (std::vector<Stick*>::size_type i = 0; i < sticks.size(); i++)
-	{
+	for (std::vector<Stick*>::size_type i = 0; i < sticks.size(); i++) {
 		sticks[i]->Draw();
 	}
+
+	for (std::vector<Point*>::size_type i = 0; i < points.size(); i++) {
+        points[i]->Draw();
+    }
 }
 
 Cloth::~Cloth()

@@ -1,4 +1,5 @@
 #include "Point.hh"
+#include "Graphics.hh"
 
 Point::Point(float x, float y)
 {
@@ -90,4 +91,8 @@ void Point::KeepInsideView(int windowWidth, int windowHeight)
 		pos.y = 0;
 		prevPos.y = pos.y;
 	}
+}
+
+void Point::Draw() const{
+	Graphics::DrawFillCircle(pos.x, pos.y, 2.5, Color::White());
 }
