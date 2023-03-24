@@ -5,6 +5,7 @@
 #include "Color.hh"
 #include "Point.hh"
 
+class Point;
 class Stick {
     private: 
         Point& p0;
@@ -18,10 +19,10 @@ class Stick {
         Color color;
         Color colorWhenSelected;
     public:
-        Stick() = default;
+        Stick(Point& p0, Point& p1, float length);
         ~Stick() = default;
 
-        void SetIsSelected();
+        void SetIsSelected(bool value);
         void Update();
         void Draw();
         void Break();
