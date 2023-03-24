@@ -62,6 +62,14 @@ void MorgulEngine::CheckInput() {
                 mouse->rightButtonPressed = false;
             }
             break;
+        case SDL_MOUSEWHEEL:
+            if (event.wheel.y > 0) {
+                mouse->IncreaseCursorSize(10);
+            } 
+            else if (event.wheel.y < 0) {
+                mouse->IncreaseCursorSize(-10);
+            }
+            break;
         case SDL_KEYDOWN:
             if (event.key.keysym.sym == SDLK_ESCAPE) {
                 running = false;
