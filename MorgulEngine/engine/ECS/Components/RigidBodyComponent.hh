@@ -15,13 +15,17 @@ struct RigidBodyComponent {
     float I;
     float invI;
 
+    // Static
+    bool isStatic;
+
     // Forces and Torques
     Vec2 sumForces;
     float sumTorques;
 
     Shape* shape;
 
-    RigidBodyComponent(float mass, Shape &shape) {
+    RigidBodyComponent(float mass, Shape &shape, bool isStatic = false) {
+        this->isStatic = isStatic;
         this->shape = shape.Clone();
         this->mass = mass;
 
@@ -59,7 +63,7 @@ struct RigidBodyComponent {
     }
 
     bool IsStatic() {
-        return false;
+        return this->isStatic;
     }
 };
 

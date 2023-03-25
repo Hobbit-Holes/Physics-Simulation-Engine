@@ -37,7 +37,9 @@ struct StarShape: public PolygonShape {
     }
 
     float GetMomentOfInertia() const {
-        return 0.5 * (radius * radius);
+        float l = 2 * radius * sin(2 * M_PI / numVertices);
+        float aux = 1 / (3 * tan(M_PI / numVertices) * tan(M_PI / numVertices));
+        return (0.0416666) * (l * l) * (1 + aux);
     }
 
     void Render(TransformComponent transform) const override {
