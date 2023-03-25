@@ -19,25 +19,32 @@ int main(int argc, char *argv[]) {
     RectangleShape rec1 = RectangleShape(100, 50, Color::Yellow(), false);
     RectangleShape rec2 = RectangleShape(100, 50, Color::Orange(), true);
 
+    //References
+    CircleShape &cir1_ref = cir1;
+    CircleShape &cir2_ref = cir2;
+    RectangleShape &rec1_ref = rec1;
+    RectangleShape &rec2_ref = rec2;
+
+    //Entites
     const auto circle = engine.world.create();
     engine.world.emplace<TransformComponent>(circle, Vec2(200, 100));
     engine.world.emplace<KinematicComponent>(circle);
-    engine.world.emplace<RigidBodyComponent>(circle, 1.0f, cir1);
+    engine.world.emplace<RigidBodyComponent>(circle, 1.0f, cir1_ref);
 
     const auto circleFilled = engine.world.create();
     engine.world.emplace<TransformComponent>(circleFilled, Vec2(600, 100));
     engine.world.emplace<KinematicComponent>(circleFilled);
-    engine.world.emplace<RigidBodyComponent>(circleFilled, 1.0f, cir2);
+    engine.world.emplace<RigidBodyComponent>(circleFilled, 1.0f, cir2_ref);
 
     const auto rectangle = engine.world.create();
     engine.world.emplace<TransformComponent>(rectangle, Vec2(200, 300));
     engine.world.emplace<KinematicComponent>(rectangle);
-    engine.world.emplace<RigidBodyComponent>(rectangle, 1.0f, rec1);
+    engine.world.emplace<RigidBodyComponent>(rectangle, 1.0f, rec1_ref);
 
     const auto rectangleFilled = engine.world.create();
     engine.world.emplace<TransformComponent>(rectangleFilled, Vec2(600, 300));
     engine.world.emplace<KinematicComponent>(rectangleFilled);
-    engine.world.emplace<RigidBodyComponent>(rectangleFilled, 1.0f, rec2);
+    engine.world.emplace<RigidBodyComponent>(rectangleFilled, 1.0f, rec2_ref);
 
     std::vector<entt::entity> regularPoygons;
     for (int i = 1; i <= numRegularPolygons; i++) {
@@ -50,10 +57,12 @@ int main(int argc, char *argv[]) {
 
         RegularPolygonShape pol = RegularPolygonShape(radius, i+2, color, false);
 
+        RegularPolygonShape &pol_ref = pol;
+
         const auto polygon = engine.world.create();
         engine.world.emplace<TransformComponent>(polygon, Vec2(positionX * i, 600));
         engine.world.emplace<KinematicComponent>(polygon);
-        engine.world.emplace<RigidBodyComponent>(polygon, 1.0f, pol);
+        engine.world.emplace<RigidBodyComponent>(polygon, 1.0f, pol_ref);
 
         regularPoygons.push_back(polygon);
     }
@@ -70,6 +79,8 @@ int main(int argc, char *argv[]) {
         for (auto& polygon: regularPoygons) {
             auto& polygonRB = engine.world.get<RigidBodyComponent>(polygon);
             polygonRB.AddTorque(torque);
+
+            std::cout << "Poligon: Angular velocity: " << engine.world.get<KinematicComponent>(polygon).angularVelocity << std::endl;
         }
 
         auto& circleRb = engine.world.get<RigidBodyComponent>(circle);

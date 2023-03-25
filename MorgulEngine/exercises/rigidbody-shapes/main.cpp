@@ -12,26 +12,32 @@ int main(int argc, char *argv[]) {
     RectangleShape rec1 = RectangleShape(200, 100, Color::Yellow(), false);
     RectangleShape rec2 = RectangleShape(200, 100, Color::Orange(), true);
 
+    //References
+    CircleShape &cir1_ref = cir1;
+    CircleShape &cir2_ref = cir2;
+    RectangleShape &rec1_ref = rec1;
+    RectangleShape &rec2_ref = rec2;
 
+    //Entities
     const auto circle = engine.world.create();
     engine.world.emplace<TransformComponent>(circle, Vec2(200, 200));
     engine.world.emplace<KinematicComponent>(circle);
-    engine.world.emplace<RigidBodyComponent>(circle, 1.0f, cir1);
+    engine.world.emplace<RigidBodyComponent>(circle, 1.0f, cir1_ref);
 
     const auto circleFilled = engine.world.create();
     engine.world.emplace<TransformComponent>(circleFilled, Vec2(600, 200));
     engine.world.emplace<KinematicComponent>(circleFilled);
-    engine.world.emplace<RigidBodyComponent>(circleFilled, 1.0f, cir2);
+    engine.world.emplace<RigidBodyComponent>(circleFilled, 1.0f, cir2_ref);
 
     const auto rectangle = engine.world.create();
     engine.world.emplace<TransformComponent>(rectangle, Vec2(200, 600));
     engine.world.emplace<KinematicComponent>(rectangle);
-    engine.world.emplace<RigidBodyComponent>(rectangle, 1.0f, rec1);
+    engine.world.emplace<RigidBodyComponent>(rectangle, 1.0f, rec1_ref);
 
     const auto rectangleFilled = engine.world.create();
     engine.world.emplace<TransformComponent>(rectangleFilled, Vec2(600, 600));
     engine.world.emplace<KinematicComponent>(rectangleFilled);
-    engine.world.emplace<RigidBodyComponent>(rectangleFilled, 1.0f, rec2);
+    engine.world.emplace<RigidBodyComponent>(rectangleFilled, 1.0f, rec2_ref);
 
     while (engine.NextFrame()) {
         engine.Update();
