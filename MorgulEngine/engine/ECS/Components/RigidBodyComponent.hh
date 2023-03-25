@@ -6,6 +6,7 @@
 #include "../../PolygonShape.hh"
 #include "../../RegularPolygonShape.hh"
 #include "../../RectangleShape.hh"
+#include "../../StarShape.hh"
 
 struct RigidBodyComponent {
     // Mass

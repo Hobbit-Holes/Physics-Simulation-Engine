@@ -7,8 +7,10 @@ int main(int argc, char *argv[]) {
     MorgulEngine engine = MorgulEngine(width, heigth);
 
     int numRegularPolygons = 4;
-    if (argc == 2) {
+    int numStars = 4;
+    if (argc == 3) {
         numRegularPolygons = strtol(argv[1], nullptr, 0);
+        numStars = strtol(argv[2], nullptr, 0);
     }
 
     float torque = 0.0;
@@ -50,8 +52,8 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i <= numRegularPolygons; i++) {
         float positionX = width / (numRegularPolygons + 1);
         float radius = (positionX / 2) - 10;
-        if (radius > 100) {
-            radius = 100;
+        if (radius > 60) {
+            radius = 60;
         }
         Color color = Color::Lerp(Color:: Magenta(), Color:: Cyan(), (float)i/(float)numRegularPolygons);
 
@@ -60,11 +62,32 @@ int main(int argc, char *argv[]) {
         RegularPolygonShape &pol_ref = pol;
 
         const auto polygon = engine.world.create();
-        engine.world.emplace<TransformComponent>(polygon, Vec2(positionX * i, 600));
+        engine.world.emplace<TransformComponent>(polygon, Vec2(positionX * i, 500));
         engine.world.emplace<KinematicComponent>(polygon);
         engine.world.emplace<RigidBodyComponent>(polygon, 1.0f, pol_ref);
 
         regularPoygons.push_back(polygon);
+    }
+
+    std::vector<entt::entity> stars;
+    for (int i = 1; i <= numStars; i++) {
+        float positionX = width / (numStars + 1);
+        float radius = (positionX / 2) - 10;
+        if (radius > 60) {
+            radius = 60;
+        }
+        Color color = Color::Lerp(Color:: Green(), Color:: Red(), (float)i/(float)numStars);
+
+        StarShape starShape = StarShape(radius, i+2, color, false);
+
+        StarShape &star_ref = starShape;
+
+        const auto star = engine.world.create();
+        engine.world.emplace<TransformComponent>(star, Vec2(positionX * i, 650));
+        engine.world.emplace<KinematicComponent>(star);
+        engine.world.emplace<RigidBodyComponent>(star, 1.0f, star_ref);
+
+        stars.push_back(star);
     }
 
     while (engine.NextFrame()) {
@@ -80,7 +103,14 @@ int main(int argc, char *argv[]) {
             auto& polygonRB = engine.world.get<RigidBodyComponent>(polygon);
             polygonRB.AddTorque(torque);
 
-            std::cout << "Poligon: Angular velocity: " << engine.world.get<KinematicComponent>(polygon).angularVelocity << std::endl;
+            std::cout << "Polygon: Angular velocity: " << engine.world.get<KinematicComponent>(polygon).angularVelocity << std::endl;
+        }
+
+        for (auto& star: stars) {
+            auto& starRB = engine.world.get<RigidBodyComponent>(star);
+            starRB.AddTorque(-torque);
+
+            std::cout << "Star: Angular velocity: " << engine.world.get<KinematicComponent>(star).angularVelocity << std::endl;
         }
 
         auto& circleRb = engine.world.get<RigidBodyComponent>(circle);

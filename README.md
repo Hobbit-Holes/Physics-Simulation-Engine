@@ -15,7 +15,10 @@ Here you can see the different sections that have been carried out during the co
 - [Entity Component System](#entity-component-system)
 - [Physics](#physics)
 - [Force](#force)
+- [Numerical Integration](#numerical-integration)
 - [Soft Bodies](#soft-bodies)
+- [Rigid Bodies](#rigid-bodies)
+- [Event Bus](#event-bus)
 
 ## Introduction
 
@@ -135,11 +138,37 @@ Because there are different types of forces whose behaviours and calculations, w
 - <b>Magnus</b>: It is a force that is generated when an object travels through air and it is perpendicular to the flow velocity, making the object to rotate. We need the coefficient of Magnus <i>(k)</i>, the velocity of the object and his angular velocity.
 - <b>Spring</b>: This force is calculated with the Hooke's law, where the force of the spring is proportional to the displacement of itself. We need the position of the object and the spring, the length of the spring and the coefficient.
 
-For each force we have made same examples to check the proper functioning of the helpers, the examples we have made are: [Gravitational Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravitational-force), [Drag Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/drag-force), [Projectile Drag](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile-drag), [Friction Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/friction-force), [Magnus Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/magnus-force) and [Spring Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/spring-force). Finally, we have the [Exercise 10](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercose10) where we have to implement the forces mentionated before and create a chain of particles using the spring force. In this chain, the head of it is arrached to the anchor and the rest of the aprticles are connected with each other. The result is as follows: 
+For each force we have made same examples to check the proper functioning of the helpers, the examples we have made are: [Gravitational Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/gravitational-force), [Drag Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/drag-force), [Projectile Drag](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/projectile-drag), [Friction Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/friction-force), [Magnus Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/magnus-force) and [Spring Force](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/spring-force). Finally, we have the [Exercise 10](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-10) where we have to implement the forces mentionated before and create a chain of particles using the spring force. In this chain, the head of it is arrached to the anchor and the rest of the aprticles are connected with each other. The result is as follows: 
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise10.gif" alt="Exercise 10" height="300"/></p>
 
+## Numerical Integration
+
+Sometimes, the forces applied to an object are not constant, making the results of the calculations unexact. Until now, we have use the Euler method, but here are others like <b>Explicit Euler</b> which it is a first order numerical procedure. Another method is the <b>Semi-implicit Euler</b> which it is modification of the previous one but with better results. The last one we have seen is the <code>Runge-Kutta</code> method that consist in...
+
+While we have try the different methods we have create some examples to understand how they work and select the one we prefer for our game engine. These examples are [Explicit Euler](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/explicit-euler) and [Runge-Kutta](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/runge-kutta).
+
 ## Soft Bodies
 
-...
+The Soft Bodies are visually realistic physical simulations with deformations, where the shape of the bodies can change. The approach that we have use is the spring/mas model with the verlet integration. This integration consist in calculate the position with the forces and considering the previous position.
 
+In this unit we have two examples, the first one <i>([Soft Bodies](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/soft-bodies))</i> consist in a body falling and touching the floor. The second one <i>([Cloth](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/cloth))</i> is more complex, he have a cloth that it is simulation like a real one.
+
+## Rigid Bodies
+
+Until this point, we have being working with particles, but maybe, we want to manage other types of variables like center of mass, inertia, etc. So we will work with Rigid Bodies that doesn't have deformations. To archive this we have create the <code>RigidBodyComponent</code> and the <code>RigidBodySystem</code>, and we have actualize the Kinemtic Component to be able to calculate the angular velocity and acceleration. 
+
+Depending on the shape of the body, some calculations can be different, so we have create a <code>Shape</code> library. With this library we can create the following shapes:
+
+- <b>Circles</b> <i>(Filled and not filled)</i>
+- <b>Rectangles</b> <i>(Filled and not filled)</i>
+- <b>Regular Polygons</b> <i>(Not filled)</i>
+- <b>Stars</b> <i>(Not filled)</i>
+
+For this section we have made an example <i>([Rigidboby Shapes](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/rigidbody-shapes))</i> where we have four shapes, a circle and a rectangle not filled that rotate because we apply a torque, and a circle and a rectangle filled that don't move. And finally, we have the [Exercise 11](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-11) where we have to control the orientation of the objects with the keyboard and add some objects, the result is as follows:
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise11.gif" alt="Exercise 11" height="300"/></p>
+
+## Event Bus
+
+...

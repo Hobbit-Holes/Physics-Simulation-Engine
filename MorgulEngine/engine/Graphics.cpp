@@ -229,3 +229,52 @@ void Graphics::DrawFillCircle(int x0, int y0, int radius, Color color) {
         }
     }
 }
+
+void Graphics::DrawStar(int x, int y, int radius, int points, Color color) {
+    // Check parameters
+    if (radius <= 0) {
+        radius = 1;
+    }
+
+    if (points < 3) {
+        points = 3;
+    }
+
+    // Vertices
+    std::vector<Vec2> pointsPosition;
+    for (int i = 1; i <= points; i++) {
+        Vec2 position = position.FromModuleAngle(radius, (2* M_PI / points) * (i));
+        position += Vec2(x, y);
+        pointsPosition.push_back(position);
+    }
+
+    // Draw star
+    for (int i = 0; i < points; i++) {
+        Vec2 actualPoint = pointsPosition[i];
+        
+        int j = i + 2;
+        if (j >= points) {
+            j = j - points;
+        }
+
+        Vec2 nextPoint = pointsPosition[j];
+
+        DrawLineSDL(actualPoint.x, actualPoint.y, nextPoint.x, nextPoint.y, color);
+    }
+}
+
+void Graphics::DrawStar(int x, int y, const std::vector<Vec2>& vertices, Color color) {
+    // Draw star
+    for (int i = 0; i < (int)vertices.size(); i++) {
+        Vec2 actualPoint = vertices[i];
+        
+        int j = i + 2;
+        if (j >= (int)vertices.size()) {
+            j = j - (int)vertices.size();
+        }
+
+        Vec2 nextPoint = vertices[j];
+
+        DrawLineSDL(x + actualPoint.x, y + actualPoint.y, x + nextPoint.x, y + nextPoint.y, color);
+    }
+}
