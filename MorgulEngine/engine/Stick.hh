@@ -11,6 +11,9 @@ class Stick {
         Point& p0;
         Point& p1;
 
+        Vec2 p3;
+        Vec2 p4;
+
         float length;
 
         bool isActive = false;
