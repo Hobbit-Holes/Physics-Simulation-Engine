@@ -20,6 +20,7 @@ Here you can see the different sections that have been carried out during the co
 - [Rigid Bodies](#rigid-bodies)
 - [Event Bus](#event-bus)
 - [Naming and Groupping](#naming-and-groupping)
+- [Collisions](#collisions)
 
 ## Introduction
 
@@ -172,9 +173,21 @@ For this section we have made an example <i>([Rigidboby Shapes](https://github.c
 
 ## Event Bus
 
-...
+In some situations we want to be notified when some type of action occours <i>(Collisions, key pressed, resize og window...)</i>, to check this, there are two different ways. The first one consists in a passive check where we don't procces any event until the system check if there is something. The another way it is by blocking and making the event be checked by the system.
+
+With the library of <b>EnTT</b> we have some functionalities / <b>Events</b> that we are going to use in our game engine. First of all, we are going to create an Event called <code>KeyDownEvent</code> that manage if any key is pressed and add some support for these events. To check that it works we have create the example [Event](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/event). We have also created the system <code>GridMovementSystem</code> to add some functionality to the event created before, and create another example <i>([Grid Movement](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/grid-movement))</i> to check it out.
+
+Lastly, we have to do the [Exercise 12](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-12) where we need to implement a game that spaw some entities when we press a key. This procces must have the Event Bus support and some events created. The result obtained is as follows: 
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise12.gif" alt="Exercise 12" height="300"/></p>
 
 ## Naming and Groupping
+
+Sometimes we want to identify a entity by a <b>name</b> or some entities by the <b>group</b> they belong. To do so, we have create a new component called <code>NameGroupComponent</code> that add a name and a group name to the entities and be able to identify them. For this section, we have an example <i>([Names Groups](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/names-groups))</i> where we create some objects with a name and group, and depending their name, their behaviour varies. The exercise <i>([Exercise 13](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-13))</i> of this unit consists in add this new component in an example. 
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise13.gif" alt="Exercise 13" height="300"/></p>
+
+## Collisions
 
 ...
 

@@ -81,6 +81,7 @@ Vec2 Vec2::Normal() const {
     return Vec2(-y, x);
 }
 
+// Projections
 Vec2 Vec2::Projection(Vec2 w) const {
     float a = (x*w.x + y*w.y);
     float b = (x*x + y*y);
@@ -103,6 +104,7 @@ Vec2 Vec2::OrthonormalProjection(Vec2 w) const {
     return Vec2(c.x/module, c.y/module);
 }
 
+// Dot and Cross
 float Vec2::Dot(const Vec2& v) const {
     return (x * v.x + y * v.y);
 }
@@ -111,6 +113,7 @@ float Vec2::Cross(const Vec2& v) const {
     return ((x * v.y - y * v.x) / 1);
 }
 
+// Lerp
 Vec2 Vec2::Lerp(Vec2 a, Vec2 b, float t) {
     return Vec2(a * (1 - t) + b * t);
 }
@@ -142,6 +145,7 @@ bool Vec2::operator != (const Vec2& v) const {
     }
 }
 
+// Simple operations
 Vec2 Vec2::operator + (const Vec2& v) const {
     return Vec2(x + v.x, y + v.y);
 }
@@ -162,6 +166,7 @@ Vec2 Vec2::operator - () {
     return Vec2(-1 * x, -1 * y);
 }
 
+// Equal operations
 Vec2& Vec2::operator += (const Vec2& v) {
     x += v.x;
     y += v.y;

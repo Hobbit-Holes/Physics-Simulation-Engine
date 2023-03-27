@@ -6,17 +6,25 @@
 struct StarShape: public PolygonShape {
     float radius;
     int numVertices;
+    bool platinum;
  
-    StarShape(float radius = 1.0f, int numVertices = 3, Color color = Color::White(), bool filled = true) {
+    StarShape(float radius = 1.0f, int numVertices = 3, Color color = Color::White(), bool platinum = false) {
         this->radius = radius;
-        if (numVertices < 3) {
-            this->numVertices = 3;
+        this->platinum = platinum;
+
+        int minimum = 3;
+        if (this->platinum == false) {
+            minimum = 5;
+        }
+
+        if (numVertices < minimum) {
+            this->numVertices = minimum;
         } else {
             this->numVertices = numVertices;
         }
 
         this->color = color;
-        this->filled = filled;
+        this->filled = false;
 
         // Vertices
         std::vector<entt::entity> balls;
@@ -29,7 +37,7 @@ struct StarShape: public PolygonShape {
     }
 
     Shape* Clone() const {
-        return new StarShape(radius, numVertices, color, filled);
+        return new StarShape(radius, numVertices, color, platinum);
     }
 
     ShapeType GetType() const {
@@ -43,8 +51,8 @@ struct StarShape: public PolygonShape {
     }
 
     void Render(TransformComponent transform) const override {
-        if (this->filled) {
-            Graphics::DrawStar(0, 0, this->worldVertices, this->color);
+        if (this->platinum) {
+            Graphics::DrawStarPlatinum(0, 0, this->radius, this->worldVertices, this->color);
         } else {
             Graphics::DrawStar(0, 0, this->worldVertices, this->color);
         }

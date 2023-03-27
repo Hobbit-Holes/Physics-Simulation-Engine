@@ -35,4 +35,6 @@ class Graphics {
         static void DrawFillCircle(int x0, int y0, int radius, Color color);
         static void DrawStar(int x, int y, int radius, int points, Color color);
         static void DrawStar(int x, int y, const std::vector<Vec2>& vertices, Color color);
+        static void DrawStarPlatinum(int x, int y, int radius, int points, Color color);
+        static void DrawStarPlatinum(int x, int y, float radius, const std::vector<Vec2>& vertices, Color color);
 };

@@ -40,21 +40,24 @@ struct Vec2 {
     float Dot(const Vec2& v) const;
     float Cross(const Vec2& v) const;
 
+    // Lerp
     static Vec2 Lerp(Vec2 a, Vec2 b, float t);
 
-    // Operators
+    // OPERATORS
     friend std::ostream& operator << (std::ostream& os, const Vec2& v);
 
     Vec2& operator = (const Vec2& v);
     bool operator == (const Vec2& v) const;
     bool operator != (const Vec2& v) const;
 
+    // Simple operations
     Vec2 operator + (const Vec2& v) const;
     Vec2 operator - (const Vec2& v) const;
     Vec2 operator * (const float n) const;
     Vec2 operator / (const float n) const;
     Vec2 operator - ();
 
+    // Equal operations
     Vec2& operator += (const Vec2& v);
     Vec2& operator -= (const Vec2& v);
     Vec2& operator *= (const float n);

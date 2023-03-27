@@ -236,8 +236,8 @@ void Graphics::DrawStar(int x, int y, int radius, int points, Color color) {
         radius = 1;
     }
 
-    if (points < 3) {
-        points = 3;
+    if (points < 5) {
+        points = 5;
     }
 
     // Vertices
@@ -276,5 +276,61 @@ void Graphics::DrawStar(int x, int y, const std::vector<Vec2>& vertices, Color c
         Vec2 nextPoint = vertices[j];
 
         DrawLineSDL(x + actualPoint.x, y + actualPoint.y, x + nextPoint.x, y + nextPoint.y, color);
+    }
+}
+
+void Graphics::DrawStarPlatinum(int x, int y, int radius, int points, Color color) {
+    // Check parameters
+    if (radius <= 0) {
+        radius = 1;
+    }
+
+    if (points < 3) {
+        points = 3;
+    }
+
+    // Vertices
+    std::vector<Vec2> pointsPosition;
+    for (int i = 1; i <= points; i++) {
+        Vec2 position = position.FromModuleAngle(radius, (2* M_PI / points) * (i));
+        pointsPosition.push_back(position);
+    }
+
+    // Draw star
+    for (int i = 0; i < points; i++) {
+        Vec2 actualPoint = pointsPosition[i];
+        
+        int j = i + 1;
+        if (j >= points) {
+            j = 0;
+        }
+
+        Vec2 nextPoint = pointsPosition[j];
+
+        Vec2 distance = nextPoint - actualPoint;
+        Vec2 middlePoint = distance / 2 + distance.UnitVector().Normal() * (radius / 4);
+
+        DrawLineSDL(x + actualPoint.x, y + actualPoint.y, x + actualPoint.x + middlePoint.x, y + actualPoint.y + middlePoint.y, color);
+        DrawLineSDL(x + actualPoint.x + middlePoint.x, y + actualPoint.y + middlePoint.y, x + nextPoint.x, y + nextPoint.y, color);
+    }
+}
+
+void Graphics::DrawStarPlatinum(int x, int y, float radius, const std::vector<Vec2>& vertices, Color color) {
+    // Draw star
+    for (int i = 0; i < (int)vertices.size(); i++) {
+        Vec2 actualPoint = vertices[i];
+        
+        int j = i + 1;
+        if (j >= (int)vertices.size()) {
+            j = 0;
+        }
+
+        Vec2 nextPoint = vertices[j];
+
+        Vec2 distance = nextPoint - actualPoint;
+        Vec2 middlePoint = distance / 2 + distance.UnitVector().Normal() * (radius / 4);
+
+        DrawLineSDL(x + actualPoint.x, y + actualPoint.y, x + actualPoint.x + middlePoint.x, y + actualPoint.y + middlePoint.y, color);
+        DrawLineSDL(x + actualPoint.x + middlePoint.x, y + actualPoint.y + middlePoint.y, x + nextPoint.x, y + nextPoint.y, color);
     }
 }
