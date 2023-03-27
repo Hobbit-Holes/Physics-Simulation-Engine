@@ -144,7 +144,7 @@ For each force we have made same examples to check the proper functioning of the
 
 ## Numerical Integration
 
-Sometimes, the forces applied to an object are not constant, making the results of the calculations unexact. Until now, we have use the Euler method, but here are others like <b>Explicit Euler</b> which it is a first order numerical procedure. Another method is the <b>Semi-implicit Euler</b> which it is modification of the previous one but with better results. The last one we have seen is the <code>Runge-Kutta</code> method that consist in...
+Sometimes, the forces applied to an object are not constant, making the results of the calculations inaccurate. Until now, we have use the Euler method, but here are others like <b>Explicit Euler</b> which it is a first order numerical procedure. Another method is the <b>Semi-implicit Euler</b> which it is modification of the previous one but with better results. The last one we have seen is the <code>Runge-Kutta</code> method that consist of determining the position zn +1 at a future time instant tn + Δ𝑡, where Δ𝑡 is the time increment, given the position zn, velocity at a known time instant tn.
 
 While we have try the different methods we have create some examples to understand how they work and select the one we prefer for our game engine. These examples are [Explicit Euler](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/explicit-euler) and [Runge-Kutta](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/runge-kutta).
 
@@ -152,7 +152,7 @@ While we have try the different methods we have create some examples to understa
 
 The Soft Bodies are visually realistic physical simulations with deformations, where the shape of the bodies can change. The approach that we have use is the spring/mas model with the verlet integration. This integration consist in calculate the position with the forces and considering the previous position.
 
-In this unit we have two examples, the first one <i>([Soft Bodies](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/soft-bodies))</i> consist in a body falling and touching the floor. The second one <i>([Cloth](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/cloth))</i> is more complex, he have a cloth that it is simulation like a real one.
+In this unit we have two examples, the first one <i>([Soft Bodies](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/softbody))</i> consist in a body falling and touching the floor. The second one <i>([Cloth](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/cloth))</i> is more complex, he have a cloth that it is simulation like a real one.
 
 ## Rigid Bodies
 
