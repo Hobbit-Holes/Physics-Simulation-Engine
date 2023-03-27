@@ -13,6 +13,7 @@
 
 //Entity Component System
 #include "entt/entt.hpp"
+#include "Events/KeyDownEvent.hh"
 #include "ECS/Components/IncludeComponents.hh"
 #include "ECS/Systems/IncludeSystems.hh"
 
@@ -44,9 +45,11 @@ class MorgulEngine {
 
         //EnTT (ECS)
         entt::registry world;
+        entt::dispatcher eventBus;
 
         // Systems
         KinematicSystem kinematicSystem;
         ParticleSystem particleSystem;
         RigidBodySystem rigidBodySystem;
+        GridMovementSystem gridMovementSystem;
 };

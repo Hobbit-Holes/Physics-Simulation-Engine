@@ -4,5 +4,6 @@
 #include "KinematicSystem.hh"
 #include "ParticleSystem.hh"
 #include "RigidBodySystem.hh"
+#include "GridMovementSystem.hh"
 
 #endif

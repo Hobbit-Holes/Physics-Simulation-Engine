@@ -13,6 +13,11 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
     if (Graphics::OpenWindow(width, heigth)) {
         Logger::Info("Graphics initialized.");
     }
+
+    // Event Bus
+    eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridMovementSystem);
+    Logger::Info("Event Bus initialized.");
+
     running = true;
 }
 
@@ -53,6 +58,7 @@ void MorgulEngine::CheckInput() {
             if (event.button.button == SDL_BUTTON_RIGHT) {
                 mouse->rightButtonPressed = true;
             }
+
             break;
         case SDL_MOUSEBUTTONUP:
             if (event.button.button == SDL_BUTTON_LEFT) {
@@ -89,6 +95,8 @@ void MorgulEngine::CheckInput() {
             if (event.key.keysym.sym == SDLK_LEFT) {
                 keyboard->leftKeyPressed = true;
             }
+
+            eventBus.trigger(KeyDownEvent(event.key.keysym.sym, world));
             break;
         case SDL_KEYUP:
             if (event.key.keysym.sym == SDLK_F1) {

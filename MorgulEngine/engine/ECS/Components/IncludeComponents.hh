@@ -5,5 +5,7 @@
 #include "KinematicComponent.hh"
 #include "ParticleComponent.hh"
 #include "RigidBodyComponent.hh"
+#include "GridMovementComponent.hh"
+#include "NameGroupComponent.hh"
 
 #endif

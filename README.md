@@ -19,6 +19,7 @@ Here you can see the different sections that have been carried out during the co
 - [Soft Bodies](#soft-bodies)
 - [Rigid Bodies](#rigid-bodies)
 - [Event Bus](#event-bus)
+- [Naming and Groupping](#naming-and-groupping)
 
 ## Introduction
 
@@ -172,3 +173,8 @@ For this section we have made an example <i>([Rigidboby Shapes](https://github.c
 ## Event Bus
 
 ...
+
+## Naming and Groupping
+
+...
+
