@@ -117,6 +117,8 @@ void MorgulEngine::CheckInput() {
             if (event.key.keysym.sym == SDLK_LEFT) {
                 keyboard->leftKeyPressed = false;
             }
+
+            eventBus.trigger(KeyUpEvent(event.key.keysym.sym, world));
             break;
         default:
             break;

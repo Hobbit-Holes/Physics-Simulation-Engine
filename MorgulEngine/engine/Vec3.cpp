@@ -31,7 +31,7 @@ void Vec3::Scale(const Vec3& v) {
 }
 
 Vec3 Vec3::Rotate(const float angle) {
-
+    return Vec3(0, 0, 0);
 }
 
 
@@ -44,19 +44,19 @@ float Vec3::MagnitudeSquared() const {
 }
 
 float Vec3::Angle() const {
-
+    return 0;
 }
 
 float Vec3::Angle(Vec3 v) {
-
+    return 0;
 }
 
 float Vec3::Angle(float a, float b) {
-
+    return 0;
 }
 
 Vec3 Vec3::FromModuleAngle(float a, float b) {
-
+    return Vec3(0, 0, 0);
 }
 
 
@@ -74,21 +74,21 @@ Vec3 Vec3::UnitVector() const {
 }
 
 Vec3 Vec3::Normal() const {
-
+    return Vec3(0, 0, 0);
 }
 
 
 // Projections
 Vec3 Vec3::Projection(Vec3 w) const {
-
+    return Vec3(0, 0, 0);
 }
 
 float Vec3::ScalarProjection(Vec3 w) const {
-
+    return 0;
 }
 
 Vec3 Vec3::OrthonormalProjection(Vec3 w) const {
-
+    return Vec3(0, 0, 0);
 }
 
 
@@ -98,7 +98,7 @@ float Vec3::Dot(const Vec3& v) const {
 }
 
 float Vec3::Cross(const Vec3& v) const {
-
+    return 0;
 }
 
 // Lerp

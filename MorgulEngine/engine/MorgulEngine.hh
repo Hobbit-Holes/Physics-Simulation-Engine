@@ -14,6 +14,7 @@
 //Entity Component System
 #include "entt/entt.hpp"
 #include "Events/KeyDownEvent.hh"
+#include "Events/KeyUpEvent.hh"
 #include "ECS/Components/IncludeComponents.hh"
 #include "ECS/Systems/IncludeSystems.hh"
 
