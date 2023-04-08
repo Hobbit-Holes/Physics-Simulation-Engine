@@ -1,60 +1,39 @@
 #include "MorgulEngine.hh"
 #include <cstdlib>
 
+void OnKeyDown(const KeyDownEvent& keyDown) noexcept {
+    std::cout << "KeyDown event" << keyDown.symbol << std::endl;
+
+    if (keyDown.symbol == SDLK_UP) {
+        std::cout << "Pressed UP arrow" << std::endl;
+    }
+    if (keyDown.symbol == SDLK_DOWN) {
+        std::cout << "Pressed DOWN arrow" << std::endl;
+    }
+    if (keyDown.symbol == SDLK_RIGHT) {
+        std::cout << "Pressed RIGHT arrow" << std::endl;
+    }
+    if (keyDown.symbol == SDLK_LEFT) {
+        std::cout << "Pressed LEFT arrow" << std::endl;
+    }
+}
+
 int main(int argc, char *argv[]) {
     int width = 800;
     int heigth = 800;
-    int radio = 50;
+
+    int radius = 35;
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
 
-    //Inizialization of verties
-    int a = rand() % 4;
-    std::vector<Vec2> worldVertices;
-    if(a == 0) {
-        for (int i = 1; i <= 3; i++) {
-            Vec2 position = position.FromModuleAngle(radio, (2* M_PI / 3) * (i));
-            worldVertices.push_back(position);
-        }
-    } 
-    if (a == 1) {
-        for (int i = 1; i <= 4; i++) {
-            Vec2 position = position.FromModuleAngle(radio, (2* M_PI / 4) * (i));
-            worldVertices.push_back(position);
-        }
-    }
-    if (a == 2) {
-        for (int i = 1; i <= 5; i++) {
-            Vec2 position = position.FromModuleAngle(radio, (2* M_PI / 5) * (i));
-            worldVertices.push_back(position);
-        }
-    }
-    if (a == 3) {
-        for (int i = 1; i <= 6; i++) {
-            Vec2 position = position.FromModuleAngle(radio, (2* M_PI / 6) * (i));
-            worldVertices.push_back(position);
-        }
-    }
+    // Player
+    const auto player = engine.world.create();
+    engine.world.emplace<TransformComponent>(player, Vec2(width/2, heigth/2));
+    engine.world.emplace<GridMovementComponent>(player, 100);
 
-    // Objects
-    const auto ball = engine.world.create();
-    engine.world.emplace<TransformComponent>(ball, Vec2(width/2, heigth/2));
-    engine.world.emplace<GridMovementComponent>(ball, 100);
-
-    const auto poligon = engine.world.create();
-    engine.world.emplace<TransformComponent>(poligon, Vec2(width/2, heigth/2));
-    engine.world.emplace<GridMovementComponent>(poligon, 100);
-
-    const auto star1 = engine.world.create();
-    engine.world.emplace<TransformComponent>(star1, Vec2(width/2, heigth/2));
-    engine.world.emplace<GridMovementComponent>(star1, 100);
-
-    const auto star2 = engine.world.create();
-    engine.world.emplace<TransformComponent>(star2, Vec2(width/2, heigth/2));
-    engine.world.emplace<GridMovementComponent>(star2, 100);
-
-    int n = rand() % 6 + 5;
+    // Event
+    engine.eventBus.sink<KeyDownEvent>().connect<&OnKeyDown>();
 
     while (engine.NextFrame()) {
         engine.Update();
@@ -63,20 +42,51 @@ int main(int argc, char *argv[]) {
         Graphics::DrawGrid(100, true, true);
 
         if (engine.keyboard->upKeyPressed) {
-            const auto transform = engine.world.get<TransformComponent>(star2);
-            Graphics::DrawStarPlatinum(transform.position.x, transform.position.y, radio, worldVertices, Color::White());
+            int n = rand() % 6 + 6;
+            const auto transform = engine.world.get<TransformComponent>(player);
+
+            RegularPolygonShape fig = RegularPolygonShape(radius, n, Color::Orange(), false);
+            RegularPolygonShape &fig_ref = fig;
+
+            const auto newObject = engine.world.create();
+            engine.world.emplace<TransformComponent>(newObject, Vec2(transform.position.x, transform.position.y));
+            engine.world.emplace<KinematicComponent>(newObject);
+            engine.world.emplace<RigidBodyComponent>(newObject, 1.0f, fig_ref);
         }
         if (engine.keyboard->downKeyPressed) {
-            const auto transform = engine.world.get<TransformComponent>(star1);
-            Graphics::DrawStar(transform.position.x, transform.position.y, radio, n, Color::White());
+            const auto transform = engine.world.get<TransformComponent>(player);
+
+            CircleShape fig = CircleShape(radius, Color::Magenta(), true);
+            CircleShape &fig_ref = fig;
+
+            const auto newObject = engine.world.create();
+            engine.world.emplace<TransformComponent>(newObject, Vec2(transform.position.x, transform.position.y));
+            engine.world.emplace<KinematicComponent>(newObject);
+            engine.world.emplace<RigidBodyComponent>(newObject, 1.0f, fig_ref);
         }
         if (engine.keyboard->rightKeyPressed) {
-            const auto transform = engine.world.get<TransformComponent>(ball);
-            Graphics::DrawFillCircle(transform.position.x, transform.position.y, radio/2, Color::White());
+            int n = rand() % 6 + 6;
+            const auto transform = engine.world.get<TransformComponent>(player);
+
+            StarShape fig = StarShape(radius, n, Color::Cyan(), false);
+            StarShape &fig_ref = fig;
+
+            const auto newObject = engine.world.create();
+            engine.world.emplace<TransformComponent>(newObject, Vec2(transform.position.x, transform.position.y));
+            engine.world.emplace<KinematicComponent>(newObject);
+            engine.world.emplace<RigidBodyComponent>(newObject, 1.0f, fig_ref);
         }
         if (engine.keyboard->leftKeyPressed) {
-            const auto transform = engine.world.get<TransformComponent>(poligon);
-            Graphics::DrawPolygon(transform.position.x, transform.position.y, worldVertices, Color::White());
+            int n = rand() % 6 + 6;
+            const auto transform = engine.world.get<TransformComponent>(player);
+
+            StarShape fig = StarShape(radius, n, Color::Green(), true);
+            StarShape &fig_ref = fig;
+
+            const auto newObject = engine.world.create();
+            engine.world.emplace<TransformComponent>(newObject, Vec2(transform.position.x, transform.position.y));
+            engine.world.emplace<KinematicComponent>(newObject);
+            engine.world.emplace<RigidBodyComponent>(newObject, 1.0f, fig_ref);
         }
 
         engine.Render();

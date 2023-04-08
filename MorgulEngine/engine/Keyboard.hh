@@ -3,6 +3,7 @@
 
 struct Keyboard
 {
+    // Pressed
     bool upKeyPressed = false;
     bool downKeyPressed = false;
     bool leftKeyPressed = false;
