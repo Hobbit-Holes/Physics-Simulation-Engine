@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         RegularPolygonShape &obj_ref = obj;
 
         const auto object = engine.world.create();
-        engine.world.emplace<TransformComponent>(object, Vec2(100, 75) + Vec2(600, 0) * (i - 1) / (numObjectsUp - 1));
+        engine.world.emplace<TransformComponent>(object, Vec2(100, 75) + Vec2(600, 0) * (i - 1) / (numObjectsUp));
         engine.world.emplace<KinematicComponent>(object, Vec2(speedObject, 0));
         engine.world.emplace<RigidBodyComponent>(object, 1.0f, obj_ref);
         engine.world.emplace<NameGroupComponent>(object, "Up " + std::to_string(i), "UPS");
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         RegularPolygonShape &obj_ref = obj;
 
         const auto object = engine.world.create();
-        engine.world.emplace<TransformComponent>(object, Vec2(700, 725) - Vec2(600, 0) * (i - 1) / (numObjectsDown - 1));
+        engine.world.emplace<TransformComponent>(object, Vec2(700, 725) - Vec2(600, 0) * (i - 1) / (numObjectsDown));
         engine.world.emplace<KinematicComponent>(object, Vec2(-speedObject, 0));
         engine.world.emplace<RigidBodyComponent>(object, 1.0f, obj_ref);
         engine.world.emplace<NameGroupComponent>(object, "Down " + std::to_string(i), "DOWNS");
@@ -54,8 +54,8 @@ int main(int argc, char *argv[]) {
         RegularPolygonShape &obj_ref = obj;
 
         const auto object = engine.world.create();
-        engine.world.emplace<TransformComponent>(object, Vec2(725, 100) + Vec2(0, 600) * (i - 1) / (numObjectsRight - 1));
-        engine.world.emplace<KinematicComponent>(object, Vec2(0, -speedObject));
+        engine.world.emplace<TransformComponent>(object, Vec2(725, 100) + Vec2(0, 600) * (i - 1) / (numObjectsRight));
+        engine.world.emplace<KinematicComponent>(object, Vec2(0, speedObject));
         engine.world.emplace<RigidBodyComponent>(object, 1.0f, obj_ref);
         engine.world.emplace<NameGroupComponent>(object, "Right " + std::to_string(i), "RIGHTS");
 
@@ -68,8 +68,8 @@ int main(int argc, char *argv[]) {
         RegularPolygonShape &obj_ref = obj;
 
         const auto object = engine.world.create();
-        engine.world.emplace<TransformComponent>(object, Vec2(75, 700) - Vec2(0, 600) * (i - 1) / (numObjectsLeft - 1));
-        engine.world.emplace<KinematicComponent>(object, Vec2(0, speedObject));
+        engine.world.emplace<TransformComponent>(object, Vec2(75, 700) - Vec2(0, 600) * (i - 1) / (numObjectsLeft));
+        engine.world.emplace<KinematicComponent>(object, Vec2(0, -speedObject));
         engine.world.emplace<RigidBodyComponent>(object, 1.0f, obj_ref);
         engine.world.emplace<NameGroupComponent>(object, "Left " + std::to_string(i), "LEFTS");
 
@@ -116,22 +116,19 @@ int main(int argc, char *argv[]) {
 
         Vec2 minDistance(1000, 1000);
 
-        auto view = engine.world.view<TransformComponent, KinematicComponent, NameGroupComponent>();
+        auto view = engine.world.view<TransformComponent, NameGroupComponent>();
         auto& transformObject = view.get<TransformComponent>(star);
 
         for (auto entity: view) {
             const auto nameGroup = view.get<NameGroupComponent>(entity);
             auto& transform = view.get<TransformComponent>(entity);
-            auto& kinem = view.get<KinematicComponent>(entity);
 
             if (nameGroup.group == "UPS") {
                 start_position  = Vec2(100, 75);
                 end_position  = Vec2(700, 75);
 
                 if (transform.position.x > end_position.x) {
-                    kinem.velocity = Vec2(-speedObject, 0);
-                } else if (transform.position.x < start_position.x) {
-                    kinem.velocity = Vec2(speedObject, 0);
+                    transform.position = start_position;
                 }
             }
             else if (nameGroup.group == "DOWNS") {
@@ -139,29 +136,23 @@ int main(int argc, char *argv[]) {
                 end_position  = Vec2(100, 725);
 
                 if (transform.position.x < end_position.x) {
-                    kinem.velocity = Vec2(speedObject, 0);
-                } else if (transform.position.x > start_position.x) {
-                    kinem.velocity = Vec2(-speedObject, 0);
+                    transform.position = start_position;
                 }
             }
             else if (nameGroup.group == "RIGHTS") {
-                start_position  = Vec2(725, 100);
-                end_position  = Vec2(725, 700);
+                start_position = Vec2(725, 100);
+                end_position = Vec2(725, 700);
 
                 if (transform.position.y > end_position.y) {
-                    kinem.velocity = Vec2(0, -speedObject);
-                } else if (transform.position.y < start_position.y) {
-                    kinem.velocity = Vec2(0, speedObject);
+                    transform.position = start_position;
                 }
             }
-            else {
-                start_position  = Vec2(75, 700);
-                end_position  = Vec2(75, 100);
+            else if (nameGroup.group == "LEFTS") {
+                start_position = Vec2(75, 700);
+                end_position = Vec2(75, 100);
 
                 if (transform.position.y < end_position.y) {
-                    kinem.velocity = Vec2(0, speedObject);
-                } else if (transform.position.y > start_position.y) {
-                    kinem.velocity = Vec2(0, -speedObject);
+                    transform.position = start_position;
                 }
             }
 
