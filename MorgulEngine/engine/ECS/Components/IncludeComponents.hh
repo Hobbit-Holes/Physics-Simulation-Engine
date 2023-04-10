@@ -7,5 +7,6 @@
 #include "RigidBodyComponent.hh"
 #include "GridMovementComponent.hh"
 #include "NameGroupComponent.hh"
+#include "ColliderComponent.hh"
 
 #endif

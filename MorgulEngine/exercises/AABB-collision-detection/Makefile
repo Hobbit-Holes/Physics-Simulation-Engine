@@ -1,6 +1,6 @@
 OBJS = main.cpp
 CCPS = ./../../engine/*.cpp
-OBJ_NAME = collision-detection-circle-circle-1.exe
+OBJ_NAME = AABB-collision-detection.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -I./../../engine/ -I./../../libs/
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib

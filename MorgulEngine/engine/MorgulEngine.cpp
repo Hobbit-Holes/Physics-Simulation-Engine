@@ -134,6 +134,7 @@ void MorgulEngine::Update() {
     kinematicSystem.Update(dt, world);
     particleSystem.Update(world);
     rigidBodySystem.Update(dt, world);
+    collisionsSystem.Update(eventBus, world);
 }
 
 void MorgulEngine::Render() {

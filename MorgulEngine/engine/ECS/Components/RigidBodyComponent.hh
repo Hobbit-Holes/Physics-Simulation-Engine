@@ -62,8 +62,9 @@ struct RigidBodyComponent {
         sumTorques = 0.0;
     }
 
-    bool IsStatic() {
-        return this->isStatic;
+    bool IsStatic() const {
+        const float epsilon = 0.005f;
+        return fabs(this->isStatic - 0.0) < epsilon;
     }
 };
 
