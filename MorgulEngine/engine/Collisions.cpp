@@ -78,7 +78,7 @@ bool Collisions::IsCollidingPolygonPolygon(entt::entity& a, entt::entity& b, Con
 }
 
 bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world) {
-    const PolygonShape* polygonShape = (PolygonShape*)world.get<ColliderComponent>(b).shape;
+    const RectangleShape* polygonShape = (RectangleShape*)world.get<ColliderComponent>(b).shape;
     const CircleShape* circleShape = (CircleShape*)world.get<ColliderComponent>(a).shape;
     auto& transformA = world.get<TransformComponent>(a);
     auto& transformB = world.get<TransformComponent>(b);
@@ -87,15 +87,29 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
     float cy = transformA.position.y;
     float rx = transformB.position.x;
     float ry = transformB.position.y;
+    float rw = polygonShape->width;
+    float rh = polygonShape->heigth;
 
     float testX = transformA.position.x;
     float testY = transformA.position.y;
+
+    if (cx < rx) testX = rx;
+    else if (cx > rx+rw) testX = rx+rw;
+    if (cy < ry) testY = ry;
+    else if (cy > ry+rh) testY = ry+rh;
 
     float distX = cx-testX;
     float distY = cy-testY;
     float distance = sqrt( (distX*distX) + (distY*distY) );
 
     if (distance <= circleShape->radius) {
+        contact.a = a;
+        contact.b = b;
+        contact.normal = Vec2(distX / distance, distY / distance);
+        contact.start = transformA.position - contact.normal * circleShape->radius;
+        contact.end = transformB.position + contact.normal * std::min(rw, rh);
+        contact.depth = circleShape->radius - distance;
+
         return true;
     }
     return false;
