@@ -1,3 +1,6 @@
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
+
 #include <SDL2/SDL.h>
 #include <cstring>
 #include <stdint.h>
@@ -38,3 +41,5 @@ class Graphics {
         static void DrawStarPlatinum(int x, int y, int radius, int points, Color color);
         static void DrawStarPlatinum(int x, int y, float radius, const std::vector<Vec2>& vertices, Color color);
 };
+
+#endif

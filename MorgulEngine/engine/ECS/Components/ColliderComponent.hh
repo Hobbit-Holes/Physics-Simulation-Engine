@@ -7,8 +7,8 @@ struct ColliderComponent {
     bool rederCollider;
     bool isColliding;
 
-    ColliderComponent(Shape* shape, bool renderCollider) {
-        this->shape = shape->Clone();
+    ColliderComponent(Shape& shape, bool renderCollider = false) {
+        this->shape = shape.Clone();
         this->rederCollider = renderCollider;
         this->isColliding = false;
     } 

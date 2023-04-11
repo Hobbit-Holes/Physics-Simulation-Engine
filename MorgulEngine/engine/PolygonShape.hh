@@ -27,6 +27,47 @@ struct PolygonShape: public Shape {
             worldVertices.push_back(rotatedVertex + position);
         }
     }
+
+    Vec2 EdgeAt(int index) const {
+        const int numVertices = static_cast<int>(this->worldVertices.size());
+        if (numVertices < 2) {
+            // No edges if there are less than 2 vertices.
+            return Vec2();
+        } else if (index == numVertices - 1) {
+            // Last vertex loops back to first vertex.
+            return this->worldVertices[0] - this->worldVertices[index];
+        } else {
+            // Return the edge between the current and next vertex.
+            return this->worldVertices[index + 1] - this->worldVertices[index];
+        }
+    }
+
+    float FindMinSeparation(const PolygonShape* other, Vec2& axis, Vec2& point) const {
+        float separation = std::numeric_limits<float>::lowest();
+        //Loop all the vertices of "this" polygon
+        for(int i = 0; i < static_cast<int>(this->worldVertices.size()); i++) {
+            Vec2 va = this->worldVertices[i];
+            Vec2 normal = this->EdgeAt(i).Normal();
+            //Loop all the vertices of the "other" polygon
+            float minSep = std::numeric_limits<float>::max();
+            Vec2 minVertex;
+            for(int j = 0; j < static_cast<int>(other->worldVertices.size()); j++) {
+                Vec2 vb = other->worldVertices[j];
+                float proj = (vb - va).Dot(normal);
+                if(proj < minSep) {
+                    minSep = proj;
+                    minVertex = vb;
+                }
+            }
+            if (minSep > separation) {
+                separation = minSep;
+                axis = this->EdgeAt(i);
+                point = minVertex;
+            }
+        }
+
+        return separation;
+    }
 };
 
 #endif

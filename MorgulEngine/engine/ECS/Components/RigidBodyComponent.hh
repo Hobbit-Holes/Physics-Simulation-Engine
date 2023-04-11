@@ -14,6 +14,7 @@ struct RigidBodyComponent {
     float invMass;
     float I;
     float invI;
+    float restitution = 0.005f;
 
     // Static
     bool isStatic;

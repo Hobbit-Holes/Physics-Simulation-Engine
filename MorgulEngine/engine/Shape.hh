@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Color.hh"
 #include "Vec2.hh"
+#include "Graphics.hh"
 #include "./ECS/Components/TransformComponent.hh"
 
 enum ShapeType {

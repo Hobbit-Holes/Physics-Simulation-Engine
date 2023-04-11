@@ -2,8 +2,7 @@
 #define COLLISIONS_H
 
 #include "entt/entt.hpp"
-#include "./ECS/Components/IncludeComponents.hh"
-#include "Vec2.hh"
+#include "ECS/Components/IncludeComponents.hh"
 
 struct Contact {
     entt::entity a;
