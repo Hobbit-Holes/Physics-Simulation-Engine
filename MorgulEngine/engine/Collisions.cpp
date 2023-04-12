@@ -12,12 +12,12 @@ bool Collisions::IsColliding(entt::entity& a, entt::entity& b, Contact& contact,
     if (aIsPolygon && bIsPolygon) {
         return IsCollidingPolygonPolygon(a, b, contact, world);
     }
-    if (aIsPolygon && bIsCircle) {
+    /*if (aIsPolygon && bIsCircle) {
         return IsCollidingPolygonCircle(a, b, contact, world);
     }
     if (aIsCircle && bIsPolygon) {
         return IsCollidingPolygonCircle(b, a, contact, world);
-    }
+    }*/
 
     return false;
 }
@@ -50,8 +50,13 @@ bool Collisions::IsCollidingCircleCircle(entt::entity& a, entt::entity& b, Conta
 }
 
 bool Collisions::IsCollidingPolygonPolygon(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world) {
-    const PolygonShape* aPolygonShape = (PolygonShape*)world.get<ColliderComponent>(a).shape;
-    const PolygonShape* bPolygonShape = (PolygonShape*)world.get<ColliderComponent>(b).shape;
+    const RectangleShape* aPolygonShape = (RectangleShape*)world.get<ColliderComponent>(a).shape;
+    const RectangleShape* bPolygonShape = (RectangleShape*)world.get<ColliderComponent>(b).shape;
+
+    const auto aTransform = world.get<TransformComponent>(a);
+    const auto bTransform = world.get<TransformComponent>(b);
+
+    const Vec2 ab = bTransform.position - aTransform.position;
 
     Vec2 aAxis, bAxis, aPoint, bPoint;
     float abSeparation = aPolygonShape->FindMinSeparation(bPolygonShape, aAxis, aPoint);
@@ -70,14 +75,14 @@ bool Collisions::IsCollidingPolygonPolygon(entt::entity& a, entt::entity& b, Con
     } else {
         contact.depth = -baSeparation;
         contact.normal = bAxis.Normal();
-        contact.start= bPoint;
-        contact.end = bPoint - contact.normal * contact.depth;
+        contact.start = bPoint - contact.normal * contact.depth;
+        contact.end = bPoint;
     }
 
     return true;
 }
 
-bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+/*bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
 {
     const PolygonShape* polygonShape = (PolygonShape*)world.get<ColliderComponent>(a).shape;
     const CircleShape* circleShape = (CircleShape*)world.get<ColliderComponent>(b).shape;
@@ -85,7 +90,7 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
     const auto& transform = world.get<TransformComponent>(a);
     const auto& transformCircle = world.get<TransformComponent>(b);
 
-}
+}*/
 
 void Collisions::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) {
     auto const rigidbodyA = world.get<RigidBodyComponent>(a);

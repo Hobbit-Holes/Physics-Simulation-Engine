@@ -28,13 +28,12 @@ struct PolygonShape: public Shape {
         }
     }
 
-    Vec2 EdgeAt(int index) const {
-        int nextIndex = index + 1;
-        if (nextIndex >= static_cast<int>(this->worldVertices.size())) {
-            nextIndex = 0;
-        }
-        return this->worldVertices[nextIndex] - this->worldVertices[index];
+    Vec2 EdgeAt(int index) const { 
+        int currVertex = index;
+        int nextVertex = (index + 1) % worldVertices.size();
+        return worldVertices[nextVertex] - worldVertices[currVertex];
     }
+
 
     float FindMinSeparation(const PolygonShape* other, Vec2& axis, Vec2& point) const {
         float separation = std::numeric_limits<float>::lowest();
