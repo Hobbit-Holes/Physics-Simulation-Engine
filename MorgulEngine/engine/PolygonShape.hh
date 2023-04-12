@@ -29,17 +29,11 @@ struct PolygonShape: public Shape {
     }
 
     Vec2 EdgeAt(int index) const {
-        const int numVertices = static_cast<int>(this->worldVertices.size());
-        if (numVertices < 2) {
-            // No edges if there are less than 2 vertices.
-            return Vec2();
-        } else if (index == numVertices - 1) {
-            // Last vertex loops back to first vertex.
-            return this->worldVertices[0] - this->worldVertices[index];
-        } else {
-            // Return the edge between the current and next vertex.
-            return this->worldVertices[index + 1] - this->worldVertices[index];
+        int nextIndex = index + 1;
+        if (nextIndex >= static_cast<int>(this->worldVertices.size())) {
+            nextIndex = 0;
         }
+        return this->worldVertices[nextIndex] - this->worldVertices[index];
     }
 
     float FindMinSeparation(const PolygonShape* other, Vec2& axis, Vec2& point) const {
