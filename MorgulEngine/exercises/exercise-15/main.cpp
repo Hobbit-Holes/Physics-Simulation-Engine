@@ -1,4 +1,5 @@
 #include "MorgulEngine.hh"
+#include "ECS/Systems/IncludeSystems.hh"
 
 int main(int argc, char *argv[]) {
     int width = 800;
@@ -15,7 +16,8 @@ int main(int argc, char *argv[]) {
     engine.world.emplace<TransformComponent>(star, Vec2(width/2, heigth/2));
     engine.world.emplace<KinematicComponent>(star);
     engine.world.emplace<RigidBodyComponent>(star, 1.0f, str_ref);
-    engine.world.emplace<NameGroupComponent>(star, "player " + std::to_string(1), "plaayer");
+    engine.world.emplace<NameGroupComponent>(star, "player " + std::to_string(1), "player");
+    engine.world.emplace<HealthComponent>(star, 3);
     engine.world.emplace<ColliderComponent>(star, str_ref, false);
 
     std::vector<entt::entity> enemies;
@@ -28,7 +30,8 @@ int main(int argc, char *argv[]) {
         engine.world.emplace<TransformComponent>(object, Vec2(positionX * i, 400));
         engine.world.emplace<KinematicComponent>(object);
         engine.world.emplace<RigidBodyComponent>(object, 1.0f, obj_ref);
-        engine.world.emplace<NameGroupComponent>(object, "Enemies " + std::to_string(i), "ENEMIES");
+        engine.world.emplace<NameGroupComponent>(star, "enemies " + std::to_string(i), "enemies");
+        engine.world.emplace<HealthComponent>(object, 1);
         engine.world.emplace<ColliderComponent>(object, obj_ref, false);
 
         enemies.push_back(object);
@@ -48,7 +51,7 @@ int main(int argc, char *argv[]) {
                 Graphics::DrawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
                 Graphics::DrawLine(contact.start.x, contact.start.y, 
                                     contact.start.x + contact.normal.x * 15, contact.start.y + contact.normal.y * 15,  0xFFFF00FF);
-                std::cout << "Depth :" << contact.depth << std::endl; 
+                std::cout << "Depth :" << contact.depth << std::endl;
             }
         }
 

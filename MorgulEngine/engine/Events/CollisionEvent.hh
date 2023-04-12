@@ -3,8 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include "entt/entt.hpp"
-#include "../../Collisions.hh"
-
 struct CollisionEvent {
     entt::entity* a;
     entt::entity* b;

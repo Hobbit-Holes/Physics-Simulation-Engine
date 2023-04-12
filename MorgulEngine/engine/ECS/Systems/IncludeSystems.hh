@@ -6,5 +6,6 @@
 #include "RigidBodySystem.hh"
 #include "GridMovementSystem.hh"
 #include "Collisionsystem.hh"
+#include "DamageSystem.hh"
 
 #endif

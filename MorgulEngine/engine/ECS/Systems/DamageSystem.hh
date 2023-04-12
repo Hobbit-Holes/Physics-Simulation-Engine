@@ -5,16 +5,26 @@
 #include "../../Events/CollisionEvent.hh"
 #include "../Components/IncludeComponents.hh"
 
-class DamageSystem {
-    public:
-        void OnDamage(CollisionEvent& event) {
-            auto view = event.world->view<TransformComponent, ColliderComponent>();
+struct DamageSystem {
+    void OnDamage(entt::registry& registry) {
+        auto colliders = registry.view<ColliderComponent>();
+        for (auto entity : colliders) {
+            auto& collider = colliders.get<ColliderComponent>(entity);
+            if (collider.isColliding) {
+                auto groups = registry.view<NameGroupComponent>();
+                auto& group = groups.get<NameGroupComponent>(entity);
 
-            for (auto entity: view) {
-                auto& transform = view.get<TransformComponent>(entity);
-                auto& collision = view.get<ColliderComponent>(entity);    
+                if (group.group == "ENEMIES") {
+                    std::cout << "Enemy hit enemy!" << std::endl;
+                } else if (group.group == "player") {
+                    std::cout << "Player hit by enemy!" << std::endl;
+                    registry.destroy(entity);
+                }
             }
+            collider.isColliding = false;
         }
+    }
 };
+
 
 #endif
