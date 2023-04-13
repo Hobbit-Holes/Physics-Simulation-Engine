@@ -30,8 +30,10 @@ int main(int argc, char *argv[]) {
         b.color = Color::Red();
 
         // Logic
-        bool isOverlappingX = (a.position.x < b.position.x + b.width && b.position.x < a.position.x + a.width);
-        bool isOverlappingY = (a.position.y < b.position.y + b.height && b.position.y < a.position.y + a.height);
+        bool isOverlappingX = a.position.x + a.width * 0.5f >= b.position.x - b.width * 0.5f
+                        && a.position.x - a.width * 0.5f <= b.position.x + b.width * 0.5f;
+        bool isOverlappingY = a.position.y + a.height * 0.5f >= b.position.y - b.height * 0.5f
+                        && a.position.y - a.height * 0.5f <= b.position.y + b.height * 0.5f;
 
         std::cout << "position of a: " << a.position << ", position of b: " << b.position << ", " << isOverlappingX << ", " << isOverlappingY << std::endl;
 

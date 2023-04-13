@@ -15,6 +15,10 @@ class CollisionSystem {
             for(auto entity : view) {
                 auto& collider = view.get<ColliderComponent>(entity);
                 collider.isColliding = false;
+
+                /*if(collider.isColliding) {
+                    enventBus.EmitEvent<CollisionEvent>(a, b);
+                }*/
             }
 
             //Check every entity with the next one for collisions
@@ -32,7 +36,6 @@ class CollisionSystem {
                     }
                 }
             }
-
         }
 
         void Render(entt::registry& world) {

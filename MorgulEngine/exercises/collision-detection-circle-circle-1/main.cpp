@@ -1,4 +1,4 @@
-#include "MorgulEngine.hh"
+#include "./MorgulEngine.hh"
 
 struct Circle {
     Vec2 position;

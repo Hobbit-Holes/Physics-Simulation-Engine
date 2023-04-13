@@ -1,4 +1,4 @@
-#include "MorgulEngine.hh"
+#include "./MorgulEngine.hh"
 
 int main(int argc, char *argv[]) {
     int width = 800;
@@ -7,12 +7,12 @@ int main(int argc, char *argv[]) {
     MorgulEngine engine = MorgulEngine(width, heigth);
 
     //Shapes
-    RectangleShape figCir = RectangleShape(300, 150, Color::Blue(), false);
-    RectangleShape figRect = RectangleShape(200, 150, Color::Red(), false);
+    RegularPolygonShape figCir = RegularPolygonShape(50, 5, Color::Blue(), false);
+    RegularPolygonShape figRect = RegularPolygonShape(50, 5, Color::Red(), false);
 
     //References
-    RectangleShape &fig_refCir = figCir;
-    RectangleShape &fig_refRect = figRect;
+    RegularPolygonShape &fig_refCir = figCir;
+    RegularPolygonShape &fig_refRect = figRect;
 
     //Entities
     auto a = engine.world.create();
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
             Graphics::DrawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
             Graphics::DrawLine(contact.start.x, contact.start.y, 
                                 contact.start.x + contact.normal.x * 15, contact.start.y + contact.normal.y * 15,  0xFFFF00FF);
-            std::cout << "Depth :" << contact.depth << std::endl; 
+            std::cout << "Depth: " << contact.depth << std::endl; 
         }
 
         engine.Render();
