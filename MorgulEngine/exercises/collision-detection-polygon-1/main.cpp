@@ -1,4 +1,4 @@
-#include "./MorgulEngine.hh"
+#include "MorgulEngine.hh"
 
 int main(int argc, char *argv[]) {
     int width = 800;

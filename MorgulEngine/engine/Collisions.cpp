@@ -1,4 +1,5 @@
 #include "Collisions.hh"
+#include <float.h>
 
 bool Collisions::IsColliding(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world) {
     bool aIsCircle = world.get<ColliderComponent>(a).shape->GetType() == CIRCLE;
@@ -14,12 +15,12 @@ bool Collisions::IsColliding(entt::entity& a, entt::entity& b, Contact& contact,
     if (aIsPolygon && bIsPolygon) {
         return IsCollidingPolygonPolygon(a, b, contact, world);
     }
-    /*if (aIsPolygon && bIsCircle) {
-        return IsCollidingPolygonCircle(a, b, contact, world);
+    if (aIsRectangle && bIsCircle) {
+        return IsCollidingRectangleCircle(a, b, contact, world);
     }
-    if (aIsCircle && bIsPolygon) {
-        return IsCollidingPolygonCircle(b, a, contact, world);
-    }*/
+    if (aIsCircle && bIsRectangle) {
+        return IsCollidingRectangleCircle(b, a, contact, world);
+    }
     if (aIsRectangle && bIsRectangle) {
         return IsCollidingRectangleRectangle(a, b, contact, world);
     }
@@ -103,7 +104,6 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
         contact.a = a;
         contact.b = b;
 
-        // Calcular la información del contacto
         float overlap_x = 0.0f, overlap_y = 0.0f;
         if (aTransform.position.x > bTransform.position.x) {
             overlap_x = (bTransform.position.x + bPolygonShape->width * 0.5f) - (aTransform.position.x - aPolygonShape->width * 0.5f);
@@ -150,15 +150,16 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
     return false;
 }
 
-/*bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
-{
-    const PolygonShape* polygonShape = (PolygonShape*)world.get<ColliderComponent>(a).shape;
+bool Collisions::IsCollidingRectangleCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+{  
+    const RectangleShape* rectangleShape = (RectangleShape*)world.get<ColliderComponent>(a).shape;
     const CircleShape* circleShape = (CircleShape*)world.get<ColliderComponent>(b).shape;
+    
+    const auto& aTransform = world.get<TransformComponent>(a);
+    const auto& bTransform = world.get<TransformComponent>(b);
 
-    const auto& transform = world.get<TransformComponent>(a);
-    const auto& transformCircle = world.get<TransformComponent>(b);
+}
 
-}*/
 
 void Collisions::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) {
     auto const rigidbodyA = world.get<RigidBodyComponent>(a);

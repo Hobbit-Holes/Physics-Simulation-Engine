@@ -25,7 +25,7 @@ struct RigidBodyComponent {
 
     Shape* shape;
 
-    RigidBodyComponent(float mass, Shape &shape, bool isStatic = false) {
+    RigidBodyComponent(float mass, Shape &shape, bool isStatic) {
         this->isStatic = isStatic;
         this->shape = shape.Clone();
         this->mass = mass;
