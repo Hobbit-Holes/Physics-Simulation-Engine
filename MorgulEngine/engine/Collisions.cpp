@@ -133,12 +133,12 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
         if (overlap_y < overlap_x) {
             contact.depth = overlap_y;
             if (aTransform.position.y > bTransform.position.y) {
-                contact.normal = Vec2(-1.0f, 0.0f);
+                contact.normal = Vec2(0.0f, -1.0f);
                 contact.start = Vec2(aTransform.position.x, aTransform.position.y - aPolygonShape->heigth * 0.5f);
                 contact.end = Vec2(bTransform.position.x , bTransform.position.y - bPolygonShape->heigth * 0.5f);
             }
             if (bTransform.position.y > aTransform.position.y) {
-                contact.normal = Vec2(1.0f, 0.0f);
+                contact.normal = Vec2(0.0f, 1.0f);
                 contact.start = Vec2(aTransform.position.x, aTransform.position.y + aPolygonShape->heigth * 0.5f);
                 contact.end = Vec2(bTransform.position.x , bTransform.position.y + bPolygonShape->heigth * 0.5f);
             }

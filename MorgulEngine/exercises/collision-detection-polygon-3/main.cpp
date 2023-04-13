@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
     engine.world.emplace<TransformComponent>(a, Vec2(400, 400));
     engine.world.emplace<KinematicComponent>(a);
     engine.world.emplace<ColliderComponent>(a, fig_refRect1, false);
-    engine.world.emplace<RigidBodyComponent>(a, 1.0f, fig_refRect1);
     obstacles.push_back(a);
 
 
@@ -37,6 +36,7 @@ int main(int argc, char *argv[]) {
         // Logic
         Graphics::DrawGrid(100, true, true);
         engine.world.get<TransformComponent>(c).position = engine.GetMousePosition();
+        Graphics::DrawRect(engine.world.get<TransformComponent>(a).position.x, engine.world.get<TransformComponent>(a).position.y, 300, 150, Color::Red());
 
         for (auto obstacle: obstacles) {
             Contact contact;
