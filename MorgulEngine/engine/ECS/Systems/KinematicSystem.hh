@@ -29,6 +29,16 @@ class KinematicSystem {
                         polygonShape->UpdateVertices(transform.rotation, transform.position);
                     }
                 }
+
+                if (world.all_of<ColliderComponent>(entity)) {
+                    Shape* shape;
+                    shape = world.get<ColliderComponent>(entity).shape;
+
+                    if (shape->GetType() == RECTANGLE || shape->GetType() == POLYGON) {
+                        PolygonShape* polygonShape = (PolygonShape*) world.get<ColliderComponent>(entity).shape;
+                        polygonShape->UpdateVertices(transform.rotation, transform.position);
+                    }
+                }
             }
         }
 };

@@ -5,18 +5,17 @@
 #include "../../Collisions.hh"
 #include "../Components/IncludeComponents.hh"
 
-
 class CollisionSystem {
     public:
         void Update(entt::dispatcher& enventBus, entt::registry& world) {
             auto view = world.view<TransformComponent, KinematicComponent, RigidBodyComponent, ColliderComponent>();
 
             //Reset the collision flag to false
-            for(auto entity : view) {
+            for (auto entity : view) {
                 auto& collider = view.get<ColliderComponent>(entity);
                 collider.isColliding = false;
 
-                /*if(collider.isColliding) {
+                /*if (collider.isColliding) {
                     enventBus.EmitEvent<CollisionEvent>(a, b);
                 }*/
             }
@@ -40,9 +39,11 @@ class CollisionSystem {
 
         void Render(entt::registry& world) {
             auto view = world.view<TransformComponent, KinematicComponent, ColliderComponent>();
+            
             for (auto entity: view) {
                 const auto collider = view.get<ColliderComponent>(entity);
-                if(collider.rederCollider) {
+                
+                if (collider.renderCollider) {
                     const auto transform = view.get<TransformComponent>(entity);
                     collider.shape->Render(transform);
                 }

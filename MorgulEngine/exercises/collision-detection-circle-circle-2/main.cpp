@@ -20,13 +20,13 @@ int main(int argc, char *argv[]) {
     const auto a = engine.world.create();
     engine.world.emplace<TransformComponent>(a, Vec2(400, 400));
     engine.world.emplace<KinematicComponent>(a);
-    engine.world.emplace<ColliderComponent>(a, fig_refCir1, false);
+    engine.world.emplace<ColliderComponent>(a, fig_refCir1, true);
     obstacles.push_back(a);
 
     auto c = engine.world.create();
     engine.world.emplace<TransformComponent>(c, Vec2(250, 250));
     engine.world.emplace<KinematicComponent>(c);
-    engine.world.emplace<RigidBodyComponent>(c, 1.0f, fig_refCir2, false);
+    engine.world.emplace<RigidBodyComponent>(c, 0.0f, fig_refCir2, false);
     engine.world.emplace<ColliderComponent>(c, fig_refCir2, false);
 
     while (engine.NextFrame()) {

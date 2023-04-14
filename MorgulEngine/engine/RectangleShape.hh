@@ -43,7 +43,7 @@ struct RectangleShape: public PolygonShape {
         if (this->filled) {
             Graphics::DrawFillRect(transform.position.x, transform.position.y, this->width, this->heigth, this->color);
         } else {
-            Graphics::DrawPolygon(0, 0, this->worldVertices, this->color);
+            Graphics::DrawRect(transform.position.x, transform.position.y, this->width, this->heigth, this->color);
         }
     }
 };

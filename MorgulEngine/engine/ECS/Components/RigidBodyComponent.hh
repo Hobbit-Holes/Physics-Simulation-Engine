@@ -65,7 +65,7 @@ struct RigidBodyComponent {
 
     bool IsStatic() const {
         const float epsilon = 0.005f;
-        return fabs(this->isStatic - 0.0) < epsilon;
+        return fabs(this->invMass - 0.0) < epsilon;
     }
 };
 

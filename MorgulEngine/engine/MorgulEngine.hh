@@ -52,7 +52,7 @@ class MorgulEngine {
         KinematicSystem kinematicSystem;
         ParticleSystem particleSystem;
         RigidBodySystem rigidBodySystem;
+        CollisionSystem collisionSystem;
         GridMovementSystem gridMovementSystem;
         DamageSystem damageSystem;
-        CollisionSystem collisionsSystem;
 };
