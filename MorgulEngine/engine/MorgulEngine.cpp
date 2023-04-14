@@ -142,6 +142,7 @@ void MorgulEngine::Render() {
     // Systems
     particleSystem.Render(world);
     rigidBodySystem.Render(world);
+    collisionsSystem.Render(world);
 
     Graphics::RenderFrame();
 }

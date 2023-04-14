@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     auto c = engine.world.create();
     engine.world.emplace<TransformComponent>(c, Vec2(250, 250));
     engine.world.emplace<KinematicComponent>(c);
-    engine.world.emplace<RigidBodyComponent>(c, 1.0f, fig_refCir2);
+    engine.world.emplace<RigidBodyComponent>(c, 1.0f, fig_refCir2, false);
     engine.world.emplace<ColliderComponent>(c, fig_refCir2, false);
 
     while (engine.NextFrame()) {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         // Logic
         Graphics::DrawGrid(100, true, true);
         engine.world.get<TransformComponent>(c).position = engine.GetMousePosition();
-        Graphics::DrawCircle(engine.world.get<TransformComponent>(a).position.x, engine.world.get<TransformComponent>(a).position.y, 75, 0, Color::Blue());
+        //Graphics::DrawCircle(engine.world.get<TransformComponent>(a).position.x, engine.world.get<TransformComponent>(a).position.y, 75, 0, Color::Blue());
 
         for (auto obstacle: obstacles) {
             Contact contact;
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
                 Graphics::DrawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
                 Graphics::DrawLine(contact.start.x, contact.start.y, 
                                     contact.start.x + contact.normal.x * 15, contact.start.y + contact.normal.y * 15,  0xFFFF00FF);
-                std::cout << "Depth :" << contact.depth << std::endl; 
+                std::cout << "Depth: " << contact.depth << std::endl; 
             }
         }
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
             engine.world.emplace<TransformComponent>(new_ball, engine.GetMousePosition());
             engine.world.emplace<KinematicComponent>(new_ball);
             engine.world.emplace<ColliderComponent>(new_ball, fig_ref, false);
-            engine.world.emplace<RigidBodyComponent>(new_ball, 1, fig_ref);
+            engine.world.emplace<RigidBodyComponent>(new_ball, 1, fig_ref, false);
             obstacles.push_back(new_ball);
         }
 
