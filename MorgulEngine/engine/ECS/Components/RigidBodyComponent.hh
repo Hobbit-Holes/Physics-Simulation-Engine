@@ -14,7 +14,7 @@ struct RigidBodyComponent {
     float invMass;
     float I;
     float invI;
-    float restitution = 0.005f;
+    float restitution = 0.5f;
 
     // Static
     bool isStatic;
@@ -26,17 +26,22 @@ struct RigidBodyComponent {
     Shape* shape;
 
     RigidBodyComponent(float mass, Shape &shape, bool isStatic = false) {
-        this->isStatic = isStatic;
         this->shape = shape.Clone();
-        this->mass = mass;
 
-        if (mass != 0.0) {
-            this->invMass = 1.0 / mass;
+        this->isStatic = isStatic;
+        if (this->isStatic == true) {
+            this->mass = 0;
+        } else {
+            this->mass = mass;
+        }
+        
+        if (this->mass != 0.0) {
+            this->invMass = 1.0 / this->mass;
         } else {
             this->invMass = 0.0;
         }
 
-        I = shape.GetMomentOfInertia() * mass;
+        I = shape.GetMomentOfInertia() * this->mass;
         if (I != 0.0) {
             this->invI = 1.0 / I;
         } else {

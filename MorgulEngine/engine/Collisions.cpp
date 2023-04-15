@@ -5,11 +5,8 @@ bool Collisions::IsColliding(entt::entity& a, entt::entity& b, Contact& contact,
     bool aIsCircle = world.get<ColliderComponent>(a).shape->GetType() == CIRCLE;
     bool bIsCircle = world.get<ColliderComponent>(b).shape->GetType() == CIRCLE;
 
-    bool aIsRectangle = world.get<ColliderComponent>(a).shape->GetType() == RECTANGLE;
-    bool bIsRectangle = world.get<ColliderComponent>(b).shape->GetType() == RECTANGLE;
-
-    bool aIsPolygon = world.get<ColliderComponent>(a).shape->GetType() == POLYGON;
-    bool bIsPolygon = world.get<ColliderComponent>(b).shape->GetType() == POLYGON;
+    bool aIsPolygon = world.get<ColliderComponent>(a).shape->GetType() == POLYGON || world.get<ColliderComponent>(a).shape->GetType() == RECTANGLE;
+    bool bIsPolygon = world.get<ColliderComponent>(b).shape->GetType() == POLYGON || world.get<ColliderComponent>(b).shape->GetType() == RECTANGLE;
 
     if (aIsCircle && bIsCircle) {
         return IsCollidingCircleCircle(a, b, contact, world);
@@ -17,14 +14,11 @@ bool Collisions::IsColliding(entt::entity& a, entt::entity& b, Contact& contact,
     if (aIsPolygon && bIsPolygon) {
         return IsCollidingPolygonPolygon(a, b, contact, world);
     }
-    if (aIsRectangle && bIsCircle) {
-        return IsCollidingRectangleCircle(a, b, contact, world);
+    if (aIsPolygon && bIsCircle) {
+        return IsCollidingPolygonCircle(a, b, contact, world);
     }
-    if (aIsCircle && bIsRectangle) {
-        return IsCollidingRectangleCircle(b, a, contact, world);
-    }
-    if (aIsRectangle && bIsRectangle) {
-        return IsCollidingRectangleRectangle(a, b, contact, world);
+    if (aIsCircle && bIsPolygon) {
+        return IsCollidingPolygonCircle(b, a, contact, world);
     }
 
     return false;
@@ -86,6 +80,110 @@ bool Collisions::IsCollidingPolygonPolygon(entt::entity& a, entt::entity& b, Con
         contact.normal = -bAxis.Normal();
         contact.start = bPoint - contact.normal * contact.depth;
         contact.end = bPoint;
+    }
+
+    return true;
+}
+
+bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world) {
+    const PolygonShape* polygonShape = (PolygonShape*)world.get<ColliderComponent>(a).shape;
+    const CircleShape* circleShape = (CircleShape*)world.get<ColliderComponent>(b).shape;
+
+    const auto circleTransform = world.get<TransformComponent>(b);
+    const std::vector<Vec2>& polygonVertices = polygonShape->worldVertices;
+
+    bool isOutside = false;
+    Vec2 minCurrVertex;
+    Vec2 minNextVertex;
+    float distanceCircleEdge = std::numeric_limits<float>::lowest();
+
+    // Loop all the edges of the polygon finding the nearest edge to the circle center
+    for (int i = 0; i < static_cast<int>(polygonVertices.size()); i++) {
+        int currVertex = i;
+        int nextVertex = (i + 1) % polygonVertices.size();
+        Vec2 edge = polygonShape->EdgeAt(currVertex);
+        Vec2 normal = edge.Normal();
+
+        // Compare the circle center with the rectangle vertex
+        Vec2 vertexToCircleCenter = circleTransform.position - polygonVertices[currVertex];
+        float projection = vertexToCircleCenter.Dot(normal);
+
+        // If we found a dot product projection that is in the positive/outside side of the normal
+        if (projection > 0) {
+            // Circle center is outside the polygon
+            distanceCircleEdge = projection;
+            minCurrVertex = polygonVertices[currVertex];
+            minNextVertex = polygonVertices[nextVertex];
+            isOutside = true;
+            break;
+        } else {
+            // Circle center is inside the rectangle, find the min edge (the one with the least negative projection)
+            if (projection > distanceCircleEdge) {
+                distanceCircleEdge = projection;
+                minCurrVertex = polygonVertices[currVertex];
+                minNextVertex = polygonVertices[nextVertex];
+            }
+        }
+    }
+
+    if (isOutside) {
+        // REGION A:
+        Vec2 v1 = circleTransform.position - minCurrVertex;     // Vector from the nearest vertex to the circle center
+        Vec2 v2 = minNextVertex - minCurrVertex;                // The nearest edge (from curr vertex to next vertex)
+        if (v1.Dot(v2) < 0) {
+            // Distance from vertex to circle center is greater than radius... no collision
+            if (v1.Magnitude() > circleShape->radius) {
+                return false;
+            } else {
+                // Detected collision in region A:
+                contact.a = a;
+                contact.b = b;
+                contact.depth = circleShape->radius - v1.Magnitude();
+                contact.normal = v1.Normalize();
+                contact.start = circleTransform.position + (contact.normal * -circleShape->radius);
+                contact.end = contact.start + (contact.normal * contact.depth);
+            }
+        } else {
+            // REGION B:
+            v1 = circleTransform.position - minNextVertex;      // Vector from the next nearest vertex to the circle center
+            v2 = minCurrVertex - minNextVertex;                 // The nearest edge
+            if (v1.Dot(v2) < 0) {
+                // Distance from vertex to circle center is greater than radius... no collision
+                if (v1.Magnitude() > circleShape->radius) {
+                    return false;
+                } else {
+                    // Detected collision in region B:
+                    contact.a = a;
+                    contact.b = b;
+                    contact.depth = circleShape->radius - v1.Magnitude();
+                    contact.normal = v1.Normalize();
+                    contact.start = circleTransform.position + (contact.normal * -circleShape->radius);
+                    contact.end = contact.start + (contact.normal * contact.depth);
+                }
+            } else {
+                // REGION C:
+                if (distanceCircleEdge > circleShape->radius) {
+                    // No collision... Distance between the closest distance and the circle center is greater than the radius.
+                    return false;
+                } else {
+                    // Detected collision in region C:
+                    contact.a = a;
+                    contact.b = b;
+                    contact.depth = circleShape->radius - distanceCircleEdge;
+                    contact.normal = (minNextVertex - minCurrVertex).Normal();
+                    contact.start = circleTransform.position - (contact.normal * circleShape->radius);
+                    contact.end = contact.start + (contact.normal * contact.depth);
+                }
+            }
+        }
+    } else {
+        // The center of circle is inside the polygon... it is definitely colliding!
+        contact.a = a;
+        contact.b = b;
+        contact.depth = circleShape->radius - distanceCircleEdge;
+        contact.normal = (minNextVertex - minCurrVertex).Normal();
+        contact.start = circleTransform.position - (contact.normal * circleShape->radius);
+        contact.end = contact.start + (contact.normal * contact.depth);
     }
 
     return true;
@@ -153,18 +251,6 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
     return false;
 }
 
-bool Collisions::IsCollidingRectangleCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
-{  
-    //const RectangleShape* rectangleShape = (RectangleShape*)world.get<ColliderComponent>(a).shape;
-    //const CircleShape* circleShape = (CircleShape*)world.get<ColliderComponent>(b).shape;
-    
-    //const auto& aTransform = world.get<TransformComponent>(a);
-    //const auto& bTransform = world.get<TransformComponent>(b);
-
-    return false;
-}
-
-
 void Collisions::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) {
     auto const rigidbodyA = world.get<RigidBodyComponent>(a);
     auto const rigidbodyB = world.get<RigidBodyComponent>(b);
@@ -189,6 +275,7 @@ void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& con
 
     auto const rigidbodyA = world.get<RigidBodyComponent>(a);
     auto const rigidbodyB = world.get<RigidBodyComponent>(b);
+
     auto& kinematicA = world.get<KinematicComponent>(a);
     auto& kinematicB = world.get<KinematicComponent>(b);
 

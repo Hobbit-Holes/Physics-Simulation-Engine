@@ -22,8 +22,16 @@ class CollisionSystem {
 
             //Check every entity with the next one for collisions
             for (auto entityA : view) {
+                const auto transformA = world.get<TransformComponent>(entityA);
+
                 for (auto entityB : view) {
                     if (entityA == entityB) {
+                        break;
+                    }
+
+                    const auto transformB = world.get<TransformComponent>(entityB);
+
+                    if ((transformA.position - transformB.position).Magnitude() > 5000) {
                         break;
                     }
 

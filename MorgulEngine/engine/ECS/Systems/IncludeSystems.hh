@@ -5,7 +5,7 @@
 #include "ParticleSystem.hh"
 #include "RigidBodySystem.hh"
 #include "GridMovementSystem.hh"
-#include "Collisionsystem.hh"
+#include "CollisionSystem.hh"
 #include "DamageSystem.hh"
 
 #endif

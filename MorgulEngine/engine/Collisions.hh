@@ -18,9 +18,8 @@ struct Collisions {
     static bool IsColliding(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
     static bool IsCollidingCircleCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
     static bool IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
-    static bool IsCollidingRectangleCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
     static bool IsCollidingPolygonPolygon(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
-    //static bool IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
+    static bool IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world);
     static void ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world);
     static void ResolvePenetration(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world);
 };

@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         }
         Color color = Color::Lerp(Color:: Green(), Color:: Red(), (float)i/(float)numStars);
 
-        StarShape starShape = StarShape(radius, i+2, color, false);
+        StarShape starShape = StarShape(radius, i+4, color, false);
 
         StarShape &star_ref = starShape;
 

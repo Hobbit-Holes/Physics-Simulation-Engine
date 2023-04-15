@@ -28,10 +28,11 @@ struct PolygonShape: public Shape {
         }
     }
 
-    Vec2 EdgeAt(int index) const { 
+    Vec2 EdgeAt(int index) const {
         int currVertex = index;
         int nextVertex = (index + 1) % this->worldVertices.size();
-        return (this->worldVertices[currVertex] - this->worldVertices[nextVertex]);
+
+        return (this->worldVertices[nextVertex] - this->worldVertices[currVertex]);
     }
 
     float FindMinSeparation(const PolygonShape* other, Vec2& axis, Vec2& point) const {
@@ -40,7 +41,8 @@ struct PolygonShape: public Shape {
         // Loop all the vertices of "this" polygon
         for(int i = 0; i < static_cast<int>(this->worldVertices.size()); i++) {
             Vec2 va = this->worldVertices[i];
-            Vec2 normal = this->EdgeAt(i).Normal().UnitVector();
+            Vec2 lateral = this->EdgeAt(i);
+            Vec2 normal = lateral.Normal();//.UnitVector();
             
             // Loop all the vertices of the "other" polygon
             float minSep = std::numeric_limits<float>::max();
@@ -48,7 +50,9 @@ struct PolygonShape: public Shape {
 
             for (int j = 0; j < static_cast<int>(other->worldVertices.size()); j++) {
                 Vec2 vb = other->worldVertices[j];
+                //float proj = (vb - va).Dot(normal);
                 float proj = (vb - va).UnitVector().Dot(normal);
+                //float proj = (vb - va).ScalarProjection(normal);
 
                 if (proj < minSep) {
                     minSep = proj;
@@ -58,7 +62,7 @@ struct PolygonShape: public Shape {
 
             if (minSep > separation) {
                 separation = minSep;
-                axis = this->EdgeAt(i);
+                axis = other->EdgeAt(i);
                 point = minVertex;
             }
         }
