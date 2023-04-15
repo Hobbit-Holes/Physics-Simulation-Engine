@@ -22,20 +22,20 @@ int main(int argc, char *argv[]) {
     const auto a = engine.world.create();
     engine.world.emplace<TransformComponent>(a, Vec2(250, 250));
     engine.world.emplace<KinematicComponent>(a);
-    engine.world.emplace<ColliderComponent>(a, fig_refCir1, true);
+    engine.world.emplace<ColliderComponent>(a, fig_refCir1);
     obstacles.push_back(a);
 
     auto b = engine.world.create();
     engine.world.emplace<TransformComponent>(b, Vec2(500, 500));
     engine.world.emplace<KinematicComponent>(b);
-    engine.world.emplace<ColliderComponent>(b, fig_refRect, true);
+    engine.world.emplace<ColliderComponent>(b, fig_refRect);
     obstacles.push_back(b);
 
     auto c = engine.world.create();
     engine.world.emplace<TransformComponent>(c, Vec2(250, 250));
     engine.world.emplace<KinematicComponent>(c);
-    //engine.world.emplace<RigidBodyComponent>(c, 1.0f, fig_refCir2, false);
-    engine.world.emplace<ColliderComponent>(c, fig_refCir2, true);
+    engine.world.emplace<ColliderComponent>(c, fig_refCir2, false);
+    engine.world.emplace<RigidBodyComponent>(c, 1.0f, fig_refCir2, false);
 
     while (engine.NextFrame()) {
         engine.Update();
@@ -44,8 +44,6 @@ int main(int argc, char *argv[]) {
         Graphics::DrawGrid(100, true, true);
 
         engine.world.get<TransformComponent>(c).position = engine.GetMousePosition();
-        //Graphics::DrawCircle(engine.world.get<TransformComponent>(a).position.x, engine.world.get<TransformComponent>(a).position.y, 75, 0, Color::Blue());
-        //Graphics::DrawRect(engine.world.get<TransformComponent>(b).position.x, engine.world.get<TransformComponent>(b).position.y, 300, 150, Color::Red());
 
         for (auto obstacle: obstacles) {
             Contact contact;

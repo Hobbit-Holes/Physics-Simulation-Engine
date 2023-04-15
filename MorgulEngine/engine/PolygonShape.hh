@@ -32,27 +32,27 @@ struct PolygonShape: public Shape {
         int currVertex = index;
         int nextVertex = (index + 1) % this->worldVertices.size();
 
-        return (this->worldVertices[nextVertex] - this->worldVertices[currVertex]);
+        return (this->worldVertices[currVertex] - this->worldVertices[nextVertex]);
     }
 
     float FindMinSeparation(const PolygonShape* other, Vec2& axis, Vec2& point) const {
         float separation = std::numeric_limits<float>::lowest();
 
         // Loop all the vertices of "this" polygon
-        for(int i = 0; i < static_cast<int>(this->worldVertices.size()); i++) {
+        for(size_t i = 0; i < this->worldVertices.size(); i++) {
             Vec2 va = this->worldVertices[i];
-            Vec2 lateral = this->EdgeAt(i);
-            Vec2 normal = lateral.Normal();//.UnitVector();
+            Vec2 normal = this->EdgeAt(i).Normal().UnitVector();
             
             // Loop all the vertices of the "other" polygon
             float minSep = std::numeric_limits<float>::max();
             Vec2 minVertex;
 
-            for (int j = 0; j < static_cast<int>(other->worldVertices.size()); j++) {
+            for (size_t j = 0; j < other->worldVertices.size(); j++) {
                 Vec2 vb = other->worldVertices[j];
-                //float proj = (vb - va).Dot(normal);
-                float proj = (vb - va).UnitVector().Dot(normal);
-                //float proj = (vb - va).ScalarProjection(normal);
+                Vec2 va_vb = (vb - va);
+                float proj = va_vb.UnitVector().Dot(normal);
+                //float proj = va_vb.Dot(normal);
+                //float proj = va_vb.ScalarProjection(normal);
 
                 if (proj < minSep) {
                     minSep = proj;
@@ -62,7 +62,7 @@ struct PolygonShape: public Shape {
 
             if (minSep > separation) {
                 separation = minSep;
-                axis = other->EdgeAt(i);
+                axis = this->EdgeAt(i);
                 point = minVertex;
             }
         }

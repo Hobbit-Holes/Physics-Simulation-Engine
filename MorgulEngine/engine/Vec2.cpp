@@ -83,24 +83,34 @@ Vec2 Vec2::Normal() const {
 
 // Projections
 Vec2 Vec2::Projection(Vec2 w) const {
-    float a = (x*w.x + y*w.y);
     float b = (x*x + y*y);
+    if (b == 0) {
+        return Vec2(0, 0);
+    }
+    float a = (x*w.x + y*w.y);
     return Vec2((a/b)*x, (a/b)*y);
 }
 
 float Vec2::ScalarProjection(Vec2 w) const {
-    float a = (x*w.x + y*w.y);
     float b = (x*x + y*y);
-    Vec2 c((a/b)*x, (a/b)*y);
-    return (sqrt(c.x*c.x + c.y*c.y));
+    if (b == 0) {
+        return 0;
+    }
+    float a = (x*w.x + y*w.y);
+    return a/b;
 }
 
 Vec2 Vec2::OrthonormalProjection(Vec2 w) const {
-    float a = (x*w.x + y*w.y);
     float b = (x*x + y*y);
+    if (b == 0) {
+        return Vec2(0, 0);
+    }
+    float a = (x*w.x + y*w.y);
     Vec2 c((a/b)*x, (a/b)*y);
     float module = sqrt(c.x*c.x + c.y*c.y);
-    
+    if (module == 0) {
+        return Vec2(0, 0);
+    }
     return Vec2(c.x/module, c.y/module);
 }
 

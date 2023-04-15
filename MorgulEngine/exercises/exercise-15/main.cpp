@@ -1,59 +1,59 @@
 #include "MorgulEngine.hh"
-#include "ECS/Systems/IncludeSystems.hh"
 
 int main(int argc, char *argv[]) {
     int width = 800;
     int heigth = 800;
-    int nEnemies = 10;
+    int radius = 10;
+    int numBalls = 17;
 
     MorgulEngine engine = MorgulEngine(width, heigth);
 
-    //Objects
-    CircleShape str =  CircleShape(30, Color::Red(), false);
-    CircleShape &str_ref = str;
+    //Shapes
+    CircleShape figCir = CircleShape(radius, Color::White(), true);
+    CircleShape &fig_refCir = figCir;
 
-    auto star = engine.world.create();
-    engine.world.emplace<TransformComponent>(star, Vec2(width/2, heigth/2));
-    engine.world.emplace<KinematicComponent>(star);
-    engine.world.emplace<RigidBodyComponent>(star, 1.0f, str_ref);
-    engine.world.emplace<NameGroupComponent>(star, "player " + std::to_string(1), "player");
-    engine.world.emplace<HealthComponent>(star, 3);
-    engine.world.emplace<ColliderComponent>(star, str_ref, false);
+    auto player = engine.world.create();
+    engine.world.emplace<TransformComponent>(player, Vec2(500, 400));
+    engine.world.emplace<KinematicComponent>(player);
+    engine.world.emplace<ColliderComponent>(player, figCir, false);
+    engine.world.emplace<RigidBodyComponent>(player, 1.0f, fig_refCir);
 
-    std::vector<entt::entity> enemies;
-    for (int i = 1; i <= nEnemies; i++) {
-        float positionX = width / (nEnemies + 1);
-        CircleShape obj = CircleShape(25, Color::Cyan(), false);
-        CircleShape &obj_ref = obj;
-
-        const auto object = engine.world.create();
-        engine.world.emplace<TransformComponent>(object, Vec2(positionX * i, 400));
-        engine.world.emplace<KinematicComponent>(object);
-        engine.world.emplace<RigidBodyComponent>(object, 1.0f, obj_ref);
-        engine.world.emplace<NameGroupComponent>(star, "enemies " + std::to_string(i), "enemies");
-        engine.world.emplace<HealthComponent>(object, 1);
-        engine.world.emplace<ColliderComponent>(object, obj_ref, false);
-
-        enemies.push_back(object);
+    std::vector<entt::entity> balls;
+    for (int i = 0; i < numBalls; i++) {
+        auto ball = engine.world.create();
+        engine.world.emplace<TransformComponent>(ball, Vec2(300, 400));
+        engine.world.emplace<KinematicComponent>(ball);
+        engine.world.emplace<ColliderComponent>(ball, figCir, false);
+        engine.world.emplace<RigidBodyComponent>(ball, 1.0f, fig_refCir);
     }
-    
+
+    int i = 0;
+
     while (engine.NextFrame()) {
         engine.Update();
 
         // Logic
-        Graphics::DrawGrid(100, true, true);
-        engine.world.get<TransformComponent>(star).position = engine.GetMousePosition();
+        Graphics::DrawGrid(50, true, true);
+        const float angleIncrement = 2 * M_PI / numBalls;
+        const float radiusIncrement = 100 / (numBalls / 3);
+        const float xOffset = std::sqrt(3) * 100 / 2;
 
-        for (auto enemy: enemies) {
-            Contact contact;
-            if(Collisions::IsColliding(star, enemy, contact, engine.world)) {
-                Graphics::DrawFillCircle(contact.start.x, contact.start.y, 3, 0xFFFF00FF);
-                Graphics::DrawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
-                Graphics::DrawLine(contact.start.x, contact.start.y, 
-                                    contact.start.x + contact.normal.x * 15, contact.start.y + contact.normal.y * 15,  0xFFFF00FF);
-                std::cout << "Depth :" << contact.depth << std::endl;
+        for(auto ball: balls) {
+            auto& transform = engine.world.get<TransformComponent>(ball);
+            float angle = i * angleIncrement;
+            float x = 300 + std::cos(angle) * 100;
+            float y = 400 + std::sin(angle) * 100;
+            if (i % 6 < 3) {
+                x -= xOffset;
+                y += radiusIncrement * (i % 6);
+            } else {
+                y += radiusIncrement * (i % 6 - 3);
             }
+
+            transform.position = Vec2(x, y);
+            i++;
         }
+        
 
         engine.Render();
     }

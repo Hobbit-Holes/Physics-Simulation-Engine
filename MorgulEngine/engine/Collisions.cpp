@@ -101,12 +101,12 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
     for (int i = 0; i < static_cast<int>(polygonVertices.size()); i++) {
         int currVertex = i;
         int nextVertex = (i + 1) % polygonVertices.size();
-        Vec2 edge = polygonShape->EdgeAt(currVertex);
+        Vec2 edge = polygonShape->EdgeAt(nextVertex);
         Vec2 normal = edge.Normal();
 
         // Compare the circle center with the rectangle vertex
-        Vec2 vertexToCircleCenter = circleTransform.position - polygonVertices[currVertex];
-        float projection = vertexToCircleCenter.Dot(normal);
+        Vec2 vertexToCircleCenter = circleTransform.position - polygonVertices[nextVertex];
+        float projection = vertexToCircleCenter.UnitVector().Dot(normal);
 
         // If we found a dot product projection that is in the positive/outside side of the normal
         if (projection > 0) {
@@ -142,6 +142,8 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
                 contact.normal = v1.Normalize();
                 contact.start = circleTransform.position + (contact.normal * -circleShape->radius);
                 contact.end = contact.start + (contact.normal * contact.depth);
+
+                return true;
             }
         } else {
             // REGION B:
@@ -159,6 +161,8 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
                     contact.normal = v1.Normalize();
                     contact.start = circleTransform.position + (contact.normal * -circleShape->radius);
                     contact.end = contact.start + (contact.normal * contact.depth);
+
+                    return true;
                 }
             } else {
                 // REGION C:
@@ -170,9 +174,11 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
                     contact.a = a;
                     contact.b = b;
                     contact.depth = circleShape->radius - distanceCircleEdge;
-                    contact.normal = (minNextVertex - minCurrVertex).Normal();
+                    contact.normal = (minNextVertex - minCurrVertex).Normalize();
                     contact.start = circleTransform.position - (contact.normal * circleShape->radius);
                     contact.end = contact.start + (contact.normal * contact.depth);
+
+                    return true;
                 }
             }
         }
@@ -181,12 +187,14 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
         contact.a = a;
         contact.b = b;
         contact.depth = circleShape->radius - distanceCircleEdge;
-        contact.normal = (minNextVertex - minCurrVertex).Normal();
+        contact.normal = (minNextVertex - minCurrVertex).Normalize();
         contact.start = circleTransform.position - (contact.normal * circleShape->radius);
         contact.end = contact.start + (contact.normal * contact.depth);
+
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry & world) {
@@ -265,8 +273,8 @@ void Collisions::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& c
     float da = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyA.invMass;
     float db = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyB.invMass;
 
-    transformA.position -= contact.normal * da;
-    transformB.position += contact.normal * db;
+    transformA.position -= contact.normal.UnitVector() * da;
+    transformB.position += contact.normal.UnitVector() * db;
 }
 
 void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) {
@@ -281,15 +289,14 @@ void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& con
 
     // Define elasticity (coefficient of restitution e)
     float e = std::min(rigidbodyA.restitution, rigidbodyB.restitution);
-
     // Calcualte the relative velocity between the two objects
-    const Vec2 vrel = (kinematicA.velocity - kinematicB.velocity);
+    const Vec2 vrel = (kinematicA.velocity - kinematicB.velocity).UnitVector();
 
     // Calculate the relative velocity along the normal collision vector
-    float vrelDotNormal = vrel.Dot(contact.normal);
+    float vrelDotNormal = vrel.Dot(contact.normal.UnitVector());
 
     // Now we proceed to calculate the collision impulse
-    const Vec2 impulseDirection = contact.normal;
+    const Vec2 impulseDirection = contact.normal.UnitVector();
     const float impulseMagnitude = -(1 + e) * vrelDotNormal / (rigidbodyA.invMass + rigidbodyB.invMass);
 
     Vec2 jn = impulseDirection * impulseMagnitude;

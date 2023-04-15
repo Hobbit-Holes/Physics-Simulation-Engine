@@ -14,7 +14,7 @@ struct RigidBodyComponent {
     float invMass;
     float I;
     float invI;
-    float restitution = 0.5f;
+    float restitution;
 
     // Static
     bool isStatic;
@@ -36,12 +36,12 @@ struct RigidBodyComponent {
         }
         
         if (this->mass != 0.0) {
-            this->invMass = 1.0 / this->mass;
+            this->invMass = 1.0 / mass;
         } else {
             this->invMass = 0.0;
         }
 
-        I = shape.GetMomentOfInertia() * this->mass;
+        I = shape.GetMomentOfInertia() * mass;
         if (I != 0.0) {
             this->invI = 1.0 / I;
         } else {
@@ -50,6 +50,7 @@ struct RigidBodyComponent {
 
         this->sumForces = Vec2(0, 0);
         this->sumTorques = 0.0;
+        this->restitution = 0.005f;
     }
 
     void AddForce(const Vec2& force) {
@@ -70,7 +71,7 @@ struct RigidBodyComponent {
 
     bool IsStatic() const {
         const float epsilon = 0.005f;
-        return fabs(this->invMass - 0.0) < epsilon;
+        return fabs(invMass - 0.0) < epsilon;
     }
 };
 
