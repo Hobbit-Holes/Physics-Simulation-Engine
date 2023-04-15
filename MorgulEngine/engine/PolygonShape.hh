@@ -50,8 +50,8 @@ struct PolygonShape: public Shape {
             for (size_t j = 0; j < other->worldVertices.size(); j++) {
                 Vec2 vb = other->worldVertices[j];
                 Vec2 va_vb = (vb - va);
-                float proj = va_vb.UnitVector().Dot(normal);
-                //float proj = va_vb.Dot(normal);
+                //float proj = va_vb.UnitVector().Dot(normal);
+                float proj = va_vb.Dot(normal);
                 //float proj = va_vb.ScalarProjection(normal);
 
                 if (proj < minSep) {
