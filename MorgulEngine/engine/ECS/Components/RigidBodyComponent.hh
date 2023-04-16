@@ -41,7 +41,7 @@ struct RigidBodyComponent {
             this->invMass = 0.0;
         }
 
-        I = shape.GetMomentOfInertia() * mass;
+        I = shape.GetMomentOfInertia() * this->mass;
         if (I != 0.0) {
             this->invI = 1.0 / I;
         } else {

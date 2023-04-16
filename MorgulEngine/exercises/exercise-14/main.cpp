@@ -4,87 +4,80 @@ int main(int argc, char *argv[]) {
     int width = 800;
     int heigth = 800;
 
+    int numVertices1 = 5;
+    int numVertices2 = 5;
+    if (argc == 3) {
+        numVertices1 = strtol(argv[1], nullptr, 0);
+        numVertices2 = strtol(argv[2], nullptr, 0);
+    }
+
     MorgulEngine engine = MorgulEngine(width, heigth);
 
-    std::vector<entt::entity> bodies;
+    //Shapes
+    RegularPolygonShape figCir = RegularPolygonShape(50, numVertices1, Color::Blue(), false);
+    RegularPolygonShape figRect = RegularPolygonShape(50, numVertices2, Color::Red(), false);
 
-    // Walls
-    RectangleShape figRect1 = RectangleShape(700, 100, Color::Blue(), false);
-    RectangleShape &fig_refRect1 = figRect1;
+    //References
+    RegularPolygonShape &fig_refCir = figCir;
+    RegularPolygonShape &fig_refRect = figRect;
 
-    const auto bottomWall = engine.world.create();
-    engine.world.emplace<TransformComponent>(bottomWall, Vec2(400, 800));
-    engine.world.emplace<KinematicComponent>(bottomWall);
-    engine.world.emplace<ColliderComponent>(bottomWall, fig_refRect1, false);
-    engine.world.emplace<RigidBodyComponent>(bottomWall, 0.0f, fig_refRect1, true);
+    //Entities
+    auto a = engine.world.create();
+    engine.world.emplace<TransformComponent>(a, Vec2(400, 400));
+    engine.world.emplace<KinematicComponent>(a);
+    engine.world.emplace<ColliderComponent>(a, fig_refCir, false);
+    engine.world.emplace<RigidBodyComponent>(a, 1.0f, fig_refCir);
 
-    RectangleShape figRect2 = RectangleShape(100, 700, Color::Blue(), false);
-    RectangleShape &fig_refRect2 = figRect2;
-
-    const auto leftWall = engine.world.create();
-    engine.world.emplace<TransformComponent>(leftWall, Vec2(0, 400));
-    engine.world.emplace<KinematicComponent>(leftWall);
-    engine.world.emplace<ColliderComponent>(leftWall, fig_refRect2, false);
-    engine.world.emplace<RigidBodyComponent>(leftWall, 0.0f, fig_refRect2, true);
-
-    RectangleShape figRect3 = RectangleShape(100, 700, Color::Blue(), false);
-    RectangleShape &fig_refRect3 = figRect3;
-
-    const auto rightWall = engine.world.create();
-    engine.world.emplace<TransformComponent>(rightWall, Vec2(800, 400));
-    engine.world.emplace<KinematicComponent>(rightWall);
-    engine.world.emplace<ColliderComponent>(rightWall, fig_refRect3, false);
-    engine.world.emplace<RigidBodyComponent>(rightWall, 0.0f, fig_refRect3, true);
-
-    // Objects
-    RectangleShape figRect4 = RectangleShape(100, 100, Color::White(), false);
-    RectangleShape &fig_refRect4 = figRect4;
-
-    const auto obstacle1 = engine.world.create();
-    engine.world.emplace<TransformComponent>(obstacle1, Vec2(400, 400));
-    engine.world.emplace<KinematicComponent>(obstacle1);
-    engine.world.emplace<ColliderComponent>(obstacle1, fig_refRect4, false);
-    engine.world.emplace<RigidBodyComponent>(obstacle1, 0.0f, fig_refRect4, true);
+    auto b = engine.world.create();
+    engine.world.emplace<TransformComponent>(b, Vec2(100, 100));
+    engine.world.emplace<KinematicComponent>(b);
+    engine.world.emplace<ColliderComponent>(b, fig_refRect, false);
+    engine.world.emplace<RigidBodyComponent>(b, 1.0f, fig_refRect);
 
     while (engine.NextFrame()) {
         engine.Update();
 
         // Logic
-        for (auto entity: bodies) {
-            engine.world.get<RigidBodyComponent>(entity).AddForce(Vec2(0, 200));
-        }
-
-        // Generate objects
-        if (engine.mouse->leftButtonPressed) {
-            engine.mouse->leftButtonPressed = false;
-
-            entt::entity newPolygon = engine.world.create();
-
-            RegularPolygonShape figPoly = RegularPolygonShape(20, 6, Color::Orange(), false);
-            RegularPolygonShape &fig_refPoly = figPoly;
-
-            engine.world.emplace<TransformComponent>(newPolygon, engine.GetMousePosition());
-            engine.world.emplace<KinematicComponent>(newPolygon);
-            engine.world.emplace<ColliderComponent>(newPolygon, fig_refPoly);
-            engine.world.emplace<RigidBodyComponent>(newPolygon, 1.0f, fig_refPoly);
-
-            bodies.push_back(newPolygon);
-        }
+        engine.world.get<TransformComponent>(b).position = engine.GetMousePosition();
 
         if (engine.mouse->rightButtonPressed) {
             engine.mouse->rightButtonPressed = false;
 
-            entt::entity newBall = engine.world.create();
+            CircleShape fig1 = CircleShape(50, Color::Blue(), false);
+            CircleShape &fig_ref1 = fig1;
 
-            CircleShape figCircle = CircleShape(20, Color::Orange(), false);
-            CircleShape &fig_refCircle = figCircle;
+            CircleShape fig2 = CircleShape(50, Color::Red(), false);
+            CircleShape &fig_ref2 = fig2;
 
-            engine.world.emplace<TransformComponent>(newBall, engine.GetMousePosition());
-            engine.world.emplace<KinematicComponent>(newBall);
-            engine.world.emplace<ColliderComponent>(newBall, fig_refCircle);
-            engine.world.emplace<RigidBodyComponent>(newBall, 1.0f, fig_refCircle);
+            engine.world.replace<ColliderComponent>(a, fig_ref1, false);
+            engine.world.replace<RigidBodyComponent>(a, 1.0f, fig_ref1, false);
+            
+            engine.world.replace<ColliderComponent>(b, fig_ref2, false);
+            engine.world.replace<RigidBodyComponent>(b, 1.0f, fig_ref2, false);
+        }
+        if (engine.mouse->leftButtonPressed) {
+            engine.mouse->leftButtonPressed = false;
 
-            bodies.push_back(newBall);
+            RegularPolygonShape fig1 = RegularPolygonShape(50, numVertices1, Color::Blue(), false);
+            RegularPolygonShape &fig_ref1 = fig1;
+
+            RegularPolygonShape fig2 = RegularPolygonShape(50, numVertices2, Color::Red(), false);
+            RegularPolygonShape &fig_ref2 = fig2;
+
+            engine.world.replace<ColliderComponent>(a, fig_ref1, false);
+            engine.world.replace<RigidBodyComponent>(a, 1.0f, fig_ref1, false);
+            
+            engine.world.replace<ColliderComponent>(b, fig_ref2, false);
+            engine.world.replace<RigidBodyComponent>(b, 1.0f, fig_ref2, false);
+        }
+
+        Contact contact;
+        if(Collisions::IsColliding(a, b, contact, engine.world)) {
+            Graphics::DrawFillCircle(contact.start.x, contact.start.y, 3, 0xFFFF00FF);
+            Graphics::DrawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
+            Graphics::DrawLine(contact.start.x, contact.start.y, 
+                                contact.start.x + contact.normal.x, contact.start.y + contact.normal.y,  0xFFFF00FF);
+            std::cout << "Depth: " << contact.depth << std::endl;
         }
 
         engine.Render();

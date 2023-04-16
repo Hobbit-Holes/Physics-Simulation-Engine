@@ -4,11 +4,12 @@ int main(int argc, char *argv[]) {
     int width = 800;
     int heigth = 800;
     int radius = 10;
+    float dragImpulse = 200;
 
     MorgulEngine engine = MorgulEngine(width, heigth);
     std::vector<entt::entity> balls;
 
-    //Shapes
+    // Balls
     CircleShape figCir = CircleShape(radius, Color::White(), true);
     CircleShape &fig_refCir = figCir;
 
@@ -48,6 +49,8 @@ int main(int argc, char *argv[]) {
     engine.world.emplace<ColliderComponent>(player, fig_refCir);
     engine.world.emplace<RigidBodyComponent>(player, 1.0f, fig_refCir);
     engine.world.emplace<NameGroupComponent>(player, "Player ", "Player");
+    engine.world.emplace<DamageComponent>(player, 10);
+    balls.push_back(player);
 
     auto balls1 = engine.world.create();
     engine.world.emplace<TransformComponent>(balls1, Vec2(300, 400));
@@ -129,78 +132,78 @@ int main(int argc, char *argv[]) {
     engine.world.emplace<NameGroupComponent>(balls10, "Enemy " + std::to_string(10), "Enemy");
     balls.push_back(balls10);
 
-    //Table
-    RectangleShape table1 = RectangleShape(300, 25, Color(125, 85, 0), true);
-    RectangleShape &ref_table1 = table1;
-
-    RectangleShape table2 = RectangleShape(25, 340, Color(125, 85, 0), true);
-    RectangleShape &ref_table2 = table2;
-
-    RectangleShape table3 = RectangleShape(35, 10, Color(155, 155, 155), true);
-    RectangleShape &ref_table3 = table3;
-
-    auto tables1 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables1, Vec2(230, 200));
-    engine.world.emplace<KinematicComponent>(tables1);
-    engine.world.emplace<RigidBodyComponent>(tables1, 0.0f, ref_table1, true);
-
-    auto tables2 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables2, Vec2(580, 200));
-    engine.world.emplace<KinematicComponent>(tables2);
-    engine.world.emplace<RigidBodyComponent>(tables2, 0.0f, ref_table1, true);
-
-    auto tables3 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables3, Vec2(230, 600));
-    engine.world.emplace<KinematicComponent>(tables3);
-    engine.world.emplace<RigidBodyComponent>(tables3, 0.0f, ref_table1, true);
-
-    auto tables4 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables4, Vec2(580, 600));
-    engine.world.emplace<KinematicComponent>(tables4);
-    engine.world.emplace<RigidBodyComponent>(tables4, 0.0f, ref_table1, true);
-
-    auto tables5 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables5, Vec2(750, 400));
-    engine.world.emplace<KinematicComponent>(tables5);
-    engine.world.emplace<RigidBodyComponent>(tables5, 0.0f, ref_table2, true);
-
-    auto tables6 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables6, Vec2(50, 400));
-    engine.world.emplace<KinematicComponent>(tables6);
-    engine.world.emplace<RigidBodyComponent>(tables6, 0.0f, ref_table2, true);
-
-    auto tables7 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables7, Vec2(405, 600));
-    engine.world.emplace<KinematicComponent>(tables7);
-    engine.world.emplace<RigidBodyComponent>(tables7, 0.0f, ref_table3, true);
-
-    auto tables8 = engine.world.create();
-    engine.world.emplace<TransformComponent>(tables8, Vec2(405, 200));
-    engine.world.emplace<KinematicComponent>(tables8);
-    engine.world.emplace<RigidBodyComponent>(tables8, 0.0f, ref_table3, true);
-
+    // Holes
     CircleShape hole = CircleShape(25, Color(155, 155, 155), true);
     CircleShape &fig_Hole = hole;
 
     auto hole1 = engine.world.create();
     engine.world.emplace<TransformComponent>(hole1, Vec2(50, 200));
     engine.world.emplace<KinematicComponent>(hole1);
+    engine.world.emplace<ColliderComponent>(hole1, fig_Hole);
     engine.world.emplace<RigidBodyComponent>(hole1, 0.0f, fig_Hole, true);
+    engine.world.emplace<NameGroupComponent>(hole1, "Hole " + std::to_string(1), "Hole");
 
     auto hole2 = engine.world.create();
     engine.world.emplace<TransformComponent>(hole2, Vec2(50, 600));
     engine.world.emplace<KinematicComponent>(hole2);
+    engine.world.emplace<ColliderComponent>(hole2, fig_Hole);
     engine.world.emplace<RigidBodyComponent>(hole2, 0.0f, fig_Hole, true);
+    engine.world.emplace<NameGroupComponent>(hole2, "Hole " + std::to_string(2), "Hole");
 
     auto hole3 = engine.world.create();
     engine.world.emplace<TransformComponent>(hole3, Vec2(755, 200));
     engine.world.emplace<KinematicComponent>(hole3);
+    engine.world.emplace<ColliderComponent>(hole3, fig_Hole);
     engine.world.emplace<RigidBodyComponent>(hole3, 0.0f, fig_Hole, true);
+    engine.world.emplace<NameGroupComponent>(hole3, "Hole " + std::to_string(3), "Hole");
 
     auto hole4 = engine.world.create();
     engine.world.emplace<TransformComponent>(hole4, Vec2(755, 600));
     engine.world.emplace<KinematicComponent>(hole4);
+    engine.world.emplace<ColliderComponent>(hole4, fig_Hole);
     engine.world.emplace<RigidBodyComponent>(hole4, 0.0f, fig_Hole, true);
+    engine.world.emplace<NameGroupComponent>(hole4, "Hole " + std::to_string(4), "Hole");
+
+    auto hole5 = engine.world.create();
+    engine.world.emplace<TransformComponent>(hole5, Vec2(width/2, 200));
+    engine.world.emplace<KinematicComponent>(hole5);
+    engine.world.emplace<ColliderComponent>(hole5, fig_Hole);
+    engine.world.emplace<RigidBodyComponent>(hole5, 0.0f, fig_Hole, true);
+    engine.world.emplace<NameGroupComponent>(hole5, "Hole " + std::to_string(5), "Hole");
+    
+    auto hole6 = engine.world.create();
+    engine.world.emplace<TransformComponent>(hole6, Vec2(width/2, 600));
+    engine.world.emplace<KinematicComponent>(hole6);
+    engine.world.emplace<ColliderComponent>(hole6, fig_Hole);
+    engine.world.emplace<RigidBodyComponent>(hole6, 0.0f, fig_Hole, true);
+    engine.world.emplace<NameGroupComponent>(hole6, "Hole " + std::to_string(6), "Hole");
+
+    // Tables
+    RectangleShape table1 = RectangleShape(600, 25, Color(125, 85, 0), true);
+    RectangleShape &ref_table1 = table1;
+
+    RectangleShape table2 = RectangleShape(25, 350, Color(125, 85, 0), true);
+    RectangleShape &ref_table2 = table2;
+
+    auto tables1 = engine.world.create();
+    engine.world.emplace<TransformComponent>(tables1, Vec2(width/2, 200));
+    engine.world.emplace<KinematicComponent>(tables1);
+    engine.world.emplace<RigidBodyComponent>(tables1, 0.0f, ref_table1, true);
+
+    auto tables2 = engine.world.create();
+    engine.world.emplace<TransformComponent>(tables2, Vec2(width/2, 600));
+    engine.world.emplace<KinematicComponent>(tables2);
+    engine.world.emplace<RigidBodyComponent>(tables2, 0.0f, ref_table1, true);
+
+    auto tables5 = engine.world.create();
+    engine.world.emplace<TransformComponent>(tables5, Vec2(750, heigth/2));
+    engine.world.emplace<KinematicComponent>(tables5);
+    engine.world.emplace<RigidBodyComponent>(tables5, 0.0f, ref_table2, true);
+
+    auto tables6 = engine.world.create();
+    engine.world.emplace<TransformComponent>(tables6, Vec2(50, heigth/2));
+    engine.world.emplace<KinematicComponent>(tables6);
+    engine.world.emplace<RigidBodyComponent>(tables6, 0.0f, ref_table2, true);
 
     RectangleShape table = RectangleShape(700, 400, Color(0, 143, 57), true);
     RectangleShape &ref_table = table;
@@ -214,7 +217,55 @@ int main(int argc, char *argv[]) {
         engine.Update();
 
         // Logic
-        Graphics::DrawGrid(50, true, true);
+        const auto t = engine.world.get<TransformComponent>(player);
+        auto& k = engine.world.get<KinematicComponent>(player);
+
+        if (engine.keyboard->spaceKeyPressed) {
+            Vec2 impulseDirection = engine.mouse->GetPosition() - t.position;
+            float impulseMagnitude = MathUtils::Clamp(impulseDirection.Magnitude() * 0.001, 0.0f, 1.0f);
+            k.velocity = impulseDirection * impulseMagnitude * 5;
+        }
+
+        for (auto ball: balls) {
+            auto& t = engine.world.get<TransformComponent>(ball);
+            auto& k = engine.world.get<KinematicComponent>(ball);
+            auto& rb = engine.world.get<RigidBodyComponent>(ball);
+
+            Vec2 friction_vector = Force::GenerateFrictionVector(dragImpulse, k.velocity);
+            rb.AddForce(friction_vector);
+
+            if (t.position.x < 75) {
+                t.position.x += (75 - t.position.x) + 0.1;
+
+                Vec2 velocity = k.velocity;
+                k.velocity = k.velocity.UnitVector().Normal();
+                k.velocity.x *= abs(velocity.x);
+                k.velocity.y *= abs(velocity.y);
+            } else if (t.position.x > 725) {
+                t.position.x -= (t.position.x - 725) + 0.1;
+
+                Vec2 velocity = k.velocity;
+                k.velocity = k.velocity.UnitVector().Normal();
+                k.velocity.x *= abs(velocity.x);
+                k.velocity.y *= abs(velocity.y);
+            }
+
+            if (t.position.y < 225) {
+                t.position.y += (225 - t.position.y) + 0.1;
+
+                Vec2 velocity = k.velocity;
+                k.velocity = k.velocity.UnitVector().Normal();
+                k.velocity.x *= abs(velocity.x);
+                k.velocity.y *= abs(velocity.y);
+            } else if (t.position.y > 575) {
+                t.position.y -= (t.position.y - 575) + 0.1;
+
+                Vec2 velocity = k.velocity;
+                k.velocity = k.velocity.UnitVector().Normal();
+                k.velocity.x *= abs(velocity.x);
+                k.velocity.y *= abs(velocity.y);
+            }
+        }
 
         engine.Render();
     }

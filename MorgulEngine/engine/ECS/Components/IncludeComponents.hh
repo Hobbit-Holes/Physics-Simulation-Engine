@@ -8,6 +8,7 @@
 #include "GridMovementComponent.hh"
 #include "NameGroupComponent.hh"
 #include "ColliderComponent.hh"
+#include "DamageComponent.hh"
 #include "HealthComponent.hh"
 
 #endif
