@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
             engine.world.emplace<KinematicComponent>(ball);
             engine.world.emplace<ColliderComponent>(ball, ref_ball);
             engine.world.emplace<RigidBodyComponent>(ball, 1.0f, ref_ball);
-            engine.world.emplace<NameGroupComponent>(ball, "Enemy " + std::to_string(i), "Enemy");
+            engine.world.emplace<NameGroupComponent>(ball, "Enemy " + std::to_string(quan + 1), "Enemy");
             engine.world.emplace<DamageComponent>(ball, Vec2(100 + 50 * quan, 100));
             balls.push_back(ball);
 
@@ -59,50 +59,35 @@ int main(int argc, char *argv[]) {
     balls.push_back(player);
 
     // Holes
-    CircleShape hole = CircleShape(30, Color(155, 155, 155), true);
-    CircleShape &fig_Hole = hole;
+    position = Vec2(50, 200);
+    for (int i = 1; i <= 3; i++) {
+        CircleShape hole = CircleShape(30, Color(155, 155, 155), true);
+        CircleShape &fig_Hole = hole;
 
-    auto hole1 = engine.world.create();
-    engine.world.emplace<TransformComponent>(hole1, Vec2(50, 200));
-    engine.world.emplace<KinematicComponent>(hole1);
-    engine.world.emplace<ColliderComponent>(hole1, fig_Hole);
-    engine.world.emplace<RigidBodyComponent>(hole1, 0.0f, fig_Hole, true);
-    engine.world.emplace<NameGroupComponent>(hole1, "Hole " + std::to_string(1), "Hole");
+        auto hole1 = engine.world.create();
+        engine.world.emplace<TransformComponent>(hole1, position);
+        engine.world.emplace<KinematicComponent>(hole1);
+        engine.world.emplace<ColliderComponent>(hole1, fig_Hole);
+        engine.world.emplace<RigidBodyComponent>(hole1, 0.0f, fig_Hole, true);
+        engine.world.emplace<NameGroupComponent>(hole1, "Hole " + std::to_string(i), "Hole");
 
-    auto hole2 = engine.world.create();
-    engine.world.emplace<TransformComponent>(hole2, Vec2(50, 600));
-    engine.world.emplace<KinematicComponent>(hole2);
-    engine.world.emplace<ColliderComponent>(hole2, fig_Hole);
-    engine.world.emplace<RigidBodyComponent>(hole2, 0.0f, fig_Hole, true);
-    engine.world.emplace<NameGroupComponent>(hole2, "Hole " + std::to_string(2), "Hole");
+        position.x += width/2 - 50;
+    }
 
-    auto hole3 = engine.world.create();
-    engine.world.emplace<TransformComponent>(hole3, Vec2(750, 200));
-    engine.world.emplace<KinematicComponent>(hole3);
-    engine.world.emplace<ColliderComponent>(hole3, fig_Hole);
-    engine.world.emplace<RigidBodyComponent>(hole3, 0.0f, fig_Hole, true);
-    engine.world.emplace<NameGroupComponent>(hole3, "Hole " + std::to_string(3), "Hole");
+    position = Vec2(50, 600);
+    for (int i = 4; i <= 6; i++) {
+        CircleShape hole = CircleShape(30, Color(155, 155, 155), true);
+        CircleShape &fig_Hole = hole;
 
-    auto hole4 = engine.world.create();
-    engine.world.emplace<TransformComponent>(hole4, Vec2(750, 600));
-    engine.world.emplace<KinematicComponent>(hole4);
-    engine.world.emplace<ColliderComponent>(hole4, fig_Hole);
-    engine.world.emplace<RigidBodyComponent>(hole4, 0.0f, fig_Hole, true);
-    engine.world.emplace<NameGroupComponent>(hole4, "Hole " + std::to_string(4), "Hole");
+        auto hole1 = engine.world.create();
+        engine.world.emplace<TransformComponent>(hole1, position);
+        engine.world.emplace<KinematicComponent>(hole1);
+        engine.world.emplace<ColliderComponent>(hole1, fig_Hole);
+        engine.world.emplace<RigidBodyComponent>(hole1, 0.0f, fig_Hole, true);
+        engine.world.emplace<NameGroupComponent>(hole1, "Hole " + std::to_string(i), "Hole");
 
-    auto hole5 = engine.world.create();
-    engine.world.emplace<TransformComponent>(hole5, Vec2(width/2, 200));
-    engine.world.emplace<KinematicComponent>(hole5);
-    engine.world.emplace<ColliderComponent>(hole5, fig_Hole);
-    engine.world.emplace<RigidBodyComponent>(hole5, 0.0f, fig_Hole, true);
-    engine.world.emplace<NameGroupComponent>(hole5, "Hole " + std::to_string(5), "Hole");
-    
-    auto hole6 = engine.world.create();
-    engine.world.emplace<TransformComponent>(hole6, Vec2(width/2, 600));
-    engine.world.emplace<KinematicComponent>(hole6);
-    engine.world.emplace<ColliderComponent>(hole6, fig_Hole);
-    engine.world.emplace<RigidBodyComponent>(hole6, 0.0f, fig_Hole, true);
-    engine.world.emplace<NameGroupComponent>(hole6, "Hole " + std::to_string(6), "Hole");
+        position.x += width/2 - 50;
+    }
 
     // Tables
     RectangleShape table1 = RectangleShape(700, 20, Color(125, 85, 0), true);
