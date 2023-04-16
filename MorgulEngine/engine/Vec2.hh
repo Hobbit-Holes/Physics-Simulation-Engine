@@ -30,6 +30,7 @@ struct Vec2 {
     Vec2& Normalize();
     Vec2 UnitVector() const;
     Vec2 Normal() const;
+    Vec2 Normal2() const;
 
     // Projections
     Vec2 Projection(Vec2 w) const;

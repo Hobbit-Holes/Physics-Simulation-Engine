@@ -12,6 +12,9 @@ int main(int argc, char *argv[]) {
     }
 
     MorgulEngine engine = MorgulEngine(width, heigth);
+    int status = 0;
+
+    std::vector<entt::entity> obstacles;
 
     //Shapes
     RegularPolygonShape figCir = RegularPolygonShape(50, numVertices1, Color::Blue(), false);
@@ -42,6 +45,7 @@ int main(int argc, char *argv[]) {
 
         if (engine.mouse->rightButtonPressed) {
             engine.mouse->rightButtonPressed = false;
+            status = 1;
 
             CircleShape fig1 = CircleShape(50, Color::Blue(), false);
             CircleShape &fig_ref1 = fig1;
@@ -54,9 +58,19 @@ int main(int argc, char *argv[]) {
             
             engine.world.replace<ColliderComponent>(b, fig_ref2, false);
             engine.world.replace<RigidBodyComponent>(b, 1.0f, fig_ref2, false);
+
+            for (auto obstacle: obstacles) {
+                CircleShape fig1 = CircleShape(30, Color::Green(), false);
+                CircleShape &fig_ref1 = fig1;
+
+                engine.world.replace<ColliderComponent>(obstacle, fig_ref1, false);
+                engine.world.replace<RigidBodyComponent>(obstacle, 1.0f, fig_ref1, false);
+            }
         }
+
         if (engine.mouse->leftButtonPressed) {
             engine.mouse->leftButtonPressed = false;
+            status = 0;
 
             RegularPolygonShape fig1 = RegularPolygonShape(50, numVertices1, Color::Blue(), false);
             RegularPolygonShape &fig_ref1 = fig1;
@@ -69,10 +83,44 @@ int main(int argc, char *argv[]) {
             
             engine.world.replace<ColliderComponent>(b, fig_ref2, false);
             engine.world.replace<RigidBodyComponent>(b, 1.0f, fig_ref2, false);
+
+            for (auto obstacle: obstacles) {
+                RegularPolygonShape fig1 = RegularPolygonShape(30, 6, Color::Green(), false);
+                RegularPolygonShape &fig_ref1 = fig1;
+
+                engine.world.replace<ColliderComponent>(obstacle, fig_ref1, false);
+                engine.world.replace<RigidBodyComponent>(obstacle, 1.0f, fig_ref1, false);
+            }
+        }
+
+        if (engine.keyboard->spaceKeyPressed) {
+            engine.keyboard->spaceKeyPressed = false;
+
+            if (status == 0) {
+                const auto new_ball = engine.world.create();
+                RegularPolygonShape fig = RegularPolygonShape(30, 6, Color::Green(), false);
+                RegularPolygonShape &fig_ref = fig;
+
+                engine.world.emplace<TransformComponent>(new_ball, engine.GetMousePosition() + Vec2(1, 1));
+                engine.world.emplace<KinematicComponent>(new_ball);
+                engine.world.emplace<ColliderComponent>(new_ball, fig_ref, false);
+                engine.world.emplace<RigidBodyComponent>(new_ball, 1, fig_ref, false);
+                obstacles.push_back(new_ball);
+            } else {
+                const auto new_ball = engine.world.create();
+                CircleShape fig = CircleShape(30, Color::Green(), false);
+                CircleShape &fig_ref = fig;
+
+                engine.world.emplace<TransformComponent>(new_ball, engine.GetMousePosition() + Vec2(1, 1));
+                engine.world.emplace<KinematicComponent>(new_ball);
+                engine.world.emplace<ColliderComponent>(new_ball, fig_ref, false);
+                engine.world.emplace<RigidBodyComponent>(new_ball, 1, fig_ref, false);
+                obstacles.push_back(new_ball);
+            }
         }
 
         Contact contact;
-        if(Collisions::IsColliding(a, b, contact, engine.world)) {
+        if (Collisions::IsColliding(a, b, contact, engine.world)) {
             Graphics::DrawFillCircle(contact.start.x, contact.start.y, 3, 0xFFFF00FF);
             Graphics::DrawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
             Graphics::DrawLine(contact.start.x, contact.start.y, 

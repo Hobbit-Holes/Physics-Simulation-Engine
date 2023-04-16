@@ -2,10 +2,10 @@
 #define DAMAGECOMPONENT_H
 
 struct DamageComponent {
-    int stepSize;
+    Vec2 position;
 
-    DamageComponent(int stepSize) {
-        this->stepSize = stepSize;
+    DamageComponent(Vec2 position) {
+        this->position = position;
     }
 };
 

@@ -16,7 +16,6 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
 
     // Event Bus
     eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridMovementSystem);
-    eventBus.sink<CollisionEvent>().connect<&DamageSystem::OnCollison>(damageSystem);
     Logger::Info("Event Bus initialized.");
 
     running = true;

@@ -16,11 +16,41 @@ class DamageSystem {
 
             if (groupA == groupB) {
                 std::cout << "We are friends" << std::endl;
-            } else if ((groupA == "Player" && groupB == "Enemy") || (groupA == "Enemy" && groupB == "Player")) {
+            } else if (groupA == "Player" && groupB == "Enemy") {
                 std::cout << "Oh no, there is an Enemy!" << std::endl;
-            } else if ((groupA == "Player" && groupB == "Hole") || (groupA == "Hole" && groupB == "Player")) {
+            } else if (groupA == "Enemy" && groupB == "Player") {
+                std::cout << "Oh no, there is an Enemy!" << std::endl;
+            } else if (groupA == "Player" && groupB == "Hole") {
+                auto& t = collision.world->get<TransformComponent>(entityA);
+                auto& k = collision.world->get<KinematicComponent>(entityA);
+
+                t.position = collision.world->get<DamageComponent>(entityA).position;
+                k.velocity = Vec2(0, 0);
+
                 std::cout << "I am inside the Hole!" << std::endl;
-            } else if ((groupA == "Enemy" && groupB == "Hole") || (groupA == "Hole" && groupB == "Enemy")) {
+            } else if (groupA == "Hole" && groupB == "Player") {
+                auto& t = collision.world->get<TransformComponent>(entityB);
+                auto& k = collision.world->get<KinematicComponent>(entityB);
+
+                t.position = collision.world->get<DamageComponent>(entityB).position;
+                k.velocity = Vec2(0, 0);
+
+                std::cout << "I am inside the Hole!" << std::endl;
+            } else if (groupA == "Hole" && groupB == "Enemy") {
+                auto& t = collision.world->get<TransformComponent>(entityB);
+                auto& k = collision.world->get<KinematicComponent>(entityB);
+
+                t.position = collision.world->get<DamageComponent>(entityB).position;
+                k.velocity = Vec2(0, 0);
+
+                std::cout << "I am inside the Hole!" << std::endl;
+            } else if (groupA == "Enemy" && groupB == "Hole") {
+                auto& t = collision.world->get<TransformComponent>(entityA);
+                auto& k = collision.world->get<KinematicComponent>(entityA);
+
+                t.position = collision.world->get<DamageComponent>(entityA).position;
+                k.velocity = Vec2(0, 0);
+
                 std::cout << "I am inside the Hole!" << std::endl;
             }
         }

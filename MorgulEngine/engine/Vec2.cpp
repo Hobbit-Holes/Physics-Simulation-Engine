@@ -81,6 +81,10 @@ Vec2 Vec2::Normal() const {
     return Vec2(-y, x);
 }
 
+Vec2 Vec2::Normal2() const {
+    return Vec2(y, -x);
+}
+
 // Projections
 Vec2 Vec2::Projection(Vec2 w) const {
     float b = (x*x + y*y);
