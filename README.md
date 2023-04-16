@@ -21,6 +21,10 @@ Here you can see the different sections that have been carried out during the co
 - [Event Bus](#event-bus)
 - [Naming and Groupping](#naming-and-groupping)
 - [Collisions](#collisions)
+- [Fluid Simulations](#fluid-simulations)
+- [Game Scripting](#game-scripting)
+- [Computer Animation](#computer-animation)
+- [Projections](#projections)
 
 ## Introduction
 
@@ -188,6 +192,37 @@ Sometimes we want to identify a entity by a <b>name</b> or some entities by the 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise13.gif" alt="Exercise 13" height="300"/></p>
 
 ## Collisions
+
+For our game engine we want to create a system that allow us to check the collisions between the objects we create. To do so, we need to be carefull about the performance of the calculations. We have create a helper called <code>Collisions</code> to know when there is a collision and how to resolve it. This helper has the following functions: 
+
+- <b>IsColliding</b>: Check the type of objects that are colliding depending on the shapes and select a type of the following three coliisions.
+- <b>IsCollidingCircleCircle</b>: Check if two circles are colliding.
+- <b>IsCollidingPolygonolygon</b>: Check if two polygons are colliding.
+- <b>IsCollidingPolygonCircle</b>: Check if a polygon is colliding with a circle.
+- <b>ResolveCollision</b>: It determine how far the object will be moved.
+- <b>ResolvePenetration</b>: It determine the impulse that the objects will have for not collide.
+
+We have also create a <code>ColliderComponent</code> and a <code>CollisionSystem</code> to detect the collisions and to render the collisions if the user desire it. Also, we have determine that we are going to use the <b>Separating Axis Theorem</b> <i>(SAT)</i> to be able to resolve the collisions between objects that are rotate. The calculations used depends on the normal of each lateral of the shape. 
+
+During the implementation of the codes, we have done different examples to check that all is right. Some of the examples are [Collision Detection Circle Circle 1/2](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/collision-detection-circle-circle-1), [Collision Detection Polygon 1/2/3](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/collision-detection-polygon-1), [Collision Penetration](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/collision-penetration) and [AABB Collision Detection](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/AABB-collision-detection). Finally, for this unit we have two exercises, the [Exercise 14](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-14) consists in implementing the Component, System and helper to be able to detect collisions and resolve them. The second exercise <i>([Exercise 15](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-15))</i> consists in determine some groups that will interact between them and by themselfs with a <code>CollisionEvent</code> and a <code>DamageSystem</code>.
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise14.gif" alt="Exercise 14" height="300"/></p>
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise15.gif" alt="Exercise 15" height="300"/></p>
+
+## Fluid Simulations
+
+...
+
+## Game Scripting
+
+...
+
+## Computer Animation
+
+...
+
+## Projections
 
 ...
 
