@@ -273,8 +273,8 @@ void Collisions::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& c
     float da = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyA.invMass;
     float db = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyB.invMass;
 
-    transformA.position -= contact.normal.UnitVector() * da;
-    transformB.position += contact.normal.UnitVector() * db;
+    transformA.position -= contact.normal * da;
+    transformB.position += contact.normal * db;
 }
 
 void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) {
@@ -296,7 +296,7 @@ void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& con
     float vrelDotNormal = vrel.Dot(contact.normal.UnitVector());
 
     // Now we proceed to calculate the collision impulse
-    const Vec2 impulseDirection = contact.normal.UnitVector();
+    const Vec2 impulseDirection = contact.normal;
     const float impulseMagnitude = -(1 + e) * vrelDotNormal / (rigidbodyA.invMass + rigidbodyB.invMass);
 
     Vec2 jn = impulseDirection * impulseMagnitude;

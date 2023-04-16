@@ -3,6 +3,7 @@
 
 #include "entt/entt.hpp"
 #include "../../Collisions.hh"
+#include "../../Events/CollisionEvent.hh"
 #include "../Components/IncludeComponents.hh"
 
 class CollisionSystem {
@@ -14,10 +15,6 @@ class CollisionSystem {
             for (auto entity : view) {
                 auto& collider = view.get<ColliderComponent>(entity);
                 collider.isColliding = false;
-
-                /*if (collider.isColliding) {
-                    enventBus.EmitEvent<CollisionEvent>(a, b);
-                }*/
             }
 
             //Check every entity with the next one for collisions
@@ -37,6 +34,7 @@ class CollisionSystem {
 
                     Contact contact;
                     if (Collisions::IsColliding(entityA, entityB, contact, world)) {
+                        enventBus.trigger(CollisionEvent(entityA, entityB, world));
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collisions::ResolveCollision(entityA, entityB, contact, world);
