@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
+#include <sol/sol.hpp>
 
 #include "Mouse.hh"
 #include "Keyboard.hh"
@@ -47,6 +48,8 @@ class MorgulEngine {
         //EnTT (ECS)
         entt::registry world;
         entt::dispatcher eventBus;
+
+        sol::state lua;
 
         // Systems
         KinematicSystem kinematicSystem;

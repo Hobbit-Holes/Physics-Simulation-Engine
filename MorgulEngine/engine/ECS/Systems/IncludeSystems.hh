@@ -7,5 +7,6 @@
 #include "GridMovementSystem.hh"
 #include "CollisionSystem.hh"
 #include "DamageSystem.hh"
+#include "ScriptSystem.hh"
 
 #endif
