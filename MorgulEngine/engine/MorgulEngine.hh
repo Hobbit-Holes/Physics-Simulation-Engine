@@ -16,6 +16,7 @@
 #include "entt/entt.hpp"
 #include "Events/KeyDownEvent.hh"
 #include "Events/KeyUpEvent.hh"
+#include "Events/CollisionEvent.hh"
 #include "ECS/Components/IncludeComponents.hh"
 #include "ECS/Systems/IncludeSystems.hh"
 
@@ -57,5 +58,5 @@ class MorgulEngine {
         RigidBodySystem rigidBodySystem;
         CollisionSystem collisionSystem;
         GridMovementSystem gridMovementSystem;
-        DamageSystem damageSystem;
+        //DamageSystem damageSystem;
 };

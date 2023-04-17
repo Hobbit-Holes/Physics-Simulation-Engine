@@ -25,14 +25,14 @@ int main(int argc, char *argv[]) {
     auto a = engine.world.create();
     engine.world.emplace<TransformComponent>(a, Vec2(400, 400));
     engine.world.emplace<KinematicComponent>(a);
-    engine.world.emplace<RigidBodyComponent>(a, 1.0f, fig_refCir);
     engine.world.emplace<ColliderComponent>(a, fig_refCir, false);
+    engine.world.emplace<RigidBodyComponent>(a, 1.0f, fig_refCir);
 
     auto b = engine.world.create();
     engine.world.emplace<TransformComponent>(b, Vec2(100, 100));
     engine.world.emplace<KinematicComponent>(b);
-    engine.world.emplace<RigidBodyComponent>(b, 1.0f, fig_refRect);
     engine.world.emplace<ColliderComponent>(b, fig_refRect, false);
+    engine.world.emplace<RigidBodyComponent>(b, 1.0f, fig_refRect);
 
     while (engine.NextFrame()) {
         engine.Update();

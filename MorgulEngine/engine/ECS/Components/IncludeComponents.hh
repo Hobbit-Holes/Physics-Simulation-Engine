@@ -8,6 +8,6 @@
 #include "GridMovementComponent.hh"
 #include "NameGroupComponent.hh"
 #include "ColliderComponent.hh"
-#include "ScriptComponent.hh"
+#include "HealthComponent.hh"
 
 #endif

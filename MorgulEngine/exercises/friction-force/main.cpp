@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
     engine.world.emplace<ParticleComponent>(ball, 1, 10);
 
     while (engine.NextFrame()) {
-        Graphics::CleanUpScreen();
         engine.Update();
 
         const auto t = engine.world.get<TransformComponent>(ball);

@@ -101,12 +101,12 @@ bool Collisions::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Cont
     for (int i = 0; i < static_cast<int>(polygonVertices.size()); i++) {
         int currVertex = i;
         int nextVertex = (i + 1) % polygonVertices.size();
-        Vec2 edge = polygonShape->EdgeAt(nextVertex);
+        Vec2 edge = polygonShape->EdgeAt(currVertex);
         Vec2 normal = edge.Normal();
 
         // Compare the circle center with the rectangle vertex
-        Vec2 vertexToCircleCenter = circleTransform.position - polygonVertices[nextVertex];
-        float projection = vertexToCircleCenter.UnitVector().Dot(normal);
+        Vec2 vertexToCircleCenter = circleTransform.position - polygonVertices[currVertex];
+        float projection = vertexToCircleCenter.Dot(normal);
 
         // If we found a dot product projection that is in the positive/outside side of the normal
         if (projection > 0) {
@@ -289,11 +289,12 @@ void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& con
 
     // Define elasticity (coefficient of restitution e)
     float e = std::min(rigidbodyA.restitution, rigidbodyB.restitution);
+
     // Calcualte the relative velocity between the two objects
-    const Vec2 vrel = (kinematicA.velocity - kinematicB.velocity).UnitVector();
+    const Vec2 vrel = (kinematicA.velocity - kinematicB.velocity);
 
     // Calculate the relative velocity along the normal collision vector
-    float vrelDotNormal = vrel.Dot(contact.normal.UnitVector());
+    float vrelDotNormal = vrel.Dot(contact.normal);
 
     // Now we proceed to calculate the collision impulse
     const Vec2 impulseDirection = contact.normal;
