@@ -49,7 +49,6 @@ class MorgulEngine {
         //EnTT (ECS)
         entt::registry world;
         entt::dispatcher eventBus;
-
         sol::state lua;
 
         // Systems
