@@ -1,6 +1,7 @@
 entities = {
     {
         group = "enemies",
+        name = "enemy 1",
         components = {
             transform = {
                 position = {x = 100, y = 100},

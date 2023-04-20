@@ -5,14 +5,13 @@ void setup_scene(MorgulEngine &engine) {
 
     for (int i = 1; i <= static_cast<int>(entities.size()); i++) {
         sol::table lua_entity = entities[i];
-        //Entity newEntity = engine.CreateEntity();
-        auto newEntity = engine.world.create();
+        entt::entity newEntity = engine.world.create();
 
         // Group
         sol::optional<std::string> group = lua_entity["group"];
-        if (group != sol::nullopt) {
-            //newEntity.Group(lua_entity["group"]);
-            engine.world.emplace<NameGroupComponent>(newEntity, lua_entity["group"]);
+        sol::optional<std::string> name = lua_entity["name"];
+        if (group != sol::nullopt && name != sol::nullopt) {
+            engine.world.emplace<NameGroupComponent>(newEntity,  (std::string) lua_entity["name"], (std::string) lua_entity["group"]);
         }
 
         // Components
@@ -21,27 +20,17 @@ void setup_scene(MorgulEngine &engine) {
             // Transform
             sol::optional<sol::table> transform = lua_entity["components"]["transform"];
             if (transform != sol::nullopt) {
-                /*newEntity.AddComponent<TransformComponent>(
-                    Vec2(lua_entity["components"]["transform"]["position"]["x"], lua_entity["components"]["transform"]["position"]["y"]),
-                    lua_entity["components"]["transform"]["rotation"].get_or(0.0),
-                    Vec2(lua_entity["components"]["transform"]["scale"]["x"].get_or(1.0), lua_entity["components"]["transform"]["scale"]["y"].get_or(1.0))
-                );*/
                 engine.world.emplace<TransformComponent>(newEntity,
                     Vec2(lua_entity["components"]["transform"]["position"]["x"], lua_entity["components"]["transform"]["position"]["y"]),
                     lua_entity["components"]["transform"]["rotation"].get_or(0.0),
                     Vec2(lua_entity["components"]["transform"]["scale"]["x"].get_or(1.0), lua_entity["components"]["transform"]["scale"]["y"].get_or(1.0))
                 );
+
             }
 
             // Kinematic
             sol::optional<sol::table> kinematic = lua_entity["components"]["kinematic"];
             if (kinematic != sol::nullopt) {
-                /*newEntity.AddComponent<KinematicComponent>(
-                    Vec2(lua_entity["components"]["kinematic"]["velocity"]["x"], lua_entity["components"]["kinematic"]["velocity"]["y"]),
-                    Vec2(lua_entity["components"]["kinematic"]["acceleration"]["x"].get_or(0.0), lua_entity["components"]["kinematic"]["acceleration"]["y"].get_or(0.0)),
-                    lua_entity["components"]["kinematic"]["angularVelocity"].get_or(0.0),
-                    lua_entity["components"]["kinematic"]["angularAcceleration"].get_or(0.0)
-                );*/
                 engine.world.emplace<KinematicComponent>(newEntity, 
                     Vec2(lua_entity["components"]["kinematic"]["velocity"]["x"], lua_entity["components"]["kinematic"]["velocity"]["y"]),
                     Vec2(lua_entity["components"]["kinematic"]["acceleration"]["x"].get_or(0.0), lua_entity["components"]["kinematic"]["acceleration"]["y"].get_or(0.0)),
@@ -53,19 +42,19 @@ void setup_scene(MorgulEngine &engine) {
             // Collider
             sol::optional<sol::table> collider = lua_entity["components"]["collider"];
             if (collider != sol::nullopt) {
-                if (lua_entity["components"]["collider"]["shape"]["type"] == "circle") {
+                std::string aux = lua_entity["components"]["collider"]["shape"]["type"];
+                if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "circle") {
                     CircleShape fig = CircleShape(
                         lua_entity["components"]["collider"]["shape"]["radius"], 
                         Color(
                             lua_entity["components"]["collider"]["shape"]["color"]["r"], 
                             lua_entity["components"]["collider"]["shape"]["color"]["g"], 
                             lua_entity["components"]["collider"]["shape"]["color"]["b"]),
-                        lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
+                        false);
                     CircleShape &fig_Fig = fig;
-                    
-                    //newEntity.AddComponent<ColliderComponent>(fig_Fig);
+
                     engine.world.emplace<ColliderComponent>(newEntity, fig_Fig);
-                } else if (lua_entity["components"]["collider"]["shape"]["type"] == "rectangle") {
+                } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "rectangle") {
                     RectangleShape fig = RectangleShape(
                         lua_entity["components"]["collider"]["shape"]["width"],
                         lua_entity["components"]["collider"]["shape"]["height"], 
@@ -75,8 +64,7 @@ void setup_scene(MorgulEngine &engine) {
                             lua_entity["components"]["collider"]["shape"]["color"]["b"]),
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RectangleShape &fig_Fig = fig;
-
-                    //newEntity.AddComponent<ColliderComponent>(fig_Fig);
+;
                     engine.world.emplace<ColliderComponent>(newEntity, fig_Fig);
                 } else {
                     RegularPolygonShape fig = RegularPolygonShape(
@@ -89,7 +77,6 @@ void setup_scene(MorgulEngine &engine) {
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RegularPolygonShape &fig_Fig = fig;
 
-                    //newEntity.AddComponent<ColliderComponent>(fig_Fig);
                     engine.world.emplace<ColliderComponent>(newEntity, fig_Fig);
                 }
             }
@@ -97,7 +84,7 @@ void setup_scene(MorgulEngine &engine) {
             // RigidBody
             sol::optional<sol::table> rigidbody = lua_entity["components"]["rigidbody"];
             if (rigidbody != sol::nullopt) {
-                if (lua_entity["components"]["rigidbody"]["shape"]["type"] == "circle") {
+                if ((std::string) lua_entity["components"]["rigidbody"]["shape"]["type"] == "circle") {
                     CircleShape fig = CircleShape(
                         lua_entity["components"]["rigidbody"]["shape"]["radius"], 
                         Color(
@@ -107,9 +94,8 @@ void setup_scene(MorgulEngine &engine) {
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     CircleShape &fig_Fig = fig;
 
-                    //newEntity.AddComponent<RigidBodyComponent>(lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
                     engine.world.emplace<RigidBodyComponent>(newEntity, lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
-                } else if (lua_entity["components"]["rigidbody"]["shape"]["type"] == "rectangle") {
+                } else if ((std::string) lua_entity["components"]["rigidbody"]["shape"]["type"] == "rectangle") {
                     RectangleShape fig = RectangleShape(
                         lua_entity["components"]["rigidbody"]["shape"]["width"],
                         lua_entity["components"]["rigidbody"]["shape"]["height"], 
@@ -120,9 +106,8 @@ void setup_scene(MorgulEngine &engine) {
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     RectangleShape &fig_Fig = fig;
 
-                    //newEntity.AddComponent<RigidBodyComponent>(lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
                     engine.world.emplace<RigidBodyComponent>(newEntity, lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
-                } else if (lua_entity["components"]["rigidbody"]["shape"]["type"] == "regularPolygon") {
+                } else if ((std::string) lua_entity["components"]["rigidbody"]["shape"]["type"] == "regularPolygon") {
                     RegularPolygonShape fig = RegularPolygonShape(
                         lua_entity["components"]["rigidbody"]["shape"]["radius"],
                         lua_entity["components"]["rigidbody"]["shape"]["vertices"], 
@@ -133,7 +118,6 @@ void setup_scene(MorgulEngine &engine) {
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     RegularPolygonShape &fig_Fig = fig;
 
-                    //newEntity.AddComponent<RigidBodyComponent>(lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
                     engine.world.emplace<RigidBodyComponent>(newEntity, lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
                 } else {
                     StarShape fig = StarShape(
@@ -146,7 +130,6 @@ void setup_scene(MorgulEngine &engine) {
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     StarShape &fig_Fig = fig;
 
-                    //newEntity.AddComponent<RigidBodyComponent>(lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
                     engine.world.emplace<RigidBodyComponent>(newEntity, lua_entity["components"]["rigidbody"]["mass"], fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
                 }
             }
@@ -155,7 +138,6 @@ void setup_scene(MorgulEngine &engine) {
             sol::optional<sol::table> script = lua_entity["component"]["on_update_script"];
             if (script != sol::nullopt) {
                 sol::function func = lua_entity["component"]["on_update_script"][1];
-                //newEntity.AddComponent<ScriptComponent>(func);
                 engine.world.emplace<ScriptComponent>(newEntity, func);
             }
         }
