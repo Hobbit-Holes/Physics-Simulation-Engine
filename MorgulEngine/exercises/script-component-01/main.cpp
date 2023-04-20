@@ -42,7 +42,7 @@ void setup_scene(MorgulEngine &engine) {
                     lua_entity["components"]["kinematic"]["angularVelocity"].get_or(0.0),
                     lua_entity["components"]["kinematic"]["angularAcceleration"].get_or(0.0)
                 );*/
-                engine.world.emplace<TransformComponent>(newEntity, 
+                engine.world.emplace<KinematicComponent>(newEntity, 
                     Vec2(lua_entity["components"]["kinematic"]["velocity"]["x"], lua_entity["components"]["kinematic"]["velocity"]["y"]),
                     Vec2(lua_entity["components"]["kinematic"]["acceleration"]["x"].get_or(0.0), lua_entity["components"]["kinematic"]["acceleration"]["y"].get_or(0.0)),
                     lua_entity["components"]["kinematic"]["angularVelocity"].get_or(0.0),
