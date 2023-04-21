@@ -22,6 +22,10 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
     lua.open_libraries(sol::lib::base);
     Logger::Info("Lua initialized.");
 
+    //ScriptSystem
+    scriptSystem.CreateLuaBindings(lua);
+    Logger::Info("ScriptSystem initialized.");
+
     running = true;
 }
 
@@ -139,6 +143,7 @@ void MorgulEngine::Update() {
     particleSystem.Update(world);
     rigidBodySystem.Update(dt, world);
     collisionSystem.Update(eventBus, world);
+    scriptSystem.Update(dt, last_frame_time, world);
 }
 
 void MorgulEngine::Render() {

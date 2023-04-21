@@ -57,5 +57,5 @@ class MorgulEngine {
         RigidBodySystem rigidBodySystem;
         CollisionSystem collisionSystem;
         GridMovementSystem gridMovementSystem;
-        //DamageSystem damageSystem;
+        ScriptSystem scriptSystem;
 };
