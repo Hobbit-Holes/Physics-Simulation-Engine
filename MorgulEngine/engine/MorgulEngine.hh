@@ -12,7 +12,7 @@
 #include "MathUtils.hh"
 #include "Force.hh"
 
-//Entity Component System
+// Entity Component System
 #include "entt/entt.hpp"
 #include "Events/KeyDownEvent.hh"
 #include "Events/KeyUpEvent.hh"
@@ -45,6 +45,9 @@ class MorgulEngine {
         int GetTotalTimeInMilliSeconds();
         double GetTotalTimeInSeconds();
         Vec2 GetMousePosition();
+        
+        // World Creation
+        std::vector<entt::entity> SetupScene();
 
         //EnTT (ECS)
         entt::registry world;
@@ -56,6 +59,8 @@ class MorgulEngine {
         ParticleSystem particleSystem;
         RigidBodySystem rigidBodySystem;
         CollisionSystem collisionSystem;
-        GridMovementSystem gridMovementSystem;
         ScriptSystem scriptSystem;
+
+        GridMovementSystem gridMovementSystem;
+        ShipMovementSystem shipMovementSystem;
 };

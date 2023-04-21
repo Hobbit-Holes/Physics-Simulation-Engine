@@ -20,9 +20,11 @@ struct RegularPolygonShape: public PolygonShape {
         this->filled = filled;
 
         // Vertices
+        float initialRadius = 1.5 * pi - pi / numVertices;
+
         std::vector<entt::entity> balls;
         for (int i = 1; i <= this->numVertices; i++) {
-            Vec2 position = position.FromModuleAngle(this->radius, (2* pi / this->numVertices) * (i));
+            Vec2 position = position.FromModuleAngle(this->radius, (2 * pi / this->numVertices) * (i) - initialRadius);
 
             this->localVertices.push_back(position);
             this->worldVertices.push_back(position);

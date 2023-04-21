@@ -1,33 +1,40 @@
 #include "MorgulEngine.hh"
 
 int main(int argc, char *argv[]) {
-    int width = 600;
-    int heigth = 600;
+    int width = 1000;
+    int heigth = 1000;
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
+    engine.lua.script_file("./final-project.lua");
+    std::vector<entt::entity> entities = engine.SetupScene();
 
-    // Player
-    float player_x = 20;
-    float player_y = 20;
-    float player_width = 10;
-    float player_heigth = 10;
-    float player_speed = 50;
+    // Variables
+    float dragImpulse = engine.lua["dragImpulse"];
+    float dragRotation = engine.lua["dragRotation"];
 
     // Game Loop
     while (engine.NextFrame()) {
         // Update Engine
-
+        engine.Update();
 
         // Custom Logic
-        Logger::Info("Player position: " + std::to_string(player_x) + ", " + std::to_string(player_y));
+        for (auto entity: entities) {
+            std::string name = engine.world.get<NameGroupComponent>(entity).name;
+            if (name == "Player") {
+                const auto k = engine.world.get<KinematicComponent>(entity);
+                auto& rb = engine.world.get<RigidBodyComponent>(entity);
+
+                Vec2 friction_vector = Force::GenerateFrictionVector(dragImpulse, k.velocity);
+                rb.AddForce(friction_vector);
+                float friction_rotation = Force::GenerateFrictionRotation(dragRotation, k.angularVelocity);
+                rb.AddTorque(friction_rotation);
+            }
+        }
 
         // Engine Render
-
+        engine.Render();
     }
-
-    // Destroy the Engine
-
 
     return 0;
 }

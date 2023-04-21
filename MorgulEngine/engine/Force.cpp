@@ -28,6 +28,18 @@ Vec2 Force::GenerateFrictionVector(float k, Vec2 v) {
     return frictionForce;
 }
 
+float Force::GenerateFrictionRotation(float k, float rotation) {
+    float frictionForce = 0;
+
+    if (rotation != 0) {
+        float frictionDirection = rotation * -1;
+        float frictionMagnitude = k;
+        frictionForce = frictionDirection * frictionMagnitude;
+    }
+
+    return frictionForce;
+}
+
 Vec2 Force::GenerateGravitationalVector(Vec2 positionA, Vec2 positionB, float massA, float massB, float G, float minDistance, float maxDistance) {
     // Distance between the objects
     Vec2 distance = positionB - positionA;
