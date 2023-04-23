@@ -23,12 +23,51 @@ class ScriptSystem {
                 }
             });
 
+            lua.set_function("set_rotation", [](entt::entity entity, entt::registry& world, double x) {
+                if (world.all_of<TransformComponent>(entity)) {
+                    auto& transform = world.get<TransformComponent>(entity);
+                    transform.rotation = x;
+                } else {
+                    Logger::Error("Traying to set the position of an entity that has no transform component");
+                }
+            });
+
             lua.set_function("set_velocity", [](entt::entity entity, entt::registry& world, double x, double y) {
                 if (world.all_of<KinematicComponent>(entity)) {
                     auto& kinematic = world.get<KinematicComponent>(entity);
                     kinematic.velocity = Vec2(x, y);
                 } else {
                     Logger::Error("Traying to set the position of an entity that has no kinematic component");
+                }
+            });
+
+            lua.set_function("get_position", [](entt::entity entity, entt::registry& world) {
+                if (world.all_of<TransformComponent>(entity)) {
+                    auto& transform = world.get<TransformComponent>(entity);
+                    return transform.position;
+                } else {
+                    Logger::Error("Traying to get the position of an entity that has no transform component");
+                    return Vec2(0.0, 0.0);
+                }
+            });
+
+            lua.set_function("get_rotation", [](entt::entity entity, entt::registry& world) {
+                if (world.all_of<TransformComponent>(entity)) {
+                    auto& transform = world.get<TransformComponent>(entity);
+                    return transform.rotation;
+                } else {
+                    Logger::Error("Traying to get the position of an entity that has no kinematic component");
+                    return 0.0;
+                }
+            });
+
+            lua.set_function("get_velocity", [](entt::entity entity, entt::registry& world) {
+                if (world.all_of<KinematicComponent>(entity)) {
+                    auto& kinematic = world.get<KinematicComponent>(entity);
+                    return kinematic.velocity;
+                } else {
+                    Logger::Error("Traying to get the position of an entity that has no kinematic component");
+                    return Vec2(0.0, 0.0);
                 }
             });
         }

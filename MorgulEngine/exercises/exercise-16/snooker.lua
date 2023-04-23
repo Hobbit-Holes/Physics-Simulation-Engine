@@ -1,3 +1,16 @@
+Vec2.UnitVector = function(self)
+    local normal = math.sqrt(self.x * self.x + self.y * self.y)
+    return Vec2(self.x / normal, self.y / normal)
+end
+
+Vec2.Normal = function(self)
+    return Vec2(-self.y, self.x)
+end
+
+Vec2.Normal2 = function(self)
+    return Vec2(self.y, -self.x)
+end
+
 dragImpulse = 100
 
 ballsRadius = 12
@@ -60,6 +73,68 @@ entities = {
             },
             damage = {
                 position = {x = 500, y = 400}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end       
             }
         }
     },
@@ -92,6 +167,68 @@ entities = {
             },
             damage = {
                 position = {x = 100, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -124,6 +261,68 @@ entities = {
             },
             damage = {
                 position = {x = 150, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -156,6 +355,68 @@ entities = {
             },
             damage = {
                 position = {x = 200, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -188,6 +449,68 @@ entities = {
             },
             damage = {
                 position = {x = 250, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -220,6 +543,68 @@ entities = {
             },
             damage = {
                 position = {x = 300, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -252,6 +637,68 @@ entities = {
             },
             damage = {
                 position = {x = 350, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -284,6 +731,68 @@ entities = {
             },
             damage = {
                 position = {x = 400, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -316,6 +825,68 @@ entities = {
             },
             damage = {
                 position = {x = 450, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -348,6 +919,68 @@ entities = {
             },
             damage = {
                 position = {x = 500, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
@@ -366,7 +999,7 @@ entities = {
                 shape = {
                     type = "circle",
                     radius = ballsRadius,
-                    color = {r = 255, g = 235, b = 205}
+                    color = {r = 255, g = 200, b = 80}
                 }
             },
             rigidbody = {
@@ -374,12 +1007,74 @@ entities = {
                 shape = {
                     type = "circle",
                     radius = ballsRadius,
-                    color = {r = 255, g = 235, b = 205},
+                    color = {r = 255, g = 200, b = 80},
                     filled = true
                 }
             },
             damage = {
                 position = {x = 550, y = 100}
+            },
+            on_update_script = {
+                function(entity, world, delta_time, ellpsed_time)
+                    local t = get_position(entity, world)
+                    local k = get_velocity(entity, world)
+            
+                    if t.x < 70 and t.x > 30 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        t.x = t.x + (70 - t.x) + 0.1
+                        set_position(t.x + (70 - t.x) + 0.1, t.y)
+
+                    elseif t.x > 730 and t.x < 770 then
+                        if k.y > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+                    end
+            
+                    if t.y < 220 and t.y > 180 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+            
+                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+                    elseif t.y > 580 and t.y < 620 then
+                        if k.x > 0 then
+                            local velocity = k
+                            k = k:UnitVector():Normal2()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        else
+                            local velocity = k
+                            k = k:UnitVector():Normal()
+                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+                        end
+
+                        set_position(t.x, t.y - (580 - t.y) + 0.1)
+                    end
+                    
+                end 
             }
         }
     },
