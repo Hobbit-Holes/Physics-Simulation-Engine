@@ -7,9 +7,9 @@
 class ScriptSystem {
     public:
         void CreateLuaBindings(sol::state& lua) {
-            lua.new_usertype<Vec2> (
+            lua.new_usertype<Vec2>(
                 "Vec2",
-                sol::constructors<Vec2(float, float)> (),
+                sol::constructors<Vec2(float, float)>(),
                 "x", &Vec2::x,
                 "y", &Vec2::y
             );
@@ -19,7 +19,7 @@ class ScriptSystem {
                     auto& transform = world.get<TransformComponent>(entity);
                     transform.position = Vec2(x, y);
                 } else {
-                    Logger::Error("Traying to set the position of an entity that has no transform component");
+                    Logger::Error("Trying to set the position of an entity that has no transform component");
                 }
             });
 
@@ -28,7 +28,7 @@ class ScriptSystem {
                     auto& transform = world.get<TransformComponent>(entity);
                     transform.rotation = x;
                 } else {
-                    Logger::Error("Traying to set the position of an entity that has no transform component");
+                    Logger::Error("Trying to set the position of an entity that has no transform component");
                 }
             });
 
@@ -37,7 +37,7 @@ class ScriptSystem {
                     auto& kinematic = world.get<KinematicComponent>(entity);
                     kinematic.velocity = Vec2(x, y);
                 } else {
-                    Logger::Error("Traying to set the position of an entity that has no kinematic component");
+                    Logger::Error("Trying to set the position of an entity that has no kinematic component");
                 }
             });
 
@@ -46,7 +46,7 @@ class ScriptSystem {
                     auto& transform = world.get<TransformComponent>(entity);
                     return transform.position;
                 } else {
-                    Logger::Error("Traying to get the position of an entity that has no transform component");
+                    Logger::Error("Trying to get the position of an entity that has no transform component");
                     return Vec2(0.0, 0.0);
                 }
             });
@@ -56,7 +56,7 @@ class ScriptSystem {
                     auto& transform = world.get<TransformComponent>(entity);
                     return transform.rotation;
                 } else {
-                    Logger::Error("Traying to get the position of an entity that has no kinematic component");
+                    Logger::Error("Trying to get the position of an entity that has no kinematic component");
                     return 0.0;
                 }
             });
@@ -66,7 +66,7 @@ class ScriptSystem {
                     auto& kinematic = world.get<KinematicComponent>(entity);
                     return kinematic.velocity;
                 } else {
-                    Logger::Error("Traying to get the position of an entity that has no kinematic component");
+                    Logger::Error("Trying to get the position of an entity that has no kinematic component");
                     return Vec2(0.0, 0.0);
                 }
             });

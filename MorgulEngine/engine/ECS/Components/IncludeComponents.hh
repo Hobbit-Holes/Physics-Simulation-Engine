@@ -8,6 +8,8 @@
 #include "NameGroupComponent.hh"
 #include "ColliderComponent.hh"
 #include "ScriptComponent.hh"
+#include "SpriteComponent.hh"
+#include "AnimationComponent.hh"
 
 #include "GridMovementComponent.hh"
 #include "ShipMovementComponent.hh"

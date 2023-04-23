@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
-    engine.lua.script_file("./final-project.lua");
+    engine.lua.script_file("./assets/scripts/final-project.lua");
     std::vector<entt::entity> entities = engine.SetupScene();
 
     // Variables

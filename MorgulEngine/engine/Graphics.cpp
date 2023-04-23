@@ -1,11 +1,14 @@
 #include "Graphics.hh"
 
+// Variables
+int Graphics::windowWidth = 0, Graphics::windowHeigth = 0;
 SDL_Window* Graphics::window = NULL;
 SDL_Renderer* Graphics::renderer = NULL;
 uint32_t* Graphics::color_buffer = NULL;
 SDL_Texture* Graphics::color_buffer_texture = NULL;
-int Graphics::windowWidth, Graphics::windowHeigth = 0;
+std::map<std::string, SDL_Texture*> Graphics::textures;
 
+// Functions
 bool Graphics::OpenWindow(int width, int heigth) {
     windowWidth = width;
     windowHeigth = heigth;
@@ -333,4 +336,38 @@ void Graphics::DrawStarPlatinum(int x, int y, float radius, const std::vector<Ve
         DrawLineSDL(x + actualPoint.x, y + actualPoint.y, x + actualPoint.x + middlePoint.x, y + actualPoint.y + middlePoint.y, color);
         DrawLineSDL(x + actualPoint.x + middlePoint.x, y + actualPoint.y + middlePoint.y, x + nextPoint.x, y + nextPoint.y, color);
     }
+}
+
+void Graphics::DrawSprite(SDL_Texture* texture, Vec2 position, Vec2 scale, int width, int height, float rotation, SDL_Rect _srcRect) {
+    SDL_Rect srcRect = _srcRect;
+
+    SDL_Rect dstRect = {
+        static_cast<int>(position.x - width * scale.x * 0.5),
+        static_cast<int>(position.y - height * scale.y * 0.5),
+        static_cast<int>(width * scale.x),
+        static_cast<int>(height * scale.y)
+    };
+
+    if (SDL_RenderCopyEx(renderer, texture, &srcRect, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0) {
+        std::cout << "Error rendering sprite" << SDL_GetError() << std::endl;
+    }
+}
+        
+// Asset Manager
+void Graphics::ClearAssets() {
+    textures.clear();
+}
+
+void Graphics::AddTexture(const std::string& assetId, const std::string& filePath) {
+    //SDL_Surface* surface = IMG_Load(filePath);
+    //SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    //SDL_FreeSurface(surface);
+
+    //textures[assetId] = texture;
+}
+
+SDL_Texture* Graphics::GetTexture(const std::string& assetId) {
+    SDL_Texture* texture = textures[assetId];
+    
+    return texture;
 }

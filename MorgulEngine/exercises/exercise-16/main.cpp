@@ -36,7 +36,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
     while (engine.NextFrame()) {
         engine.Update();
 

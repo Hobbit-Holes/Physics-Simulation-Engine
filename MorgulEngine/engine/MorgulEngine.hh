@@ -14,9 +14,7 @@
 
 // Entity Component System
 #include "entt/entt.hpp"
-#include "Events/KeyDownEvent.hh"
-#include "Events/KeyUpEvent.hh"
-#include "Events/CollisionEvent.hh"
+#include "Events/IncludeEvents.hh"
 #include "ECS/Components/IncludeComponents.hh"
 #include "ECS/Systems/IncludeSystems.hh"
 
@@ -60,6 +58,8 @@ class MorgulEngine {
         RigidBodySystem rigidBodySystem;
         CollisionSystem collisionSystem;
         ScriptSystem scriptSystem;
+        SpriteSystem spriteSystem;
+        AnimationSystem animationSystem;
 
         GridMovementSystem gridMovementSystem;
         ShipMovementSystem shipMovementSystem;

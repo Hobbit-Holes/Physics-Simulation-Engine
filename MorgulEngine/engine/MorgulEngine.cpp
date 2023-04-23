@@ -20,12 +20,12 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
     Logger::Info("Event Bus initialized.");
 
     // Lua Scripting
-    lua.open_libraries(sol::lib::base);
+    lua.open_libraries(sol::lib::base, sol::lib::math);
     Logger::Info("Lua initialized.");
 
     //ScriptSystem
     scriptSystem.CreateLuaBindings(lua);
-    Logger::Info("ScriptSystem initialized.");
+    Logger::Info("Binding between C++ and Lua.");
 
     running = true;
 }
@@ -137,7 +137,6 @@ void MorgulEngine::CheckInput() {
 
 void MorgulEngine::Update() {
     CheckInput();
-    Graphics::CleanUpScreen();
 
     // Systems
     kinematicSystem.Update(dt, world);
@@ -148,10 +147,14 @@ void MorgulEngine::Update() {
 }
 
 void MorgulEngine::Render() {
+    Graphics::CleanUpScreen();
+
     // Systems
     particleSystem.Render(world);
     rigidBodySystem.Render(world);
     collisionSystem.Render(world);
+    spriteSystem.Render(world);
+    animationSystem.Render(world);
 
     Graphics::RenderFrame();
 }
@@ -218,18 +221,18 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
             // Collider
             sol::optional<sol::table> collider = lua_entity["components"]["collider"];
             if (collider != sol::nullopt) {
-                std::string aux = lua_entity["components"]["collider"]["shape"]["type"];
                 if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "circle") {
                     CircleShape fig = CircleShape(
                         lua_entity["components"]["collider"]["shape"]["radius"], 
                         Color(
                             lua_entity["components"]["collider"]["shape"]["color"]["r"], 
                             lua_entity["components"]["collider"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["collider"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["collider"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["collider"]["shape"]["color"]["a"].get_or(255)),
                         false);
                     CircleShape &fig_Fig = fig;
 
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig);
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false));
                 } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "rectangle") {
                     RectangleShape fig = RectangleShape(
                         lua_entity["components"]["collider"]["shape"]["width"],
@@ -237,23 +240,25 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         Color(
                             lua_entity["components"]["collider"]["shape"]["color"]["r"], 
                             lua_entity["components"]["collider"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["collider"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["collider"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["collider"]["shape"]["color"]["a"].get_or(255)),
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RectangleShape &fig_Fig = fig;
 ;
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig);
-                } else {
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false));
+                } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "regularPolygon") {
                     RegularPolygonShape fig = RegularPolygonShape(
                         lua_entity["components"]["collider"]["shape"]["radius"],
                         lua_entity["components"]["collider"]["shape"]["vertices"], 
                         Color(
                             lua_entity["components"]["collider"]["shape"]["color"]["r"], 
                             lua_entity["components"]["collider"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["collider"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["collider"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["collider"]["shape"]["color"]["a"].get_or(255)),
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RegularPolygonShape &fig_Fig = fig;
 
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig);
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false));
                 }
             }
 
@@ -266,7 +271,8 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         Color(
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["r"], 
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["a"].get_or(255)),
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     CircleShape &fig_Fig = fig;
 
@@ -278,7 +284,8 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         Color(
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["r"], 
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["a"].get_or(255)),
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     RectangleShape &fig_Fig = fig;
 
@@ -290,19 +297,21 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         Color(
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["r"], 
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["a"].get_or(255)),
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     RegularPolygonShape &fig_Fig = fig;
 
                     world.emplace<RigidBodyComponent>(newEntity, lua_entity["components"]["rigidbody"]["mass"].get_or(1.0), fig_Fig, lua_entity["components"]["rigidbody"]["isStatic"].get_or(false));
-                } else {
+                } else if ((std::string) lua_entity["components"]["rigidbody"]["shape"]["type"] == "star") {
                     StarShape fig = StarShape(
                         lua_entity["components"]["rigidbody"]["shape"]["radius"],
                         lua_entity["components"]["rigidbody"]["shape"]["vertices"], 
                         Color(
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["r"], 
                             lua_entity["components"]["rigidbody"]["shape"]["color"]["g"], 
-                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"]),
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["b"], 
+                            lua_entity["components"]["rigidbody"]["shape"]["color"]["a"].get_or(255)),
                         lua_entity["components"]["rigidbody"]["shape"]["filled"].get_or(false));
                     StarShape &fig_Fig = fig;
 
@@ -311,9 +320,9 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
             }
 
             // Scripts
-            sol::optional<sol::table> script = lua_entity["component"]["on_update_script"];
+            sol::optional<sol::table> script = lua_entity["components"]["on_update_script"];
             if (script != sol::nullopt) {
-                sol::function func = lua_entity["component"]["on_update_script"][1];
+                sol::function func = lua_entity["components"]["on_update_script"][1];
                 world.emplace<ScriptComponent>(newEntity, func);
             }
 
@@ -326,7 +335,8 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                     Color(
                         lua_entity["components"]["particle"]["color"]["r"].get_or(255), 
                         lua_entity["components"]["particle"]["color"]["g"].get_or(255), 
-                        lua_entity["components"]["particle"]["color"]["b"].get_or(255)),
+                        lua_entity["components"]["particle"]["color"]["b"].get_or(255), 
+                        lua_entity["components"]["particle"]["color"]["a"].get_or(255)),
                     lua_entity["components"]["particle"]["render"].get_or(false),
                     lua_entity["components"]["particle"]["angle"].get_or(0.0)
                 );

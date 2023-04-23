@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <cstring>
 #include <stdint.h>
+#include <map>
 
 #include "Logger.hh"
 #include "Vec2.hh"
@@ -17,6 +18,7 @@ class Graphics {
         static SDL_Renderer* renderer;
         static uint32_t* color_buffer;
         static SDL_Texture* color_buffer_texture;
+        static std::map<std::string, SDL_Texture*> textures;
     
     public:
         static bool OpenWindow(int width, int heigth);
@@ -40,6 +42,12 @@ class Graphics {
         static void DrawStar(int x, int y, const std::vector<Vec2>& vertices, Color color);
         static void DrawStarPlatinum(int x, int y, int radius, int points, Color color);
         static void DrawStarPlatinum(int x, int y, float radius, const std::vector<Vec2>& vertices, Color color);
+        static void DrawSprite(SDL_Texture* texture, Vec2 position, Vec2 scale, int width, int height, float rotation, SDL_Rect _srcRect);
+
+        // Asset Manager
+        static void ClearAssets();
+        static void AddTexture(const std::string& assetId, const std::string& filePath);
+        static SDL_Texture* GetTexture(const std::string& assetId);
 };
 
 #endif

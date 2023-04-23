@@ -1,14 +1,84 @@
 Vec2.UnitVector = function(self)
     local normal = math.sqrt(self.x * self.x + self.y * self.y)
-    return Vec2(self.x / normal, self.y / normal)
+    local res = self
+    res.x = self.x / normal
+    res.y =  self.y / normal
+    return res
 end
 
 Vec2.Normal = function(self)
-    return Vec2(-self.y, self.x)
+    local x = self.x
+    local y = self.y
+    self.x = -y
+    self.y = x
+    return self
 end
 
 Vec2.Normal2 = function(self)
-    return Vec2(self.y, -self.x)
+    local x = self.x
+    local y = self.y
+    self.x = y
+    self.y = -x
+    return self
+end
+
+function Boundaries(entity, world, delta_time, ellpsed_time)
+    local t = get_position(entity, world)
+    local k = get_velocity(entity, world)
+
+    if t.x < 70 and t.x > 30 then
+        local velocity = get_velocity(entity, world)
+        k = k:UnitVector()
+
+        if k.y > 0 then
+            k = k:Normal2()
+        else
+            k = k:Normal()
+        end
+
+        set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+        set_position(entity, world, t.x + (70 - t.x) + 0.1, t.y)
+
+    elseif t.x > 730 and t.x < 770 then
+        local velocity = get_velocity(entity, world)
+        k = k:UnitVector()
+
+        if k.y > 0 then
+            k = k:Normal()
+        else
+            k = k:Normal2()
+        end
+
+        set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
+    end
+
+    if t.y < 220 and t.y > 180 then
+        local velocity = get_velocity(entity, world)
+        k = k:UnitVector()
+
+        if k.x > 0 then
+            k = k:Normal()
+        else
+            k = k:Normal2()
+        end
+
+        set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
+
+    elseif t.y > 580 and t.y < 620 then
+        local velocity = get_velocity(entity, world)
+        k = k:UnitVector()
+
+        if k.x > 0 then
+            k = k:Normal2()
+        else
+            k = k:Normal()
+        end
+
+        set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
+        set_position(entity, world, t.x, t.y - (t.y - 580) + 0.1)
+    end
 end
 
 dragImpulse = 100
@@ -51,9 +121,7 @@ entities = {
             transform = {
                 position = {x = table.position.x + 150, y = table.position.y},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -76,65 +144,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end       
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -145,9 +156,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 100, y = table.position.y},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -170,65 +179,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -239,9 +191,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 130, y = table.position.y - 15},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -264,65 +214,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -333,9 +226,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 130, y = table.position.y + 15},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -358,65 +249,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -427,9 +261,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 160, y = table.position.y - 30},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -452,65 +284,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -521,9 +296,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 160, y = table.position.y},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -546,65 +319,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -615,9 +331,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 160, y = table.position.y + 30},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -640,65 +354,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -709,9 +366,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 190, y = table.position.y - 45},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -734,65 +389,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -803,9 +401,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 190, y = table.position.y - 15},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -828,65 +424,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -897,9 +436,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 190, y = table.position.y + 15},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -922,65 +459,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -991,9 +471,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - 190, y = table.position.y + 45},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1016,65 +494,8 @@ entities = {
             },
             on_update_script = {
                 function(entity, world, delta_time, ellpsed_time)
-                    local t = get_position(entity, world)
-                    local k = get_velocity(entity, world)
-            
-                    if t.x < 70 and t.x > 30 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        t.x = t.x + (70 - t.x) + 0.1
-                        set_position(t.x + (70 - t.x) + 0.1, t.y)
-
-                    elseif t.x > 730 and t.x < 770 then
-                        if k.y > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x - (t.x - 730) + 0.1, t.y)
-                    end
-            
-                    if t.y < 220 and t.y > 180 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-            
-                        set_position(entity, world, t.x, t.y + (220 - t.y) + 0.1)
-
-                    elseif t.y > 580 and t.y < 620 then
-                        if k.x > 0 then
-                            local velocity = k
-                            k = k:UnitVector():Normal2()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        else
-                            local velocity = k
-                            k = k:UnitVector():Normal()
-                            set_velocity(entity, world, math.abs(velocity.x) * k.x, math.abs(velocity.y) * k.y)
-                        end
-
-                        set_position(t.x, t.y - (580 - t.y) + 0.1)
-                    end
-                    
-                end 
+                    Boundaries(entity, world, delta_time, ellpsed_time)
+                end
             }
         }
     },
@@ -1085,9 +506,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - table.width/2, y = table.position.y - table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1115,9 +534,7 @@ entities = {
             transform = {
                 position = {x = table.position.x, y = table.position.y - table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1145,9 +562,7 @@ entities = {
             transform = {
                 position = {x = table.position.x + table.width/2, y = table.position.y - table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1175,9 +590,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - table.width/2, y = table.position.y + table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1205,9 +618,7 @@ entities = {
             transform = {
                 position = {x = table.position.x, y = table.position.y + table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1235,9 +646,7 @@ entities = {
             transform = {
                 position = {x = table.position.x + table.width/2, y = table.position.y + table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 shape = {
@@ -1265,9 +674,7 @@ entities = {
             transform = {
                 position = {x = table.position.x, y = table.position.y - table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             rigidbody = {
                 mass = 1,
                 shape = {
@@ -1287,9 +694,7 @@ entities = {
             transform = {
                 position = {x = table.position.x, y = table.position.y + table.heigth/2},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             rigidbody = {
                 mass = 1,
                 shape = {
@@ -1309,9 +714,7 @@ entities = {
             transform = {
                 position = {x = table.position.x - table.width/2, y = table.position.y},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             rigidbody = {
                 mass = 1,
                 shape = {
@@ -1331,9 +734,7 @@ entities = {
             transform = {
                 position = {x = table.position.x + table.width/2, y = table.position.y},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             rigidbody = {
                 mass = 1,
                 shape = {
@@ -1353,9 +754,7 @@ entities = {
             transform = {
                 position = {x = table.position.x, y = table.position.y},
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-            },
+            kinematic = {},
             rigidbody = {
                 mass = 1,
                 shape = {
@@ -1369,5 +768,3 @@ entities = {
         }
     }
 }
-
-

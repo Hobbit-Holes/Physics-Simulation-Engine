@@ -6,6 +6,8 @@
 #include "RigidBodySystem.hh"
 #include "CollisionSystem.hh"
 #include "ScriptSystem.hh"
+#include "SpriteSystem.hh"
+#include "AnimationSystem.hh"
 
 #include "GridMovementSystem.hh"
 #include "ShipMovementSystem.hh"

@@ -212,11 +212,26 @@ During the implementation of the codes, we have done different examples to check
 
 ## Fluid Simulations
 
-...
+We want to implement fluid simulations using <code>SPH</code> <i>(Smoothed Particle Hydrodynamics)</i>. To do so, we have implement a new struct for the particles and the following functions: 
+
+- <b>Init SPH</b>: Generate a column of particles.
+- <b>Check Input</b>: If the user wants, it can be added more particles in the runtime.
+- <b>Compute Density Pressure</b>: Calculate the density and pressure of the particles.
+- <b>Compute Forces</b>: Calculate the sume of forces generate by the pressure and viscosity.
+- <b>Integrate and Enfocer Boundaries</b>: Limit of the particles where they can move.
+- <b>Render Scene</b>: Draw all the particles.
+
+For this part we have implement the example [SPH](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/SPH) where we generate some particles that move like a fluid.
 
 ## Game Scripting
 
-...
+In this section, we have implement a producedural programming paradigm, where we will use Lua and SOL framwwork for binding with C++. First of all, we need to download Lua into our local drive and then, update the Makefile to support it. We have implement some examples to check that it works fine, these examples are [Setting up the Enviroment](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/setting-up-the-enviroment), [Loading Lua Script](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/loafing-lua-script), [Lua Functions](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/lua-functions) and [Game Snooker](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/game-snooker).
+
+Later, we have implement a new <code>Script Component</code> and <code>Script System</code> to use functions created in the Lua script. Also, we have create a new function inside the Game Engine that create entities given a Lua script with a specific format. For this part we have three different examples: [Script Component 01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/script-component-01), [Script Component 02](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/script-component-02) and [Script Component 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/script-component-03). Here we have learn how to use functions in the Lua script that are outside it and use stucts inside Lua.
+
+Finaly, we have to do the [Exercise 16](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-16) where we need to add support to the Lua script and implement the new component and system. We have remade the snooker game from the Exercise 15 with this new method.
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise16.gif" alt="Exercise 16" height="300"/></p>
 
 ## Computer Animation
 

@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
 
     MorgulEngine engine = MorgulEngine(width, heigth);
     engine.lua.script_file("./script-component-01.lua");
-    setup_scene(engine);
+    std::vector<entt::entity> entities = engine.SetupScene();
     
     while (engine.NextFrame()) {
         engine.Update();
