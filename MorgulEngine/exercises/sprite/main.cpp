@@ -6,19 +6,17 @@ int main(int argc, char *argv[]) {
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
+    engine.luaTextures.script_file("./assets/scripts/sprites.lua");
+    engine.lua.script_file("./assets/scripts/entities.lua");
 
     // Add Textures
-    Graphics::AddTexture("dango_01", "./dango_01.png");
+    engine.SetupTextures();
 
     // Entities
-    const auto smallSpaceship = engine.world.create();
-    engine.world.emplace<TransformComponent>(smallSpaceship, Vec2(400, 400));
-    engine.world.emplace<SpriteComponent>(smallSpaceship, "dango_01", 32, 32);
+    std::vector<entt::entity> entities = engine.SetupScene();
 
-    const auto bigSpaceship = engine.world.create();
-    engine.world.emplace<TransformComponent>(bigSpaceship, Vec2(200, 600), 0 , Vec2(2, 2));
-    engine.world.emplace<SpriteComponent>(bigSpaceship, "dango_01", 32, 32);
-
+    entt::entity smallSpaceship = entities[0];
+    entt::entity bigSpaceship = entities[1];
     
     while (engine.NextFrame()) {
         engine.Update();

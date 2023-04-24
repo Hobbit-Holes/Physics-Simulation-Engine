@@ -11,6 +11,7 @@
 
 #include "GridMovementSystem.hh"
 #include "ShipMovementSystem.hh"
+#include "AnimatedMovementSystem.hh"
 
 #include "DamageSystem.hh"
 

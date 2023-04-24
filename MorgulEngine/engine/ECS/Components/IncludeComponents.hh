@@ -13,6 +13,7 @@
 
 #include "GridMovementComponent.hh"
 #include "ShipMovementComponent.hh"
+#include "AnimatedMovementComponent.hh"
 
 #include "DamageComponent.hh"
 

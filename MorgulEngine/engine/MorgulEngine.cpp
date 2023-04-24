@@ -21,6 +21,7 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
 
     // Lua Scripting
     lua.open_libraries(sol::lib::base, sol::lib::math);
+    luaTextures.open_libraries(sol::lib::base, sol::lib::math);
     Logger::Info("Lua initialized.");
 
     //ScriptSystem
@@ -326,6 +327,27 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                 world.emplace<ScriptComponent>(newEntity, func);
             }
 
+            // Sprite
+            sol::optional<sol::table> sprite = lua_entity["components"]["sprite"];
+            if (sprite != sol::nullopt) {
+                world.emplace<SpriteComponent>(newEntity, 
+                    lua_entity["components"]["sprite"]["assetId"],
+                    lua_entity["components"]["sprite"]["width"].get_or(0),
+                    lua_entity["components"]["sprite"]["height"].get_or(0),
+                    lua_entity["components"]["sprite"]["positionX"].get_or(0),
+                    lua_entity["components"]["sprite"]["positionY"].get_or(0));
+            }
+
+            // Animation
+            sol::optional<sol::table> animation = lua_entity["components"]["animation"];
+            if (animation != sol::nullopt) {
+                world.emplace<AnimationComponent>(newEntity, 
+                    lua_entity["components"]["animation"]["numFrames"],
+                    lua_entity["components"]["animation"]["startFrame"].get_or(0),
+                    lua_entity["components"]["animation"]["frameSpeedRate"].get_or(1),
+                    lua_entity["components"]["animation"]["isLoop"].get_or(true));
+            }
+
             // Particle
             sol::optional<sol::table> particle = lua_entity["components"]["particle"];
             if (particle != sol::nullopt) {
@@ -359,6 +381,18 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                 );
             }
 
+            // Animated Movement
+            sol::optional<sol::table> animatedMovement = lua_entity["components"]["animatedMovement"];
+            if (animatedMovement != sol::nullopt) {
+                world.emplace<AnimatedMovementComponent>(newEntity, 
+                    Vec2(lua_entity["components"]["animatedMovement"]["up"]["x"].get_or(0.0), lua_entity["components"]["animatedMovement"]["up"]["y"].get_or(1.0)),
+                    Vec2(lua_entity["components"]["animatedMovement"]["down"]["x"].get_or(0.0), lua_entity["components"]["animatedMovement"]["down"]["y"].get_or(1.0)),
+                    Vec2(lua_entity["components"]["animatedMovement"]["right"]["x"].get_or(0.0), lua_entity["components"]["animatedMovement"]["right"]["y"].get_or(1.0)),
+                    Vec2(lua_entity["components"]["animatedMovement"]["left"]["x"].get_or(0.0), lua_entity["components"]["animatedMovement"]["left"]["y"].get_or(1.0)),
+                    Vec2(lua_entity["components"]["animatedMovement"]["final"]["x"].get_or(0.0), lua_entity["components"]["animatedMovement"]["final"]["y"].get_or(1.0))
+                );
+            }
+
             // Damage
             sol::optional<sol::table> damage = lua_entity["components"]["damage"];
             if (damage != sol::nullopt) {
@@ -372,4 +406,14 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
     }
 
     return entitiesVector;
+}
+
+void MorgulEngine::SetupTextures() {
+    sol::table textures = luaTextures["textures"];
+
+    for (int i = 1; i <= static_cast<int>(textures.size()); i++) {
+        sol::table lua_texture = textures[i];
+
+        Graphics::AddTexture(lua_texture["assetId"], lua_texture["filePath"]);
+    }
 }

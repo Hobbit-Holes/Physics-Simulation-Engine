@@ -20,7 +20,7 @@ class AnimationSystem {
                     moduledCurrentFrame = a.numFrames - 1;
                 }
 
-                a.currentFrame = moduledCurrentFrame;
+                a.currentFrame = a.startFrame + moduledCurrentFrame;
                 s.srcRect.x = a.currentFrame * s.width;
             }
         }

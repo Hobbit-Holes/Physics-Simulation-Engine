@@ -6,12 +6,18 @@ int main(int argc, char *argv[]) {
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
+    engine.luaTextures.script_file("./assets/scripts/sprites.lua");
+    engine.lua.script_file("./assets/scripts/entities.lua");
+
+    // Events
+    AnimatedMovementSystem animMovSystem;
+    engine.eventBus.sink<KeyDownEvent>().connect<&AnimatedMovementSystem::OnKeyDown>(animMovSystem);
+
+    // Add Textures
+    engine.SetupTextures();
 
     // Entities
-    // const auto campfire = engine.world.create();
-    // engine.world.emplace<TransformComponent>(campfire, Vec2(400, 400));
-    // engine.world.emplace<SpriteComponent>(campfire, "campfire-fire-spritesheet", 64, 64);
-    // engine.world.emplace<AnimationComponent>(campfire, 5, 8, true);
+    std::vector<entt::entity> entities = engine.SetupScene();
 
     while (engine.NextFrame()) {
         engine.Update();

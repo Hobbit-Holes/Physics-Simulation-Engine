@@ -6,12 +6,18 @@ int main(int argc, char *argv[]) {
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
-    engine.lua.script_file("./assets/scripts/final-project.lua");
-    std::vector<entt::entity> entities = engine.SetupScene();
+    engine.lua.script_file("./assets/scripts/entities.lua");
+    engine.luaTextures.script_file("./assets/scripts/sprites.lua");
 
+    // Add Textures
+    engine.SetupTextures();
+    
     // Variables
     float dragImpulse = engine.lua["dragImpulse"];
     float dragRotation = engine.lua["dragRotation"];
+
+    // Entities
+    std::vector<entt::entity> entities = engine.SetupScene();
 
     // Game Loop
     while (engine.NextFrame()) {
@@ -21,6 +27,7 @@ int main(int argc, char *argv[]) {
         // Custom Logic
         for (auto entity: entities) {
             std::string name = engine.world.get<NameGroupComponent>(entity).name;
+            
             if (name == "Player") {
                 const auto k = engine.world.get<KinematicComponent>(entity);
                 auto& rb = engine.world.get<RigidBodyComponent>(entity);

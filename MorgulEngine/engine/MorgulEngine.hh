@@ -47,11 +47,13 @@ class MorgulEngine {
         
         // World Creation
         std::vector<entt::entity> SetupScene();
+        void SetupTextures();
 
         //EnTT (ECS)
         entt::registry world;
         entt::dispatcher eventBus;
         sol::state lua;
+        sol::state luaTextures;
 
         // Systems
         KinematicSystem kinematicSystem;

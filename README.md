@@ -225,7 +225,7 @@ For this part we have implement the example [SPH](https://github.com/Hobbit-Hole
 
 ## Game Scripting
 
-In this section, we have implement a producedural programming paradigm, where we will use Lua and SOL framwwork for binding with C++. First of all, we need to download Lua into our local drive and then, update the Makefile to support it. We have implement some examples to check that it works fine, these examples are [Setting up the Enviroment](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/setting-up-the-enviroment), [Loading Lua Script](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/loafing-lua-script), [Lua Functions](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/lua-functions) and [Game Snooker](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/game-snooker).
+In this section, we have implement a producedural programming paradigm, where we will use <b>Lua</b> and <b>SOL</b> framework for binding with C++. First of all, we need to download Lua into our local drive and then, update the Makefile to support it. We have implement some examples to check that it works fine, these examples are [Setting up the Enviroment](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/setting-up-the-enviroment), [Loading Lua Script](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/loafing-lua-script), [Lua Functions](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/lua-functions) and [Game Snooker](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/game-snooker).
 
 Later, we have implement a new <code>Script Component</code> and <code>Script System</code> to use functions created in the Lua script. Also, we have create a new function inside the Game Engine that create entities given a Lua script with a specific format. For this part we have three different examples: [Script Component 01](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/script-component-01), [Script Component 02](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/script-component-02) and [Script Component 03](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/script-component-03). Here we have learn how to use functions in the Lua script that are outside it and use stucts inside Lua.
 
@@ -235,7 +235,22 @@ Finaly, we have to do the [Exercise 16](https://github.com/Hobbit-Holes/Physics-
 
 ## Computer Animation
 
-...
+We want to add animations to our game engine, these animations need keyframes and textures. The textures have to be load to be able to use them, so we have create some functions to manage these process: 
+
+- <b>Add Texture</b>: It loads the image as a texture into the memory.
+- <b>Get Texture</b>: Returns the texture we want to use.
+- <b>Clear Assets</b>: Clear the memory of the textures.
+- <b>Draw Sprite</b>: Draw the texture depending some variables.
+
+With these functions we have create a <code>Sprite Component</code> and a <code>Sprite System</code> to draw the different textures of the entities that need it. To check if this implementation works we have do an example <i>([Sprite](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/sprite))</i> where we have two different sprites that have different properties.
+
+Now that we can draw sprites, we have implement an <code>Animation Component</code> and an <code>Animation System</code> to draw a sequence of sprites, making it looks like it is moving taking into account the speed, if it loops and more things. We have implement another example <i>([Animation](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/animation))</i> where we can change the animations inside the same texture, depending on the key we press.
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Animation.gif" alt="Animation" height="300"/></p>
+
+Finaly, we have implement the [Exercise 17](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-17) where we need to add the animations to our game engine and make a system in which we can change the animations. The result obtain is as follows: 
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise17.gif" alt="Exercise 17" height="300"/></p>
 
 ## Projections
 
