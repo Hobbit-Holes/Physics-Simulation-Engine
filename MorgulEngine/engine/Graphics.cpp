@@ -349,7 +349,7 @@ void Graphics::DrawSprite(SDL_Texture* texture, Vec2 position, Vec2 scale, int w
     };
 
     if (SDL_RenderCopyEx(renderer, texture, &srcRect, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0) {
-        std::cout << "Error rendering sprite" << SDL_GetError() << std::endl;
+        std::cout << "Error rendering sprite: " << SDL_GetError() << std::endl;
     }
 }
         
@@ -359,15 +359,13 @@ void Graphics::ClearAssets() {
 }
 
 void Graphics::AddTexture(const std::string& assetId, const std::string& filePath) {
-    //SDL_Surface* surface = IMG_Load(filePath);
-    //SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-    //SDL_FreeSurface(surface);
+    SDL_Surface* surface = IMG_Load(filePath.c_str());
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
 
-    //textures[assetId] = texture;
+    textures.emplace(assetId, texture);
 }
 
 SDL_Texture* Graphics::GetTexture(const std::string& assetId) {
-    SDL_Texture* texture = textures[assetId];
-    
-    return texture;
+    return textures[assetId];
 }

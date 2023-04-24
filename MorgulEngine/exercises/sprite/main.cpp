@@ -7,14 +7,17 @@ int main(int argc, char *argv[]) {
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, heigth);
 
+    // Add Textures
+    Graphics::AddTexture("dango_01", "./dango_01.png");
+
     // Entities
     const auto smallSpaceship = engine.world.create();
     engine.world.emplace<TransformComponent>(smallSpaceship, Vec2(400, 400));
-    engine.world.emplace<SpriteComponent>(smallSpaceship, "spaceship", 106, 80);
+    engine.world.emplace<SpriteComponent>(smallSpaceship, "dango_01", 32, 32);
 
     const auto bigSpaceship = engine.world.create();
     engine.world.emplace<TransformComponent>(bigSpaceship, Vec2(200, 600), 0 , Vec2(2, 2));
-    engine.world.emplace<SpriteComponent>(bigSpaceship, "spaceship", 106, 80);
+    engine.world.emplace<SpriteComponent>(bigSpaceship, "dango_01", 32, 32);
 
     
     while (engine.NextFrame()) {

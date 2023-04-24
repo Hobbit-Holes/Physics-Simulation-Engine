@@ -54,12 +54,7 @@ entities = {
                 scale = {x = 1.0, y = 1.0},
                 rotation = 0.0
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-                acceleration = {x = 0, y = 0},
-                angularVelocity = 0,
-                angularAcceleration = 0
-            },
+            kinematic = {},
             collider = {
                 render = true,
                 shape = {
@@ -71,7 +66,7 @@ entities = {
             },
             rigidbody = {
                 mass = 0,
-                isStatic = true;
+                isStatic = true,
                 shape = {
                     type = "regularPolygon",
                     radius = 40,
@@ -91,12 +86,7 @@ entities = {
                 scale = {x = 1.0, y = 1.0},
                 rotation = 0.0
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-                acceleration = {x = 0, y = 0},
-                angularVelocity = 0,
-                angularAcceleration = 0
-            },
+            kinematic = {},
             collider = {
                 render = true,
                 shape = {
@@ -108,7 +98,7 @@ entities = {
             },
             rigidbody = {
                 mass = 0,
-                isStatic = true;
+                isStatic = true,
                 shape = {
                     type = "regularPolygon",
                     radius = 40,
@@ -128,12 +118,7 @@ entities = {
                 scale = {x = 1.0, y = 1.0},
                 rotation = 0.0
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-                acceleration = {x = 0, y = 0},
-                angularVelocity = 0,
-                angularAcceleration = 0
-            },
+            kinematic = {},
             collider = {
                 render = true,
                 shape = {
@@ -145,7 +130,7 @@ entities = {
             },
             rigidbody = {
                 mass = 0,
-                isStatic = true;
+                isStatic = true,
                 shape = {
                     type = "regularPolygon",
                     radius = 40,
@@ -165,12 +150,7 @@ entities = {
                 scale = {x = 1.0, y = 1.0},
                 rotation = 0.0
             },
-            kinematic = {
-                velocity = {x = 0, y = 0},
-                acceleration = {x = 0, y = 0},
-                angularVelocity = 0,
-                angularAcceleration = 0
-            },
+            kinematic = {},
             collider = {
                 render = true,
                 shape = {
@@ -182,7 +162,7 @@ entities = {
             },
             rigidbody = {
                 mass = 0,
-                isStatic = true;
+                isStatic = true,
                 shape = {
                     type = "regularPolygon",
                     radius = 40,
@@ -191,5 +171,25 @@ entities = {
                 }
             }
         }
-    }
+    },
+    -- {
+    --     group = "Floor",
+    --     name = "Floor",
+    --     components = {
+    --         transform = {
+    --             position = {x = 500, y = 500}
+    --         },
+    --         rigidbody = {
+    --             mass = 0,
+    --             isStatic = true,
+    --             shape = {
+    --                 type = "rectangle",
+    --                 filled = true,
+    --                 width = 1000,
+    --                 height = 1000,
+    --                 color = {r = 133, g = 193, b = 233}
+    --             }
+    --         }
+    --     }
+    -- }
 }
