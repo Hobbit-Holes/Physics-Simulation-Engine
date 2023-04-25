@@ -14,7 +14,7 @@ class AnimatedMovementSystem {
                 auto& animation = view.get<AnimationComponent>(entity);
                 const auto amc = view.get<AnimatedMovementComponent>(entity);
 
-                Vec2 animationDirection = Vec2(0, 1);
+                Vec2 animationDirection = Vec2(animation.startFrame, animation.numFrames);
                 switch (keyDown.symbol) {
                     case SDLK_UP:
                         animationDirection = amc.animationUp;
