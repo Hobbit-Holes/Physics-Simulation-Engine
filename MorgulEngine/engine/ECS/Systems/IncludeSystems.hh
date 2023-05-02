@@ -8,6 +8,8 @@
 #include "ScriptSystem.hh"
 #include "SpriteSystem.hh"
 #include "AnimationSystem.hh"
+#include "SoundSystem.hh"
+#include "FontSystem.hh"
 
 #include "GridMovementSystem.hh"
 #include "ShipMovementSystem.hh"

@@ -22,17 +22,33 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
     // Lua Scripting
     lua.open_libraries(sol::lib::base, sol::lib::math);
     luaTextures.open_libraries(sol::lib::base, sol::lib::math);
+    luaSounds.open_libraries(sol::lib::base, sol::lib::math);
+    luaFonts.open_libraries(sol::lib::base, sol::lib::math);
     Logger::Info("Lua initialized.");
 
     //ScriptSystem
     scriptSystem.CreateLuaBindings(lua);
     Logger::Info("Binding between C++ and Lua.");
 
+    // Sounds
+    if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        Logger::Error("SDL_mixer could not initialize.");
+    }
+    Logger::Info("SDL_mixer initialized.");
+
+    // Fonts
+    if (TTF_Init() == -1) {
+        Logger::Error("SDL_TTF could not initialize.");
+    }
+    Logger::Info("SDL_TTF initialized.");
+
     running = true;
 }
 
 MorgulEngine::~MorgulEngine() {
     Logger::Info("Morgul Engine deconstructor called.");
+    Sounds::CloseSounds();
+    Fonts::CloseFonts();
     Graphics::CloseWindow();
 }
 
@@ -156,6 +172,8 @@ void MorgulEngine::Render() {
     collisionSystem.Render(world);
     spriteSystem.Render(world);
     animationSystem.Render(world);
+    soundSystem.Render(world);
+    fontSystem.Render(world);
 
     Graphics::RenderFrame();
 }
@@ -233,7 +251,7 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         false);
                     CircleShape &fig_Fig = fig;
 
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false));
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true));
                 } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "rectangle") {
                     RectangleShape fig = RectangleShape(
                         lua_entity["components"]["collider"]["shape"]["width"],
@@ -246,7 +264,7 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RectangleShape &fig_Fig = fig;
 ;
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false));
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true));
                 } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "regularPolygon") {
                     RegularPolygonShape fig = RegularPolygonShape(
                         lua_entity["components"]["collider"]["shape"]["radius"],
@@ -259,7 +277,7 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RegularPolygonShape &fig_Fig = fig;
 
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false));
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true));
                 }
             }
 
@@ -348,6 +366,29 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                     lua_entity["components"]["animation"]["isLoop"].get_or(true));
             }
 
+            // Sound
+            sol::optional<sol::table> sound = lua_entity["components"]["sound"];
+            if (sound != sol::nullopt) {
+                world.emplace<SoundComponent>(newEntity, 
+                    lua_entity["components"]["sound"]["assetId"],
+                    lua_entity["components"]["sound"]["sound"],
+                    lua_entity["components"]["sound"]["play"].get_or(false));
+            }
+
+            // Font
+            sol::optional<sol::table> font = lua_entity["components"]["font"];
+            if (font != sol::nullopt) {
+                world.emplace<FontComponent>(newEntity, 
+                    lua_entity["components"]["font"]["filePath"],
+                    lua_entity["components"]["font"]["text"],
+                    lua_entity["components"]["font"]["size"].get_or(28),
+                    Color(
+                        lua_entity["components"]["font"]["color"]["r"], 
+                        lua_entity["components"]["font"]["color"]["g"], 
+                        lua_entity["components"]["font"]["color"]["b"], 
+                        lua_entity["components"]["font"]["color"]["a"].get_or(255)));
+            }
+
             // Particle
             sol::optional<sol::table> particle = lua_entity["components"]["particle"];
             if (particle != sol::nullopt) {
@@ -415,5 +456,29 @@ void MorgulEngine::SetupTextures() {
         sol::table lua_texture = textures[i];
 
         Graphics::AddTexture(lua_texture["assetId"], lua_texture["filePath"]);
+    }
+}
+
+void MorgulEngine::SetupSounds() {
+    sol::table sounds = luaSounds["sounds"];
+
+    for (int i = 1; i <= static_cast<int>(sounds.size()); i++) {
+        sol::table lua_sound = sounds[i];
+
+        if ((std::string) lua_sound["soundType"] == "Effect") {
+            Sounds::AddEffect(lua_sound["assetId"], lua_sound["filePath"], lua_sound["volume"].get_or(128));
+        } else if ((std::string) lua_sound["soundType"] == "Music") {
+            Sounds::AddMusic(lua_sound["assetId"], lua_sound["filePath"], lua_sound["volume"].get_or(128));
+        }
+    }
+}
+
+void MorgulEngine::SetupFonts() {
+    sol::table fonts = luaFonts["fonts"];
+
+    for (int i = 1; i <= static_cast<int>(fonts.size()); i++) {
+        sol::table lua_font = fonts[i];
+
+        Fonts::AddFont(lua_font["assetId"], lua_font["filePath"], 18);
     }
 }

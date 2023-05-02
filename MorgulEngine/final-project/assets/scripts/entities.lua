@@ -1,5 +1,7 @@
-dragImpulse = 10
+dragImpulse = 20
 dragRotation = 200
+numIsles = 50
+
 entities = {
     {
         group = "Player",
@@ -18,6 +20,7 @@ entities = {
             },
             collider = {
                 render = true,
+                resolve = false,
                 shape = {
                     type = "rectangle",
                     width = 40,
@@ -42,154 +45,176 @@ entities = {
                 torque = 1000.0,
                 maxVelocity = 75.0,
                 maxRotation = 1.0
-            }
-        }
-    },
-    {
-        group = "Island",
-        name = "Island 1",
-        components = {
-            transform = {
-                position = {x = 200, y = 200},
-                scale = {x = 1.0, y = 1.0},
-                rotation = 0.0
             },
-            kinematic = {},
-            collider = {
-                render = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            },
-            rigidbody = {
-                mass = 0,
-                isStatic = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            }
-        }
-    }
-    ,
-    {
-        group = "Island",
-        name = "Island 2",
-        components = {
-            transform = {
-                position = {x = 800, y = 200},
-                scale = {x = 1.0, y = 1.0},
-                rotation = 0.0
-            },
-            kinematic = {},
-            collider = {
-                render = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            },
-            rigidbody = {
-                mass = 0,
-                isStatic = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            }
-        }
-    }
-    ,
-    {
-        group = "Island",
-        name = "Island 3",
-        components = {
-            transform = {
-                position = {x = 200, y = 800},
-                scale = {x = 1.0, y = 1.0},
-                rotation = 0.0
-            },
-            kinematic = {},
-            collider = {
-                render = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            },
-            rigidbody = {
-                mass = 0,
-                isStatic = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            }
-        }
-    }
-    ,
-    {
-        group = "Island",
-        name = "Island 4",
-        components = {
-            transform = {
-                position = {x = 800, y = 800},
-                scale = {x = 1.0, y = 1.0},
-                rotation = 0.0
-            },
-            kinematic = {},
-            collider = {
-                render = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
-            },
-            rigidbody = {
-                mass = 0,
-                isStatic = true,
-                shape = {
-                    type = "regularPolygon",
-                    radius = 40,
-                    vertices = 6,
-                    color = {r = 144, g = 217, b = 35}
-                }
+            sprite = {
+                assetId = "Ship",
+                width = 96,
+                height = 96
             }
         }
     },
     -- {
-    --     group = "Floor",
-    --     name = "Floor",
+    --     group = "Island",
+    --     name = "Island 1",
     --     components = {
     --         transform = {
-    --             position = {x = 500, y = 500}
+    --             position = {x = 201, y = 227}
+    --         },
+    --         kinematic = {},
+    --         collider = {
+    --             render = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 46,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
     --         },
     --         rigidbody = {
     --             mass = 0,
     --             isStatic = true,
     --             shape = {
-    --                 type = "rectangle",
-    --                 filled = true,
-    --                 width = 1000,
-    --                 height = 1000,
-    --                 color = {r = 133, g = 193, b = 233}
+    --                 type = "regularPolygon",
+    --                 radius = 46,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
     --             }
+    --         },
+    --         sprite = {
+    --             assetId = "Isle",
+    --             width = 96,
+    --             height = 96
     --         }
     --     }
     -- }
+    -- ,
+    -- {
+    --     group = "Island",
+    --     name = "Island 2",
+    --     components = {
+    --         transform = {
+    --             position = {x = 800, y = 200}
+    --         },
+    --         kinematic = {},
+    --         collider = {
+    --             render = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 48,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
+    --         },
+    --         rigidbody = {
+    --             mass = 0,
+    --             isStatic = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 48,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
+    --         },
+    --         sprite = {
+    --             assetId = "Isle",
+    --             width = 96,
+    --             height = 96
+    --         }
+    --     }
+    -- }
+    -- ,
+    -- {
+    --     group = "Island",
+    --     name = "Island 3",
+    --     components = {
+    --         transform = {
+    --             position = {x = 200, y = 800}
+    --         },
+    --         kinematic = {},
+    --         collider = {
+    --             render = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 40,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
+    --         },
+    --         rigidbody = {
+    --             mass = 0,
+    --             isStatic = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 40,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
+    --         },
+    --         sprite = {
+    --             assetId = "Isle",
+    --             width = 96,
+    --             height = 96
+    --         }
+    --     }
+    -- }
+    -- ,
+    -- {
+    --     group = "Island",
+    --     name = "Island 4",
+    --     components = {
+    --         transform = {
+    --             position = {x = 800, y = 800}
+    --         },
+    --         kinematic = {},
+    --         collider = {
+    --             render = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 40,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
+    --         },
+    --         rigidbody = {
+    --             mass = 0,
+    --             isStatic = true,
+    --             shape = {
+    --                 type = "regularPolygon",
+    --                 radius = 40,
+    --                 vertices = 6,
+    --                 color = {r = 144, g = 217, b = 35}
+    --             }
+    --         },
+    --         sprite = {
+    --             assetId = "Isle",
+    --             width = 96,
+    --             height = 96
+    --         }
+    --     }
+    -- },
+    {
+        group = "Ocean",
+        name = "Ocean",
+        components = {
+            transform = {
+                position = {x = 500, y = 500}
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    filled = true,
+                    width = 1000,
+                    height = 1000,
+                    color = {r = 144, g = 217, b = 35}
+                }
+            }
+            -- sprite = {
+            --     assetId = "Water",
+            --     width = 96*6,
+            --     height = 96
+            -- }
+        }
+    }
 }

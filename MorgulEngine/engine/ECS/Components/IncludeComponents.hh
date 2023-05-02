@@ -10,6 +10,8 @@
 #include "ScriptComponent.hh"
 #include "SpriteComponent.hh"
 #include "AnimationComponent.hh"
+#include "SoundComponent.hh"
+#include "FontComponent.hh"
 
 #include "GridMovementComponent.hh"
 #include "ShipMovementComponent.hh"

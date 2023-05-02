@@ -42,6 +42,7 @@ bool Graphics::OpenWindow(int width, int heigth) {
 void Graphics::CloseWindow() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_Quit();
     SDL_Quit();
 
     Logger::Info("Graphics terminated.");
@@ -353,7 +354,8 @@ void Graphics::DrawSprite(SDL_Texture* texture, Vec2 position, Vec2 scale, int w
     }
 }
         
-// Asset Manager
+// ASSET MANAGER
+// Sprites
 void Graphics::ClearAssets() {
     textures.clear();
 }
@@ -368,4 +370,27 @@ void Graphics::AddTexture(const std::string& assetId, const std::string& filePat
 
 SDL_Texture* Graphics::GetTexture(const std::string& assetId) {
     return textures[assetId];
+}
+
+// Fonts
+void Graphics::RenderText(TTF_Font* font, std::string text, Vec2 position, Vec2 scale, Color color) {
+    SDL_Color colorText = {(uint8_t)color.r, (uint8_t)color.g, (uint8_t)color.b};
+    SDL_Surface* surfaceText = TTF_RenderText_Solid(font, text.c_str(), colorText);
+
+    SDL_Texture* textureText = SDL_CreateTextureFromSurface(renderer, surfaceText);
+    int widthText = surfaceText->w;
+    int heightText = surfaceText->h;
+
+    SDL_FreeSurface(surfaceText);
+
+    SDL_Rect dstRect = {
+        static_cast<int>(position.x - widthText * scale.x * 0.5),
+        static_cast<int>(position.y - heightText * scale.y * 0.5),
+        static_cast<int>(widthText * scale.x),
+        static_cast<int>(heightText * scale.y)
+    };
+
+    if (SDL_RenderCopy(renderer, textureText, NULL, &dstRect) != 0) {
+        std::cout << "Error rendering text: " << SDL_GetError() << std::endl;
+    }
 }

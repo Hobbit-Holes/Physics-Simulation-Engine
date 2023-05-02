@@ -2,11 +2,15 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include <sol/sol.hpp>
 
 #include "Mouse.hh"
 #include "Keyboard.hh"
 #include "Graphics.hh"
+#include "Sounds.hh"
+#include "Fonts.hh"
 #include "Color.hh"
 #include "Logger.hh"
 #include "Vec2.hh"
@@ -48,12 +52,16 @@ class MorgulEngine {
         // World Creation
         std::vector<entt::entity> SetupScene();
         void SetupTextures();
+        void SetupSounds();
+        void SetupFonts();
 
         //EnTT (ECS)
         entt::registry world;
         entt::dispatcher eventBus;
         sol::state lua;
         sol::state luaTextures;
+        sol::state luaSounds;
+        sol::state luaFonts;
 
         // Systems
         KinematicSystem kinematicSystem;
@@ -63,6 +71,8 @@ class MorgulEngine {
         ScriptSystem scriptSystem;
         SpriteSystem spriteSystem;
         AnimationSystem animationSystem;
+        SoundSystem soundSystem;
+        FontSystem fontSystem;
 
         GridMovementSystem gridMovementSystem;
         ShipMovementSystem shipMovementSystem;

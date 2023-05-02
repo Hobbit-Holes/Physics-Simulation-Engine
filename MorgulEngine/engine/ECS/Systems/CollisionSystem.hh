@@ -37,7 +37,10 @@ class CollisionSystem {
                         enventBus.trigger(CollisionEvent(entityA, entityB, world));
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
-                        Collisions::ResolveCollision(entityA, entityB, contact, world);
+
+                        if (world.get<ColliderComponent>(entityA).resolve == true && world.get<ColliderComponent>(entityB).resolve == true) {
+                            Collisions::ResolveCollision(entityA, entityB, contact, world);
+                        }
                     }
                 }
             }
