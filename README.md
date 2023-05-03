@@ -248,6 +248,10 @@ Now that we can draw sprites, we have implement an <code>Animation Component</co
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Animation.gif" alt="Animation" height="300"/></p>
 
+At this point, we have learn how to implement an asset, so to improve the game engine we have implement sounds and fonts. The idea of this new assets is similar to the sprite and animation. In this case we need to download new libraries, create two structs <i>(<code>Sounds</code> and <code>Fonts</code>)</i> and new components and systems. To check that the new components and systems works, we have create two new examples <i>([Audio](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/audio) and [Fonts](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/fonts))</i>. Here, we can see the fonts example:
+
+<p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Fonts.gif" alt="Fonts" height="300"/></p>
+
 Finaly, we have implement the [Exercise 17](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/exercises/exercise-17) where we need to add the animations to our game engine and make a system in which we can change the animations. The result obtain is as follows: 
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise17.gif" alt="Exercise 17" height="300"/></p>
