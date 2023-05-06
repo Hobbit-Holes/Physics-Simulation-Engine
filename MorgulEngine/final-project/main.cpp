@@ -32,6 +32,10 @@ int main(int argc, char *argv[]) {
     engine.luaFonts.script_file("./assets/scripts/fonts.lua");
     engine.lua.script_file("./assets/scripts/entities.lua");
 
+    // Systems
+    BrickSystem brickSystem;
+    engine.eventBus.sink<CollisionEvent>().connect<&BrickSystem::OnCollison>(brickSystem);
+
     // Add Textures
     engine.SetupTextures();
 

@@ -161,6 +161,8 @@ void MorgulEngine::Update() {
     rigidBodySystem.Update(dt, world);
     collisionSystem.Update(eventBus, world);
     scriptSystem.Update(dt, last_frame_time, world);
+
+    brickSystem.Update(world);
 }
 
 void MorgulEngine::Render() {
@@ -251,7 +253,7 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         false);
                     CircleShape &fig_Fig = fig;
 
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true));
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true), lua_entity["components"]["collider"]["aabb"].get_or(false));
                 } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "rectangle") {
                     RectangleShape fig = RectangleShape(
                         lua_entity["components"]["collider"]["shape"]["width"],
@@ -264,7 +266,7 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RectangleShape &fig_Fig = fig;
 ;
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true));
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true), lua_entity["components"]["collider"]["aabb"].get_or(false));
                 } else if ((std::string) lua_entity["components"]["collider"]["shape"]["type"] == "regularPolygon") {
                     RegularPolygonShape fig = RegularPolygonShape(
                         lua_entity["components"]["collider"]["shape"]["radius"],
@@ -277,7 +279,7 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                         lua_entity["components"]["collider"]["shape"]["filled"].get_or(false));
                     RegularPolygonShape &fig_Fig = fig;
 
-                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true));
+                    world.emplace<ColliderComponent>(newEntity, fig_Fig, lua_entity["components"]["collider"]["render"].get_or(false), lua_entity["components"]["collider"]["resolve"].get_or(true), lua_entity["components"]["collider"]["aabb"].get_or(false));
                 }
             }
 

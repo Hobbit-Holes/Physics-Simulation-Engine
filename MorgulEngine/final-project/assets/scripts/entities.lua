@@ -55,7 +55,7 @@ entities = {
     },
     {
         group = "Borders",
-        name = "Border 1",
+        name = "Border Top",
 
         components = {
             transform = {
@@ -68,11 +68,12 @@ entities = {
             },
             collider = {
                 render = false,
-                resolve = false,
+                resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 25,
+                    height = 32 * 0.5,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -81,8 +82,8 @@ entities = {
                 isStatic = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 25,
+                    height = 32 * 0.5,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -95,7 +96,7 @@ entities = {
     },
     {
         group = "Borders",
-        name = "Border 2",
+        name = "Border Bottom",
 
         components = {
             transform = {
@@ -108,11 +109,12 @@ entities = {
             },
             collider = {
                 render = false,
-                resolve = false,
+                resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 25,
+                    height = 32 * 0.5,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -121,8 +123,8 @@ entities = {
                 isStatic = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 25,
+                    height = 32 * 0.5,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -135,7 +137,7 @@ entities = {
     },
     {
         group = "Borders",
-        name = "Border 3",
+        name = "Border Left",
 
         components = {
             transform = {
@@ -148,11 +150,12 @@ entities = {
             },
             collider = {
                 render = false,
-                resolve = false,
+                resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 0.5,
+                    height = 32 * 15,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -161,8 +164,8 @@ entities = {
                 isStatic = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 0.5,
+                    height = 32 * 15,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -175,7 +178,7 @@ entities = {
     },
     {
         group = "Borders",
-        name = "Border 4",
+        name = "Border Right",
 
         components = {
             transform = {
@@ -188,11 +191,12 @@ entities = {
             },
             collider = {
                 render = false,
-                resolve = false,
+                resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 0.5,
+                    height = 32 * 15,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -201,8 +205,8 @@ entities = {
                 isStatic = true,
                 shape = {
                     type = "rectangle",
-                    width = 1,
-                    height = 1,
+                    width = 32 * 0.5,
+                    height = 32 * 15,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -229,6 +233,7 @@ entities = {
             collider = {
                 render = false,
                 resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
                     width = 8,
@@ -269,6 +274,7 @@ entities = {
             collider = {
                 render = false,
                 resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
                     width = 8,
@@ -300,15 +306,16 @@ entities = {
         components = {
             transform = {
                 position = {x = 600, y = 400},
-                scale = {x = 0.5, y = 0.5},
+                scale = {x = 1, y = 1},
                 rotation = 0
             },
             kinematic = {
-                velocity = {x = 0, y = 0}
+                velocity = {x = 100, y = 25}
             },
             collider = {
                 render = false,
                 resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
                     width = 16,
@@ -326,9 +333,9 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "White",
-                width = 32,
-                height = 32
+                assetId = "Ball",
+                width = 16,
+                height = 16
             }
         }
     },
@@ -347,10 +354,11 @@ entities = {
             },
             collider = {
                 render = false,
-                resolve = false,
+                resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 64,
+                    width = 32,
                     height = 64,
                     color = {r = 255, g = 255, b = 255}
                 }
@@ -360,7 +368,7 @@ entities = {
                 isStatic = true,
                 shape = {
                     type = "rectangle",
-                    width = 64,
+                    width = 32,
                     height = 64,
                     color = {r = 255, g = 255, b = 255}
                 }
@@ -391,10 +399,11 @@ entities = {
             },
             collider = {
                 render = false,
-                resolve = false,
+                resolve = true,
+                aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 64,
+                    width = 32,
                     height = 64,
                     color = {r = 255, g = 255, b = 255}
                 }
@@ -404,7 +413,7 @@ entities = {
                 isStatic = true,
                 shape = {
                     type = "rectangle",
-                    width = 64,
+                    width = 32,
                     height = 64,
                     color = {r = 255, g = 255, b = 255}
                 }
@@ -416,7 +425,8 @@ entities = {
             },
             animation = {
                 numFrames = 1,
-                frameSpeedRate = 1
+                frameSpeedRate = 1,
+                startFrame = 2
             }
         }
     }

@@ -16,5 +16,6 @@
 #include "AnimatedMovementSystem.hh"
 
 #include "DamageSystem.hh"
+#include "BrickSystem.hh"
 
 #endif

@@ -76,4 +76,6 @@ class MorgulEngine {
 
         GridMovementSystem gridMovementSystem;
         ShipMovementSystem shipMovementSystem;
+
+        BrickSystem brickSystem;
 };

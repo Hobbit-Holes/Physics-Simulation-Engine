@@ -8,17 +8,21 @@ bool Collisions::IsColliding(entt::entity& a, entt::entity& b, Contact& contact,
     bool aIsPolygon = world.get<ColliderComponent>(a).shape->GetType() == POLYGON || world.get<ColliderComponent>(a).shape->GetType() == RECTANGLE;
     bool bIsPolygon = world.get<ColliderComponent>(b).shape->GetType() == POLYGON || world.get<ColliderComponent>(b).shape->GetType() == RECTANGLE;
 
-    if (aIsCircle && bIsCircle) {
-        return IsCollidingCircleCircle(a, b, contact, world);
-    }
-    if (aIsPolygon && bIsPolygon) {
-        return IsCollidingPolygonPolygon(a, b, contact, world);
-    }
-    if (aIsPolygon && bIsCircle) {
-        return IsCollidingPolygonCircle(a, b, contact, world);
-    }
-    if (aIsCircle && bIsPolygon) {
-        return IsCollidingPolygonCircle(b, a, contact, world);
+    if (world.get<ColliderComponent>(a).aabb == true && world.get<ColliderComponent>(b).aabb == true) {
+        return IsCollidingRectangleRectangle(a, b, contact, world);
+    } else {
+        if (aIsCircle && bIsCircle) {
+            return IsCollidingCircleCircle(a, b, contact, world);
+        }
+        if (aIsPolygon && bIsPolygon) {
+            return IsCollidingPolygonPolygon(a, b, contact, world);
+        }
+        if (aIsPolygon && bIsCircle) {
+            return IsCollidingPolygonCircle(a, b, contact, world);
+        }
+        if (aIsCircle && bIsPolygon) {
+            return IsCollidingPolygonCircle(b, a, contact, world);
+        }
     }
 
     return false;
@@ -303,6 +307,6 @@ void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& con
     Vec2 jn = impulseDirection * impulseMagnitude;
 
     // Apply the impulse vector to both objects in opposite direction
-    kinematicA.velocity += jn *rigidbodyA.invMass; 
-    kinematicB.velocity -= jn *rigidbodyB.invMass; 
+    kinematicA.velocity += jn * rigidbodyA.invMass; 
+    kinematicB.velocity -= jn * rigidbodyB.invMass; 
 }

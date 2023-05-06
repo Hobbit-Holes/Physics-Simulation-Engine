@@ -18,5 +18,6 @@
 #include "AnimatedMovementComponent.hh"
 
 #include "DamageComponent.hh"
+#include "BrickComponent.hh"
 
 #endif
