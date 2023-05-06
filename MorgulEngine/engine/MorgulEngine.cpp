@@ -163,6 +163,7 @@ void MorgulEngine::Update() {
     scriptSystem.Update(dt, last_frame_time, world);
 
     brickSystem.Update(world);
+    textPunctuationSystem.Update(world);
 }
 
 void MorgulEngine::Render() {
@@ -441,6 +442,26 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
             if (damage != sol::nullopt) {
                 world.emplace<DamageComponent>(newEntity, 
                     Vec2(lua_entity["components"]["damage"]["position"]["x"].get_or(0.0), lua_entity["components"]["damage"]["position"]["y"].get_or(0.0))
+                );
+            }
+
+            // Ball Movement
+            sol::optional<sol::table> ballMovement = lua_entity["components"]["ballMovement"];
+            if (ballMovement != sol::nullopt) {
+                world.emplace<BallMovementComponent>(newEntity, 
+                    lua_entity["components"]["ballMovement"]["maxVelocity"].get_or(100.0),
+                    lua_entity["components"]["ballMovement"]["maxDesviation"].get_or(1.0472),
+                    lua_entity["components"]["ballMovement"]["sumVelocity"].get_or(5.0),
+                    lua_entity["components"]["ballMovement"]["sumDesviation"].get_or(0.174533)
+                );
+            }
+
+            // Text Punctuation
+            sol::optional<sol::table> textPunctuation = lua_entity["components"]["textPunctuation"];
+            if (textPunctuation != sol::nullopt) {
+                world.emplace<TextPunctuationComponent>(newEntity, 
+                    lua_entity["components"]["textPunctuation"]["scorePlayer1"].get_or(0),
+                    lua_entity["components"]["textPunctuation"]["scorePlayer2"].get_or(0)
                 );
             }
         }

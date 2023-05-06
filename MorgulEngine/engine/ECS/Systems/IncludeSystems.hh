@@ -17,5 +17,7 @@
 
 #include "DamageSystem.hh"
 #include "BrickSystem.hh"
+#include "BallMovementSystem.hh"
+#include "TextPunctuationSystem.hh"
 
 #endif

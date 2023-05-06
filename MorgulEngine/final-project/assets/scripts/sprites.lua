@@ -34,5 +34,9 @@ textures = {
     {
         assetId = "Ball",
         filePath = "./assets/sprites/Ball.png"
+    },
+    {
+        assetId = "Goal",
+        filePath = "./assets/sprites/Goal.png"
     }
 }

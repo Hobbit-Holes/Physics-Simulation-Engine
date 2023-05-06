@@ -23,6 +23,8 @@ class BrickSystem {
                 if (animation.startFrame == 3) {
                     animation.numFrames = 3;
                 }
+
+                std::cout << "Ball hit Brick" << std::endl;
             } else if (groupA == "Balls" && groupB == "Bricks") {
                 auto& animation = collision.world->get<AnimationComponent>(entityB);
                 
@@ -32,6 +34,8 @@ class BrickSystem {
                 if (animation.startFrame == 3) {
                     animation.numFrames = 3;
                 }
+                
+                std::cout << "Ball hit Brick" << std::endl;
             }
         }
 

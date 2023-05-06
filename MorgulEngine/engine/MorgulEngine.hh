@@ -78,4 +78,5 @@ class MorgulEngine {
         ShipMovementSystem shipMovementSystem;
 
         BrickSystem brickSystem;
+        TextPunctuationSystem textPunctuationSystem;
 };

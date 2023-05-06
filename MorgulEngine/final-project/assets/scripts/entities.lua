@@ -50,7 +50,8 @@ entities = {
                 text = "0 - 0",
                 size = 20,
                 color = {r = 255, g = 255, b = 255}
-            }
+            },
+            textPunctuation = {}
         }
     },
     {
@@ -218,6 +219,88 @@ entities = {
         }
     },
     {
+        group = "Goals",
+        name = "Goal Player 1",
+
+        components = {
+            transform = {
+                position = {x = 215, y = 400},
+                scale = {x = 0.5, y = 16},
+                rotation = 0
+            },
+            kinematic = {
+                velocity = {x = 0, y = 0}
+            },
+            collider = {
+                render = false,
+                resolve = false,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32 * 0.5,
+                    height = 32 * 15,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32 * 0.5,
+                    height = 32 * 15,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Goal",
+                width = 32,
+                height = 32
+            }
+        }
+    },
+    {
+        group = "Goals",
+        name = "Goal Player 2",
+
+        components = {
+            transform = {
+                position = {x = 985, y = 400},
+                scale = {x = 0.5, y = 16},
+                rotation = 0
+            },
+            kinematic = {
+                velocity = {x = 0, y = 0}
+            },
+            collider = {
+                render = false,
+                resolve = false,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32 * 0.5,
+                    height = 32 * 15,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32 * 0.5,
+                    height = 32 * 15,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Goal",
+                width = 32,
+                height = 32
+            }
+        }
+    },
+    {
         group = "Players",
         name = "Player 1",
 
@@ -336,7 +419,8 @@ entities = {
                 assetId = "Ball",
                 width = 16,
                 height = 16
-            }
+            },
+            ballMovement = {}
         }
     },
     {

@@ -19,5 +19,7 @@
 
 #include "DamageComponent.hh"
 #include "BrickComponent.hh"
+#include "BallMovementComponent.hh"
+#include "TextPunctuationComponent.hh"
 
 #endif

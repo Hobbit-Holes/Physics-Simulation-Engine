@@ -34,7 +34,12 @@ int main(int argc, char *argv[]) {
 
     // Systems
     BrickSystem brickSystem;
+    BallMovementSystem ballMovementSystem;
+    TextPunctuationSystem textPunctuationSystem;
+
     engine.eventBus.sink<CollisionEvent>().connect<&BrickSystem::OnCollison>(brickSystem);
+    engine.eventBus.sink<CollisionEvent>().connect<&BallMovementSystem::OnCollison>(ballMovementSystem);
+    engine.eventBus.sink<CollisionEvent>().connect<&TextPunctuationSystem::OnCollison>(textPunctuationSystem);
 
     // Add Textures
     engine.SetupTextures();
