@@ -373,7 +373,7 @@ SDL_Texture* Graphics::GetTexture(const std::string& assetId) {
 }
 
 // Fonts
-void Graphics::RenderText(TTF_Font* font, std::string text, Vec2 position, Vec2 scale, Color color) {
+void Graphics::RenderText(TTF_Font* font, std::string text, Vec2 position, Vec2 scale, float rotation, Color color) {
     SDL_Color colorText = {(uint8_t)color.r, (uint8_t)color.g, (uint8_t)color.b};
     SDL_Surface* surfaceText = TTF_RenderText_Solid(font, text.c_str(), colorText);
 
@@ -390,7 +390,7 @@ void Graphics::RenderText(TTF_Font* font, std::string text, Vec2 position, Vec2 
         static_cast<int>(heightText * scale.y)
     };
 
-    if (SDL_RenderCopy(renderer, textureText, NULL, &dstRect) != 0) {
+    if (SDL_RenderCopyEx(renderer, textureText, NULL, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0) {
         std::cout << "Error rendering text: " << SDL_GetError() << std::endl;
     }
 }

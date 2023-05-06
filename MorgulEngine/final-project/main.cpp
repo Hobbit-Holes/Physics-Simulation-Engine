@@ -21,34 +21,9 @@ std::vector<Vec2> GenerateMap(int width, int height, int radius) {
     return centers;
 }
 
-std::vector<Vec2> GenerateIsles(std::vector<Vec2> centers, int numIsles) {
-    std::vector<Vec2> islesPositions;
-
-    int random;
-    Vec2 position;
-    bool repeat = false;
-    for (int i = 0; i < numIsles; i++) {
-        do {
-            random = rand() % centers.size();
-            position = centers[random];
-            repeat = false;
-
-            for (auto islePositions: islesPositions) {
-                if (position == islePositions) {
-                    repeat = true;
-                }
-            }  
-        } while (repeat);
-
-        islesPositions.push_back(position);
-    }
-
-    return islesPositions;
-}
-
 int main(int argc, char *argv[]) {
-    int width = 1000;
-    int height = 1000;
+    int width = 1200;
+    int height = 800;
 
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, height);
@@ -67,24 +42,14 @@ int main(int argc, char *argv[]) {
     engine.SetupFonts();
     
     // Variables
-    float dragImpulse = engine.lua["dragImpulse"];
-    float dragRotation = engine.lua["dragRotation"];
 
     // Entities
     std::vector<entt::entity> entities = engine.SetupScene();
     
     std::vector<Vec2> centers = GenerateMap(width, height, 47);
-    std::vector<Vec2> islesPosition = GenerateIsles(centers, engine.lua["numIsles"]);
-    
-    for (auto islePosition: islesPosition) {
-        entt::entity isle = engine.world.create();
-        engine.world.emplace<TransformComponent>(isle, islePosition);
-        engine.world.emplace<SpriteComponent>(isle, "Isle", 96, 96);
-    }
-
     for (auto center: centers) {
         int random = rand() % 6;
-        std::string type = "Water" + std::to_string(random + 1);
+        std::string type = "Tile" + std::to_string(random + 1);
 
         entt::entity water = engine.world.create();
         engine.world.emplace<TransformComponent>(water, center);
@@ -97,19 +62,7 @@ int main(int argc, char *argv[]) {
         engine.Update();
 
         // Custom Logic
-        for (auto entity: entities) {
-            std::string name = engine.world.get<NameGroupComponent>(entity).name;
-            
-            if (name == "Player") {
-                const auto k = engine.world.get<KinematicComponent>(entity);
-                auto& rb = engine.world.get<RigidBodyComponent>(entity);
-
-                Vec2 friction_vector = Force::GenerateFrictionVector(dragImpulse, k.velocity);
-                rb.AddForce(friction_vector);
-                float friction_rotation = Force::GenerateFrictionRotation(dragRotation, k.angularVelocity);
-                rb.AddTorque(friction_rotation);
-            }
-        }
+        
 
         // Engine Render
         engine.Render();

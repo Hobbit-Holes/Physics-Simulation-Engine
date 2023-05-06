@@ -54,7 +54,7 @@ class Graphics {
         static SDL_Texture* GetTexture(const std::string& assetId);
 
         // Fonts
-        static void RenderText(TTF_Font* font, std::string text, Vec2 position, Vec2 scale, Color color);
+        static void RenderText(TTF_Font* font, std::string text, Vec2 position, Vec2 scale, float rotation, Color color);
 };
 
 #endif

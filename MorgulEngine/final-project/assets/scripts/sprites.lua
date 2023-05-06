@@ -1,42 +1,34 @@
 textures = {
     {
-        assetId = "Ship",
-        filePath = "./assets/sprites/Ship.png"
+        assetId = "Tile1",
+        filePath = "./assets/sprites/Tile1.png"
     },
     {
-        assetId = "Isle",
-        filePath = "./assets/sprites/Isle.png"
+        assetId = "Tile2",
+        filePath = "./assets/sprites/Tile2.png"
     },
     {
-        assetId = "Water",
-        filePath = "./assets/sprites/Water.png"
+        assetId = "Tile3",
+        filePath = "./assets/sprites/Tile3.png"
     },
     {
-        assetId = "Water1",
-        filePath = "./assets/sprites/Water1.png"
+        assetId = "Tile4",
+        filePath = "./assets/sprites/Tile4.png"
     },
     {
-        assetId = "Water2",
-        filePath = "./assets/sprites/Water2.png"
+        assetId = "Tile5",
+        filePath = "./assets/sprites/Tile5.png"
     },
     {
-        assetId = "Water3",
-        filePath = "./assets/sprites/Water3.png"
+        assetId = "Tile6",
+        filePath = "./assets/sprites/Tile6.png"
     },
     {
-        assetId = "Water4",
-        filePath = "./assets/sprites/Water4.png"
+        assetId = "White",
+        filePath = "./assets/sprites/White.png"
     },
     {
-        assetId = "Water5",
-        filePath = "./assets/sprites/Water5.png"
-    },
-    {
-        assetId = "Water6",
-        filePath = "./assets/sprites/Water6.png"
-    },
-    {
-        assetId = "Ocean",
-        filePath = "./assets/sprites/Ocean.png"
+        assetId = "Bricks",
+        filePath = "./assets/sprites/Bricks.png"
     }
 }
