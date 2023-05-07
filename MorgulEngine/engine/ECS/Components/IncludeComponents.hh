@@ -21,5 +21,6 @@
 #include "BrickComponent.hh"
 #include "BallMovementComponent.hh"
 #include "TextPunctuationComponent.hh"
+#include "RacketControllerComponent.hh"
 
 #endif

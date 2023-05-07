@@ -19,5 +19,6 @@
 #include "BrickSystem.hh"
 #include "BallMovementSystem.hh"
 #include "TextPunctuationSystem.hh"
+#include "RacketControllerSystem.hh"
 
 #endif

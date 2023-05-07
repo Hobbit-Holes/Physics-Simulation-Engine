@@ -338,6 +338,12 @@ entities = {
                 assetId = "White",
                 width = 32,
                 height = 32
+            },
+            racketController = {
+                control = 1,
+                limitUp = 225,
+                limitDown = 575,
+                speed = 150
             }
         }
     },
@@ -379,6 +385,12 @@ entities = {
                 assetId = "White",
                 width = 32,
                 height = 32
+            },
+            racketController = {
+                control = 0,
+                limitUp = 225,
+                limitDown = 575,
+                speed = 150
             }
         }
     },

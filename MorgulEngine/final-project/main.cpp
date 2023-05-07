@@ -59,10 +59,12 @@ int main(int argc, char *argv[]) {
     for (auto center: centers) {
         int random = rand() % 6;
         std::string type = "Tile" + std::to_string(random + 1);
+        //type = "Tiles";
 
         entt::entity water = engine.world.create();
         engine.world.emplace<TransformComponent>(water, center);
         engine.world.emplace<SpriteComponent>(water, type, 96, 96);
+        //engine.world.emplace<AnimationComponent>(water, 8, random);
     }
 
     // Game Loop

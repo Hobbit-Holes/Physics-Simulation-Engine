@@ -17,6 +17,7 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
     // Event Bus
     eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridMovementSystem);
     eventBus.sink<KeyDownEvent>().connect<&ShipMovementSystem::OnKeyDown>(shipMovementSystem);
+    eventBus.sink<KeyDownEvent>().connect<&RacketControllerSystem::OnKeyDown>(racketControllerSystem);
     Logger::Info("Event Bus initialized.");
 
     // Lua Scripting
@@ -164,6 +165,7 @@ void MorgulEngine::Update() {
 
     brickSystem.Update(world);
     textPunctuationSystem.Update(world);
+    racketControllerSystem.Update(world);
 }
 
 void MorgulEngine::Render() {
@@ -462,6 +464,17 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                 world.emplace<TextPunctuationComponent>(newEntity, 
                     lua_entity["components"]["textPunctuation"]["scorePlayer1"].get_or(0),
                     lua_entity["components"]["textPunctuation"]["scorePlayer2"].get_or(0)
+                );
+            }
+
+            // Racket Controller
+            sol::optional<sol::table> racketController = lua_entity["components"]["racketController"];
+            if (racketController != sol::nullopt) {
+                world.emplace<RacketControllerComponent>(newEntity, 
+                    lua_entity["components"]["racketController"]["control"].get_or(0),
+                    lua_entity["components"]["racketController"]["limitUp"].get_or(100),
+                    lua_entity["components"]["racketController"]["limitDown"].get_or(300),
+                    lua_entity["components"]["racketController"]["speed"].get_or(1.0)
                 );
             }
         }
