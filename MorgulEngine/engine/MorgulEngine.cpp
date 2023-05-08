@@ -17,7 +17,6 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
     // Event Bus
     eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridMovementSystem);
     eventBus.sink<KeyDownEvent>().connect<&ShipMovementSystem::OnKeyDown>(shipMovementSystem);
-    eventBus.sink<KeyDownEvent>().connect<&RacketControllerSystem::OnKeyDown>(racketControllerSystem);
     Logger::Info("Event Bus initialized.");
 
     // Lua Scripting
@@ -107,9 +106,7 @@ void MorgulEngine::CheckInput() {
             if (event.key.keysym.sym == SDLK_ESCAPE) {
                 running = false;
             }
-            if (event.key.keysym.sym == SDLK_SPACE) {
-                keyboard->spaceKeyPressed = true;
-            }
+            // Arrows
             if (event.key.keysym.sym == SDLK_UP) {
                 keyboard->upKeyPressed = true;
             }
@@ -123,15 +120,33 @@ void MorgulEngine::CheckInput() {
                 keyboard->leftKeyPressed = true;
             }
 
+            // Letters
+            if (event.key.keysym.sym == SDLK_a) {
+                keyboard->KeyA = true;
+            }
+            if (event.key.keysym.sym == SDLK_d) {
+                keyboard->KeyD = true;
+            }
+            if (event.key.keysym.sym == SDLK_s) {
+                keyboard->KeyS = true;
+            }
+            if (event.key.keysym.sym == SDLK_w) {
+                keyboard->KeyW = true;
+            }
+
+            // Other
+            if (event.key.keysym.sym == SDLK_SPACE) {
+                keyboard->spaceKeyPressed = true;
+            }
+
             eventBus.trigger(KeyDownEvent(event.key.keysym.sym, world));
             break;
         case SDL_KEYUP:
             if (event.key.keysym.sym == SDLK_F1) {
                 debug = !debug;
             }
-            if (event.key.keysym.sym == SDLK_SPACE) {
-                keyboard->spaceKeyPressed = false;
-            }
+
+            // Arrows
             if (event.key.keysym.sym == SDLK_UP) {
                 keyboard->upKeyPressed = false;
             }
@@ -143,6 +158,25 @@ void MorgulEngine::CheckInput() {
             }
             if (event.key.keysym.sym == SDLK_LEFT) {
                 keyboard->leftKeyPressed = false;
+            }
+
+            // Letters
+            if (event.key.keysym.sym == SDLK_a) {
+                keyboard->KeyA = false;
+            }
+            if (event.key.keysym.sym == SDLK_d) {
+                keyboard->KeyD = false;
+            }
+            if (event.key.keysym.sym == SDLK_s) {
+                keyboard->KeyS = false;
+            }
+            if (event.key.keysym.sym == SDLK_w) {
+                keyboard->KeyW = false;
+            }
+
+            // Other
+            if (event.key.keysym.sym == SDLK_SPACE) {
+                keyboard->spaceKeyPressed = false;
             }
 
             eventBus.trigger(KeyUpEvent(event.key.keysym.sym, world));
@@ -165,7 +199,8 @@ void MorgulEngine::Update() {
 
     brickSystem.Update(world);
     textPunctuationSystem.Update(world);
-    racketControllerSystem.Update(world);
+    ballMovementSystem.Update(world, keyboard);
+    racketControllerSystem.Update(world, keyboard, dt);
 }
 
 void MorgulEngine::Render() {
@@ -451,7 +486,8 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
             sol::optional<sol::table> ballMovement = lua_entity["components"]["ballMovement"];
             if (ballMovement != sol::nullopt) {
                 world.emplace<BallMovementComponent>(newEntity, 
-                    lua_entity["components"]["ballMovement"]["maxVelocity"].get_or(100.0),
+                    lua_entity["components"]["ballMovement"]["initialVelocity"].get_or(100.0),
+                    lua_entity["components"]["ballMovement"]["maxVelocity"].get_or(200.0),
                     lua_entity["components"]["ballMovement"]["maxDesviation"].get_or(1.0472),
                     lua_entity["components"]["ballMovement"]["sumVelocity"].get_or(5.0),
                     lua_entity["components"]["ballMovement"]["sumDesviation"].get_or(0.174533)

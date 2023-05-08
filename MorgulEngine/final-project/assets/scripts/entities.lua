@@ -307,7 +307,7 @@ entities = {
         components = {
             transform = {
                 position = {x = 300, y = 400},
-                scale = {x = 0.25, y = 3},
+                scale = {x = 1, y = 1},
                 rotation = 0
             },
             kinematic = {
@@ -335,9 +335,9 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "White",
-                width = 32,
-                height = 32
+                assetId = "Player",
+                width = 16,
+                height = 96
             },
             racketController = {
                 control = 1,
@@ -354,7 +354,7 @@ entities = {
         components = {
             transform = {
                 position = {x = 900, y = 400},
-                scale = {x = 0.25, y = 3},
+                scale = {x = 1, y = 1},
                 rotation = 0
             },
             kinematic = {
@@ -382,9 +382,9 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "White",
-                width = 32,
-                height = 32
+                assetId = "Player",
+                width = 16,
+                height = 96
             },
             racketController = {
                 control = 0,
@@ -405,7 +405,7 @@ entities = {
                 rotation = 0
             },
             kinematic = {
-                velocity = {x = 100, y = 25}
+                velocity = {x = 200, y = 50}
             },
             collider = {
                 render = false,
@@ -432,7 +432,10 @@ entities = {
                 width = 16,
                 height = 16
             },
-            ballMovement = {}
+            ballMovement = {
+                initialVelocity = 200,
+                maxVelocity = 400
+            }
         }
     },
     {

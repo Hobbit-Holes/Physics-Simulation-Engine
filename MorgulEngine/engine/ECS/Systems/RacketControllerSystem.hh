@@ -7,20 +7,8 @@
 
 class RacketControllerSystem {
     public:
-        void Update(entt::registry& world) {
+        void Update(entt::registry& world, Keyboard* keyboard, const double dt) {
             auto view = world.view<TransformComponent, RacketControllerComponent>();
-            
-            for (auto entity: view) {
-                if (world.get<TransformComponent>(entity).position.y < world.get<RacketControllerComponent>(entity).limitUp) {
-                    world.get<TransformComponent>(entity).position.y = world.get<RacketControllerComponent>(entity).limitUp;
-                } else if (world.get<TransformComponent>(entity).position.y > world.get<RacketControllerComponent>(entity).limitDown) {
-                    world.get<TransformComponent>(entity).position.y = world.get<RacketControllerComponent>(entity).limitDown;
-                }
-            }
-        }
-
-        void OnKeyDown(KeyDownEvent& keyDown) {
-            auto view = keyDown.world->view<TransformComponent, KinematicComponent, RacketControllerComponent>();
 
             for (auto entity: view) {
                 auto& transform = view.get<TransformComponent>(entity);
@@ -28,25 +16,26 @@ class RacketControllerSystem {
 
                 float speed = 0;
                 if (racket.control == 0) {
-                    switch (keyDown.symbol) {
-                        case SDLK_UP:
-                            speed = racket.speed * -1;
-                            break;
-                        case SDLK_DOWN:
-                            speed = racket.speed;
-                            break;
+                    if (keyboard->upKeyPressed) {
+                        speed = racket.speed * -1;
+                    } else if (keyboard->downKeyPressed) {
+                        speed = racket.speed;
                     }
                 } else {
-                    switch (keyDown.symbol) {
-                        case SDLK_w:
-                            speed = racket.speed * -1;
-                            break;
-                        case SDLK_s:
-                            speed = racket.speed;
-                            break;
+                    if (keyboard->KeyW) {
+                        speed = racket.speed * -1;
+                    } else if (keyboard->KeyS) {
+                        speed = racket.speed;
                     }
                 }
-                transform.position.y += speed * 0.016;
+
+                transform.position.y += speed * dt;
+
+                if (transform.position.y < racket.limitUp) {
+                    transform.position.y = racket.limitUp;
+                } else if (transform.position.y > racket.limitDown) {
+                    transform.position.y = racket.limitDown;
+                }
             }
         }
 };

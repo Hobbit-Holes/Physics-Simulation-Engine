@@ -16,6 +16,7 @@ class FontSystem {
                 TTF_Font* font = TTF_OpenFont(f.filePath.c_str(), f.size);
 
                 Graphics::RenderText(font, f.text, t.position, t.scale, t.rotation, f.color);
+                TTF_CloseFont(font);
             }
         }
 };

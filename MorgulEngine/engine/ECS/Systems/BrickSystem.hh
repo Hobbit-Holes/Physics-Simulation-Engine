@@ -14,18 +14,7 @@ class BrickSystem {
             std::string groupA = collision.world->get<NameGroupComponent>(entityA).group;
             std::string groupB = collision.world->get<NameGroupComponent>(entityB).group;
 
-            if (groupA == "Bricks" && groupB == "Balls") {
-                auto& animation = collision.world->get<AnimationComponent>(entityA);
-                
-                if (animation.startFrame < 3) {
-                    animation.startFrame += 1;
-                }
-                if (animation.startFrame == 3) {
-                    animation.numFrames = 3;
-                }
-
-                std::cout << "Ball hit Brick" << std::endl;
-            } else if (groupA == "Balls" && groupB == "Bricks") {
+            if (groupA == "Balls" && groupB == "Bricks") {
                 auto& animation = collision.world->get<AnimationComponent>(entityB);
                 
                 if (animation.startFrame < 3) {
@@ -34,8 +23,6 @@ class BrickSystem {
                 if (animation.startFrame == 3) {
                     animation.numFrames = 3;
                 }
-                
-                std::cout << "Ball hit Brick" << std::endl;
             }
         }
 

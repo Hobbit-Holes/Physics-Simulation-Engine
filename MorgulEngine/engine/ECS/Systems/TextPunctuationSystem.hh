@@ -16,18 +16,8 @@ class TextPunctuationSystem {
 
             auto view = collision.world->view<NameGroupComponent, FontComponent, TextPunctuationComponent>();
 
-            if (groupA == "Balls" && groupB == "Goals") {
-                if (collision.world->get<NameGroupComponent>(entityB).name == "Goal 1") {
-                    for (auto entity: view) {
-                        collision.world->get<TextPunctuationComponent>(entity).scorePlayer1 += 1;
-                    }
-                } else {
-                    for (auto entity: view) {
-                        collision.world->get<TextPunctuationComponent>(entity).scorePlayer2 += 1;
-                    }
-                }
-            } else if (groupA == "Goals" && groupB == "Balls") {
-                if (collision.world->get<NameGroupComponent>(entityA).name == "Goal 1") {
+            if (groupA == "Goals" && groupB == "Balls") {
+                if (collision.world->get<NameGroupComponent>(entityA).name == "Goal Player 1") {
                     for (auto entity: view) {
                         collision.world->get<TextPunctuationComponent>(entity).scorePlayer1 += 1;
                     }

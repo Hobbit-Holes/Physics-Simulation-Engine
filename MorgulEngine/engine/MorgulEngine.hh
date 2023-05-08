@@ -79,5 +79,6 @@ class MorgulEngine {
 
         BrickSystem brickSystem;
         TextPunctuationSystem textPunctuationSystem;
+        BallMovementSystem ballMovementSystem;
         RacketControllerSystem racketControllerSystem;
 };
