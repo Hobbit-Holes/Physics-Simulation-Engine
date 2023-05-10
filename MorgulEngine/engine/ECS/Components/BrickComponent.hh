@@ -3,9 +3,11 @@
 
 struct BrickComponent {
     int numLifes;
+    int restingLifes;
 
-    BrickComponent(int numLifes) {
+    BrickComponent(int numLifes, int restingLifes) {
         this->numLifes = numLifes;
+        this->restingLifes = restingLifes;
     }
 };
 

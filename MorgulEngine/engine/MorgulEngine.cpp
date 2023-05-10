@@ -47,6 +47,7 @@ MorgulEngine::MorgulEngine(int width, int heigth) {
 
 MorgulEngine::~MorgulEngine() {
     Logger::Info("Morgul Engine deconstructor called.");
+
     Sounds::CloseSounds();
     Fonts::CloseFonts();
     Graphics::CloseWindow();
@@ -56,6 +57,7 @@ MorgulEngine::~MorgulEngine() {
 bool MorgulEngine::NextFrame() {
     dt = (SDL_GetTicks() - last_frame_time) / 1000.0f;
     last_frame_time = SDL_GetTicks();
+
     return running;
 }
 
@@ -197,6 +199,7 @@ void MorgulEngine::Update() {
     collisionSystem.Update(eventBus, world);
     scriptSystem.Update(dt, last_frame_time, world);
 
+    // Game Systems
     brickSystem.Update(world);
     textPunctuationSystem.Update(world);
     ballMovementSystem.Update(world, keyboard);
@@ -233,6 +236,7 @@ double MorgulEngine::GetTotalTimeInSeconds() {
 Vec2 MorgulEngine::GetMousePosition() {
     int mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
+    
     return Vec2(mouseX, mouseY);
 }
 
@@ -511,6 +515,15 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                     lua_entity["components"]["racketController"]["limitUp"].get_or(100),
                     lua_entity["components"]["racketController"]["limitDown"].get_or(300),
                     lua_entity["components"]["racketController"]["speed"].get_or(1.0)
+                );
+            }
+
+            // Brick
+            sol::optional<sol::table> brick = lua_entity["components"]["brick"];
+            if (brick != sol::nullopt) {
+                world.emplace<BrickComponent>(newEntity, 
+                    lua_entity["components"]["brick"]["numLifes"].get_or(3),
+                    lua_entity["components"]["brick"]["restingLifes"].get_or(lua_entity["components"]["brick"]["numLifes"].get_or(3))
                 );
             }
         }

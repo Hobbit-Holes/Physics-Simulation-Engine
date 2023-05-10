@@ -14,6 +14,7 @@ class ParticleSystem {
                 auto& kinematic = view.get<KinematicComponent>(entity);
                 auto& rb = view.get<ParticleComponent>(entity);
 
+                // Update the Kinematic and Rigidbody parameters
                 kinematic.acceleration = rb.sumForces * rb.invMass;
                 rb.angle += kinematic.angularVelocity * M_PI/180;
                 rb.ClearForces();
@@ -26,10 +27,10 @@ class ParticleSystem {
             for (auto entity: view) {
                 const auto transform = view.get<TransformComponent>(entity);
                 const auto particle = view.get<ParticleComponent>(entity);
+
                 if(particle.render) {
                     Graphics::DrawFillCircle(transform.position.x, transform.position.y, particle.radius, particle.color);
-                }
-                else {
+                } else {
                     Graphics::DrawCircle(transform.position.x, transform.position.y, particle.radius, particle.angle, particle.color);
                 }
             }

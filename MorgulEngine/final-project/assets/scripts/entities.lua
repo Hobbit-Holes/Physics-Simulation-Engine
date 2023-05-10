@@ -400,13 +400,11 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 600, y = 400},
+                position = {x = 350, y = 400},
                 scale = {x = 1, y = 1},
                 rotation = 0
             },
-            kinematic = {
-                velocity = {x = 200, y = 50}
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 resolve = true,
@@ -434,7 +432,8 @@ entities = {
             },
             ballMovement = {
                 initialVelocity = 200,
-                maxVelocity = 400
+                maxVelocity = 400,
+                serve = 1
             }
         }
     },
@@ -448,9 +447,7 @@ entities = {
                 scale = {x = 1, y = 1},
                 rotation = 0
             },
-            kinematic = {
-                velocity = {x = 0, y = 0}
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 resolve = true,
@@ -473,13 +470,16 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Bricks",
+                assetId = "Bricks3",
                 width = 64,
                 height = 64
             },
             animation = {
                 numFrames = 1,
                 frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3
             }
         }
     },
@@ -493,9 +493,7 @@ entities = {
                 scale = {x = 1, y = 1},
                 rotation = 0
             },
-            kinematic = {
-                velocity = {x = 0, y = 0}
-            },
+            kinematic = {},
             collider = {
                 render = false,
                 resolve = true,
@@ -518,14 +516,33 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Bricks",
+                assetId = "Bricks3",
                 width = 64,
                 height = 64
             },
             animation = {
                 numFrames = 1,
-                frameSpeedRate = 1,
-                startFrame = 2
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "World",
+        name = "Center Line",
+
+        components = {
+            transform = {
+                position = {x = 600, y = 400},
+                scale = {x = 0.05, y = 16},
+            },
+            sprite = {
+                assetId = "White",
+                width = 32,
+                height = 32
             }
         }
     }

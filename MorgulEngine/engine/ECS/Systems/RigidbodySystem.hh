@@ -15,6 +15,7 @@ class RigidBodySystem {
                 auto& kinematic = view.get<KinematicComponent>(entity);
                 auto& rb = view.get<RigidBodyComponent>(entity);
 
+                // Update the Kinematic components
                 if (!rb.IsStatic()) {
                     kinematic.acceleration = rb.sumForces * rb.invMass;
                     rb.ClearForces();

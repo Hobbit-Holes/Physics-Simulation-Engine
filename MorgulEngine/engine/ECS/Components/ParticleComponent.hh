@@ -6,12 +6,13 @@
 
 struct ParticleComponent {
     float mass;
-    float invMass;
-    float angle;
-    int radius;
-    Color color;
+    float invMass;      // 1 / mass
+
+    float angle;        // Rotation of the particle
+    int radius;         // Radius of the particle
+    Color color;        // Color of the particle
     Vec2 sumForces;
-    bool render;
+    bool render;        // If we want to render it
 
     ParticleComponent(float mass = 1, int radius = 1, Color color = Color::White(), bool render = true, float angle = 0) {
         this->mass = mass;

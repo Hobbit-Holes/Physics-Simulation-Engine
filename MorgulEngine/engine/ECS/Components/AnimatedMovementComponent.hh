@@ -4,6 +4,8 @@
 #include "Vec2.hh"
 
 struct AnimatedMovementComponent {
+    // Value "x" is the start frame of the animation
+    // Value "y" is the number of frames
     Vec2 animationUp;
     Vec2 animationDown;
     Vec2 animationRight;

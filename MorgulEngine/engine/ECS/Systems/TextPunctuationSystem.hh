@@ -16,6 +16,7 @@ class TextPunctuationSystem {
 
             auto view = collision.world->view<NameGroupComponent, FontComponent, TextPunctuationComponent>();
 
+            // Change the scores data if there is a score
             if (groupA == "Goals" && groupB == "Balls") {
                 if (collision.world->get<NameGroupComponent>(entityA).name == "Goal Player 1") {
                     for (auto entity: view) {
@@ -36,6 +37,7 @@ class TextPunctuationSystem {
                 auto& text = world.get<FontComponent>(entity);
                 const auto score = world.get<TextPunctuationComponent>(entity);
 
+                // Show the result of the game
                 text.text = std::to_string(score.scorePlayer1) + " - " + std::to_string(score.scorePlayer2);
             }
         }

@@ -19,6 +19,7 @@ class ShipMovementSystem {
                 float rotation;
                 Vec2 force;
 
+                // If the player move it will have a force and torque
                 switch (keyDown.symbol) {
                     case SDLK_UP:
                         if (k.velocity.Magnitude() < ship.maxVelocity) {
@@ -45,9 +46,6 @@ class ShipMovementSystem {
                         }
                         break;
                 }
-
-                std::cout << k.velocity << std::endl;
-                std::cout << std::to_string(k.angularVelocity) << std::endl;
             }
         }
 };

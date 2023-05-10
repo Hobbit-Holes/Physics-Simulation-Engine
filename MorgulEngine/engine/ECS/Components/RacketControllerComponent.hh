@@ -2,9 +2,9 @@
 #define RACKETCONTROLLERCOMPONENT_H
 
 struct RacketControllerComponent {
-    int control;
-    int limitUp;
-    int limitDown;
+    int control;            // Determine the keys that the player will use
+    int limitUp;            // Determine the upper zone
+    int limitDown;          // Determine the lower zone
     float speed;
 
     RacketControllerComponent(int control = 0, int limitUp = 100, int limitDown = 300, float speed = 1.0) {

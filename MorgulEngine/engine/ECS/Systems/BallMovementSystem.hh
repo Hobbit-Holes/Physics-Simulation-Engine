@@ -21,12 +21,12 @@ class BallMovementSystem {
 
                 auto& transPlayer = collision.world->get<TransformComponent>(entityA);
                 
-                // Velocity
+                // Dont increase the velocity if it is too fast
                 if (kim.velocity.Magnitude() < mov.maxVelocity) {
                     kim.velocity += kim.velocity.UnitVector() * mov.sumVelocity;
                 }
 
-                // Direction
+                // Determine the direction that the ball will be deviated and in which angle
                 float direction = 1;
                 float desviation = kim.velocity.Angle();
                 if (kim.velocity.x > 0) {
@@ -45,7 +45,7 @@ class BallMovementSystem {
                     desviation *= direction;
                 }
 
-                // Desviation
+                // Desviation of the ball if it touch the zones of the racket
                 if (kim.velocity.Angle() * direction < mov.maxDesviation) {
                     if (transBall.position.y > transPlayer.position.y + 16) {
                         kim.velocity = kim.velocity.Rotate(mov.sumDesviation * direction);
@@ -60,13 +60,13 @@ class BallMovementSystem {
                         }
                     }
                 }
-                
-                std::cout << "Ball hit Player" << std::endl;
             }
 
             if (groupA == "Goals" && groupB == "Balls") {
+                // Reset velocity if any player is scored
                 collision.world->get<KinematicComponent>(entityB).velocity = Vec2(0, 0);
 
+                // Reset of the positions and determine the one who serve
                 if (collision.world->get<NameGroupComponent>(entityA).name == "Goal Player 1") {
                     collision.world->get<TransformComponent>(entityB).position = Vec2(350, 400);
                     collision.world->get<BallMovementComponent>(entityB).serve = 1;
@@ -84,6 +84,7 @@ class BallMovementSystem {
                 auto& kim = world.get<KinematicComponent>(entity);
                 auto& ball = world.get<BallMovementComponent>(entity);
 
+                // Player who serve
                 if (ball.serve == 1) {
                     if (keyboard->spaceKeyPressed == true) {
                         ball.serve = 0;

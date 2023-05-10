@@ -11,13 +11,13 @@
 struct RigidBodyComponent {
     // Mass
     float mass;
-    float invMass;
-    float I;
-    float invI;
+    float invMass;          // 1 / mass
+    float I;                // Inertia
+    float invI;             // 1 / I
     float restitution;
 
     // Static
-    bool isStatic;
+    bool isStatic;          // If static is "true", the object will not move
 
     // Forces and Torques
     Vec2 sumForces;

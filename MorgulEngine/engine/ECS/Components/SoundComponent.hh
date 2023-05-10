@@ -4,7 +4,7 @@
 struct SoundComponent {
     std::string assetId;
     std::string sound;
-    bool play;
+    bool play;              // If "false", the sound will not play
 
     SoundComponent(std::string assetId, std::string sound, bool play = false) { 
         this->assetId = assetId;

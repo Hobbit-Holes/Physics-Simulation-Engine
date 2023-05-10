@@ -6,6 +6,7 @@
 
 class ScriptSystem {
     public:
+        // Some functions if we want to use them inside the lua scripts
         void CreateLuaBindings(sol::state& lua) {
             lua.new_usertype<Vec2>(
                 "Vec2",

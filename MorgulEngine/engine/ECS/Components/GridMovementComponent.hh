@@ -2,7 +2,7 @@
 #define GRIDMOVEMENTCOMPONENT_H
 
 struct GridMovementComponent {
-    int stepSize;
+    int stepSize;       // Size of the grid spaces
 
     GridMovementComponent(int stepSize) {
         this->stepSize = stepSize;

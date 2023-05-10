@@ -4,11 +4,11 @@
 #include <SDL2/SDL.h>
 
 struct AnimationComponent {
-    int numFrames; 
-    int startFrame;         // Total amount of frames
+    int numFrames;          // Total amount of frames
+    int startFrame;         // Start frame of the loop
     int currentFrame;
     int frameSpeedRate;     // Number of frames showed per secons
-    bool isLoop;
+    bool isLoop;            // If loop indefinitely
     int startTime;          // SDL_GetTicks()
 
     AnimationComponent(int numFrames, int startFrame = 0, int frameSpeedRate = 1, bool isLoop = true) {

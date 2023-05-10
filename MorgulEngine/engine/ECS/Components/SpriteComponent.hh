@@ -3,8 +3,8 @@
 
 struct SpriteComponent {
     std::string assetId;
-    int width;
-    int height;
+    int width;              // Width of the sprite (can be smaller thatn the original)
+    int height;             // Height of the sprite (can be smaller thatn the original)
     SDL_Rect srcRect;
 
     SpriteComponent(std::string assetId, int width, int height, int positionX = 0, int positionY = 0) {

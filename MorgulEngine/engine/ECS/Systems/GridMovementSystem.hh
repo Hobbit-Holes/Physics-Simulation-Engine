@@ -14,6 +14,7 @@ class GridMovementSystem {
                 auto& transform = view.get<TransformComponent>(entity);
                 const auto grid = view.get<GridMovementComponent>(entity);
 
+                // Direction the player will move
                 Vec2 direction;
                 switch (keyDown.symbol) {
                     case SDLK_UP:

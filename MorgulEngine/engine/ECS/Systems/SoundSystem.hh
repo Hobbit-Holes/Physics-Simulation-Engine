@@ -12,6 +12,7 @@ class SoundSystem {
             for (auto entity: view) {
                 auto& s = view.get<SoundComponent>(entity);
 
+                // Depending the type of sound, the way it works is different
                 if (s.sound == "Music") {
                     if (s.play) {
                         if (Mix_PlayingMusic() == 0) {

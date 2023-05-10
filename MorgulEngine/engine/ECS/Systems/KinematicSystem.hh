@@ -14,12 +14,14 @@ class KinematicSystem {
                 auto& transform = view.get<TransformComponent>(entity);
                 auto& kinematic = view.get<KinematicComponent>(entity);
 
+                // Calculations of the new position, rotation and velocities
                 kinematic.velocity += kinematic.acceleration * dt;
                 transform.position += kinematic.velocity * dt;
 
                 kinematic.angularVelocity += kinematic.angularAcceleration * dt;
                 transform.rotation += kinematic.angularVelocity * dt;
 
+                // Update the position of the Rigidbody's Shape 
                 if (world.all_of<RigidBodyComponent>(entity)) {
                     Shape* shape;
                     shape = world.get<RigidBodyComponent>(entity).shape;
@@ -30,6 +32,7 @@ class KinematicSystem {
                     }
                 }
 
+                // Update the position of the Collider's Shape 
                 if (world.all_of<ColliderComponent>(entity)) {
                     Shape* shape;
                     shape = world.get<ColliderComponent>(entity).shape;

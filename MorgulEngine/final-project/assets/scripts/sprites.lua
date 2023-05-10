@@ -32,8 +32,16 @@ textures = {
         filePath = "./assets/sprites/White.png"
     },
     {
-        assetId = "Bricks",
-        filePath = "./assets/sprites/Bricks.png"
+        assetId = "Bricks1",
+        filePath = "./assets/sprites/Bricks3.png"
+    },
+    {
+        assetId = "Bricks2",
+        filePath = "./assets/sprites/Bricks3.png"
+    },
+    {
+        assetId = "Bricks3",
+        filePath = "./assets/sprites/Bricks3.png"
     },
     {
         assetId = "Ball",

@@ -3,9 +3,9 @@
 
 struct FontComponent {
     std::string filePath;
-    std::string text;
-    int size;
-    Color color;
+    std::string text;       // Text to be displayed
+    int size;               // Size of the font
+    Color color;            // COlor of the text
 
     FontComponent(std::string filePath, std::string text, int size = 28, Color color = Color::White()) { 
         this->filePath = filePath;
