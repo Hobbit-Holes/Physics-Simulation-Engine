@@ -411,8 +411,8 @@ entities = {
                 aabb = true,
                 shape = {
                     type = "rectangle",
-                    width = 16,
-                    height = 16,
+                    width = 25,
+                    height = 25,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
@@ -420,19 +420,21 @@ entities = {
                 mass = 1,
                 shape = {
                     type = "rectangle",
-                    width = 16,
-                    height = 16,
+                    width = 25,
+                    height = 25,
                     color = {r = 255, g = 255, b = 255}
                 }
             },
             sprite = {
                 assetId = "Ball",
-                width = 16,
-                height = 16
+                width = 25,
+                height = 25
             },
             ballMovement = {
                 initialVelocity = 200,
                 maxVelocity = 400,
+                sumVelocity = 50,
+                sumDesviation = 1.05,
                 serve = 1
             }
         }
@@ -470,7 +472,7 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Bricks3",
+                assetId = "Bricks",
                 width = 64,
                 height = 64
             },
@@ -516,7 +518,7 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Bricks3",
+                assetId = "Bricks",
                 width = 64,
                 height = 64
             },
