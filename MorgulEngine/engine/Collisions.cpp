@@ -208,58 +208,46 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
     const auto& aTransform = world.get<TransformComponent>(a);
     const auto& bTransform = world.get<TransformComponent>(b);
 
-    bool collision_x = aTransform.position.x + aPolygonShape->width * 0.5f >= bTransform.position.x - bPolygonShape->width * 0.5f
-                        && aTransform.position.x - aPolygonShape->width * 0.5f <= bTransform.position.x + bPolygonShape->width * 0.5f;
-    bool collision_y = aTransform.position.y + aPolygonShape->heigth * 0.5f >= bTransform.position.y - bPolygonShape->heigth * 0.5f
-                        && aTransform.position.y - aPolygonShape->heigth * 0.5f <= bTransform.position.y + bPolygonShape->heigth * 0.5f;
+    float aLeft = aTransform.position.x;
+    float aRight = aTransform.position.x + aPolygonShape->width;
+    float aTop = aTransform.position.y;
+    float aBottom = aTransform.position.y + aPolygonShape->heigth;
 
-    if (collision_x && collision_y) {
-        contact.a = a;
-        contact.b = b;
+    float bLeft = bTransform.position.x;
+    float bRight = bTransform.position.x + bPolygonShape->width;
+    float bTop = bTransform.position.y;
+    float bBottom = bTransform.position.y + bPolygonShape->heigth;
 
-        float overlap_x = 0.0f, overlap_y = 0.0f;
-        if (aTransform.position.x > bTransform.position.x) {
-            overlap_x = (bTransform.position.x + bPolygonShape->width * 0.5f) - (aTransform.position.x - aPolygonShape->width * 0.5f);
+    bool isOverlappingX = (aTransform.position.x < bTransform.position.x + bPolygonShape->width && bTransform.position.x 
+                                                 < aTransform.position.x + aPolygonShape->width);
+    bool isOverlappingY = (aTransform.position.y < bTransform.position.y + bPolygonShape->heigth && bTransform.position.y 
+                                                 < aTransform.position.y + aPolygonShape->heigth);
+
+    if(isOverlappingX && isOverlappingY) {
+        float xDepth = std::min(aRight - bLeft, bRight - aLeft);
+        float yDepth = std::min(aBottom - bTop, bBottom - aTop);
+
+        if(xDepth < yDepth) {
+            float depth = xDepth;
+            Vec2 normal = Vec2(aTransform.position.x < bTransform.position.x ? 1.0f : -1.0f, 0.0f);
+            if(aTransform.position.x > bTransform.position.x) {
+                normal = -normal;
+            }
+            contact = { a, b, normal, Vec2(aTransform.position.x + (aPolygonShape->width * 0.5f), aTransform.position.y), 
+                                            Vec2(bTransform.position.x + (bPolygonShape->width * 0.5f), bTransform.position.y), depth };
         } else {
-            overlap_x = (aTransform.position.x + aPolygonShape->width * 0.5f) - (bTransform.position.x - bPolygonShape->width * 0.5f);
-        }
-        if (aTransform.position.y > bTransform.position.y) {
-            overlap_y = (bTransform.position.y + bPolygonShape->heigth * 0.5f) - (aTransform.position.y - aPolygonShape->heigth * 0.5f);
-        } else {
-            overlap_y = (aTransform.position.y + aPolygonShape->heigth * 0.5f) - (bTransform.position.y - bPolygonShape->heigth * 0.5f);
-        }
-
-        if (overlap_x < overlap_y) {
-            contact.depth = overlap_x;
-            if (aTransform.position.x > bTransform.position.x) {
-                contact.normal = Vec2(-1.0f, 0.0f);
-                contact.start = Vec2(aTransform.position.x - aPolygonShape->width * 0.5f, aTransform.position.y);
-                contact.end = Vec2(bTransform.position.x - bPolygonShape->width * 0.5f, bTransform.position.y);
+            float depth = yDepth;
+            Vec2 normal = Vec2(0.0f, aTransform.position.y < bTransform.position.y ? 1.0f : -1.0f);
+            if(aTransform.position.y > bTransform.position.y) {
+                normal = -normal;
             }
-            if (bTransform.position.x > aTransform.position.x) {
-                contact.normal = Vec2(1.0f, 0.0f);
-                contact.start = Vec2(aTransform.position.x + aPolygonShape->width * 0.5f, aTransform.position.y);
-                contact.end = Vec2(bTransform.position.x + bPolygonShape->width * 0.5f, bTransform.position.y);
-            }
-        }
-
-        if (overlap_y < overlap_x) {
-            contact.depth = overlap_y;
-            if (aTransform.position.y > bTransform.position.y) {
-                contact.normal = Vec2(0.0f, -1.0f);
-                contact.start = Vec2(aTransform.position.x, aTransform.position.y - aPolygonShape->heigth * 0.5f);
-                contact.end = Vec2(bTransform.position.x , bTransform.position.y - bPolygonShape->heigth * 0.5f);
-            }
-            if (bTransform.position.y > aTransform.position.y) {
-                contact.normal = Vec2(0.0f, 1.0f);
-                contact.start = Vec2(aTransform.position.x, aTransform.position.y + aPolygonShape->heigth * 0.5f);
-                contact.end = Vec2(bTransform.position.x , bTransform.position.y + bPolygonShape->heigth * 0.5f);
-            }
+            contact = { a, b, normal, Vec2(aTransform.position.x, aTransform.position.y + (aPolygonShape->heigth * 0.5f)), 
+                                            Vec2(bTransform.position.x, bTransform.position.y + (bPolygonShape->heigth * 0.5f)), depth };
         }
 
         return true;
     }
-    
+
     return false;
 }
 
@@ -295,16 +283,16 @@ void Collisions::ResolveCollision(entt::entity& a, entt::entity& b, Contact& con
     float e = std::min(rigidbodyA.restitution, rigidbodyB.restitution);
 
     // Calcualte the relative velocity between the two objects
-    const Vec2 vrel = (kinematicA.velocity - kinematicB.velocity);
+    const Vec2 vrel = (kinematicA.velocity - kinematicB.velocity) * 1.7;
 
     // Calculate the relative velocity along the normal collision vector
-    float vrelDotNormal = vrel.Dot(contact.normal);
+    float vrelDotNormal = vrel.Normal().Dot(contact.normal);
 
     // Now we proceed to calculate the collision impulse
     const Vec2 impulseDirection = contact.normal;
     const float impulseMagnitude = -(1 + e) * vrelDotNormal / (rigidbodyA.invMass + rigidbodyB.invMass);
 
-    Vec2 jn = impulseDirection * impulseMagnitude;
+    Vec2 jn = impulseDirection.UnitVector() * impulseMagnitude;
 
     // Apply the impulse vector to both objects in opposite direction
     kinematicA.velocity += jn * rigidbodyA.invMass; 
