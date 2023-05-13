@@ -36,8 +36,16 @@ textures = {
         filePath = "./assets/sprites/Bricks.png"
     },
     {
-        assetId = "BricksEspecial",
-        filePath = "./assets/sprites/Bonus.png"
+        assetId = "BricksRacket",
+        filePath = "./assets/sprites/BonusRacket.png"
+    },
+    {
+        assetId = "BricksSpeed",
+        filePath = "./assets/sprites/BonusSpeed.png"
+    },
+    {
+        assetId = "BricksRestart",
+        filePath = "./assets/sprites/BonusRestart.png"
     },
     {
         assetId = "Ball",
@@ -50,5 +58,9 @@ textures = {
     {
         assetId = "Player",
         filePath = "./assets/sprites/Player.png"
+    },
+    {
+        assetId = "PlayerExtended",
+        filePath = "./assets/sprites/PlayerExtended.png"
     }
 }

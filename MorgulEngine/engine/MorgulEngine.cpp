@@ -494,7 +494,9 @@ std::vector<entt::entity> MorgulEngine::SetupScene() {
                     lua_entity["components"]["ballMovement"]["maxVelocity"].get_or(200.0),
                     lua_entity["components"]["ballMovement"]["maxDesviation"].get_or(1.0472),
                     lua_entity["components"]["ballMovement"]["sumVelocity"].get_or(5.0),
-                    lua_entity["components"]["ballMovement"]["sumDesviation"].get_or(0.174533)
+                    lua_entity["components"]["ballMovement"]["sumDesviation"].get_or(0.174533),
+                    lua_entity["components"]["ballMovement"]["numDesviation"].get_or(0),
+                    lua_entity["components"]["ballMovement"]["serve"].get_or(1)
                 );
             }
 

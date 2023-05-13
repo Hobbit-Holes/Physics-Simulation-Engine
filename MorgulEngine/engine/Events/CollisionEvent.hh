@@ -3,13 +3,15 @@
 
 #include <SDL2/SDL.h>
 #include "entt/entt.hpp"
+#include "./../Collisions.hh"
 
 struct CollisionEvent {
     entt::entity a;
     entt::entity b;
     entt::registry* world;
+    Contact contact;
 
-    CollisionEvent(entt::entity a, entt::entity b, entt::registry&world): a(a), b(b), world(&world) {}
+    CollisionEvent(entt::entity a, entt::entity b, entt::registry&world, Contact contact): a(a), b(b), world(&world), contact(contact) {}
 };
 
 #endif

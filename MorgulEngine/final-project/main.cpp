@@ -25,12 +25,22 @@ int main(int argc, char *argv[]) {
     int width = 1200;
     int height = 800;
 
+    int scene = 1;
+    if (argc == 2) {
+        scene = strtol(argv[1], nullptr, 0);
+    }
+
     // Initialize Game Engine
     MorgulEngine engine = MorgulEngine(width, height);
     engine.luaTextures.script_file("./assets/scripts/sprites.lua");
     engine.luaSounds.script_file("./assets/scripts/sounds.lua");
     engine.luaFonts.script_file("./assets/scripts/fonts.lua");
-    engine.lua.script_file("./assets/scripts/entities.lua");
+
+    if (scene == 1) {
+        engine.lua.script_file("./assets/scripts/entitiesScene1.lua");
+    } else {
+        engine.lua.script_file("./assets/scripts/entitiesScene2.lua");
+    }
 
     // Systems
     BrickSystem brickSystem;

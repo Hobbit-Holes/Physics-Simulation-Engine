@@ -12,6 +12,7 @@ struct BallMovementComponent {
 
     int numDesviation;          // Determine the times the desviation has benn applied
     int serve;                  // If 0 the ball is moving, If 1 the Player 1 serve, If 2 the Player 2 serve
+    int lastHit;                // Last player to hit the ball
 
     BallMovementComponent(float initialVelocity, float maxVelocity, float maxDesviation, float sumVelocity, float sumDesviation, int numDesviation = 0, int serve = 1) {
         this->initialVelocity = initialVelocity;
@@ -23,6 +24,7 @@ struct BallMovementComponent {
 
         this->numDesviation = numDesviation;
         this->serve = serve;
+        this->lastHit = serve;
     }
 };
 

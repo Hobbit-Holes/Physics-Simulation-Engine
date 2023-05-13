@@ -34,7 +34,7 @@ class CollisionSystem {
 
                     Contact contact;
                     if (Collisions::IsColliding(entityA, entityB, contact, world)) {
-                        enventBus.trigger(CollisionEvent(entityA, entityB, world));
+                        enventBus.trigger(CollisionEvent(entityA, entityB, world, contact));
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
 
