@@ -1,7 +1,7 @@
 sounds = {
     {
         assetId = "Music",
-        filePath = "./assets/sounds/Music.wav",
+        filePath = "./assets/sounds/Music4.wav",
         volume = 5,
         soundType = "Music"
     },
