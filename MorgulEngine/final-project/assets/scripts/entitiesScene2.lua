@@ -551,7 +551,7 @@ entities = {
                 frameSpeedRate = 1
             },
             brick = {
-                numLifes = 3
+                numLifes = 1
             }
         }
     },

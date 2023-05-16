@@ -25,8 +25,8 @@ class BrickSystem {
                     
                     // If the brick is kick but has no lives, it will has an animation and the it will be destroyed
                     if (brick.restingLifes == 0) {
-                        animation.numFrames = 9;
-                        animation.frameSpeedRate = 6;
+                        animation.numFrames = 11;
+                        animation.frameSpeedRate = 8;
                         animation.startTime = SDL_GetTicks();
                     }
                 }
@@ -40,8 +40,8 @@ class BrickSystem {
                 if (brick.restingLifes > 0) {
                     brick.restingLifes -= 1;
                     animation.startFrame += 1;
-                    animation.numFrames = 9;
-                    animation.frameSpeedRate = 6;
+                    animation.numFrames = 11;
+                    animation.frameSpeedRate = 8;
                     animation.startTime = SDL_GetTicks();
 
                     // Give PowerUps / Boosters
@@ -88,8 +88,8 @@ class BrickSystem {
                     }
 
                     // After the animation of destruction, the brick dissapear
-                    if (animation.currentFrame == brick.numLifes + 8) {
-                        animation.startFrame = brick.numLifes + 8;
+                    if (animation.currentFrame == brick.numLifes + 10) {
+                        animation.startFrame = brick.numLifes + 10;
                         animation.frameSpeedRate = 1;
                         animation.numFrames = 1;
                     }
@@ -100,8 +100,8 @@ class BrickSystem {
                     }
 
                     // After the animation of destruction, the brick dissapear
-                    if (animation.currentFrame == brick.numLifes + 8) {
-                        animation.startFrame = brick.numLifes + 8;
+                    if (animation.currentFrame == brick.numLifes + 10) {
+                        animation.startFrame = brick.numLifes + 10;
                         animation.frameSpeedRate = 1;
                         animation.numFrames = 1;
                     }
