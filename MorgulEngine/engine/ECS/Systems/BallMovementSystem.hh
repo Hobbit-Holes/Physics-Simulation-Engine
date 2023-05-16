@@ -101,7 +101,7 @@ class BallMovementSystem {
                         mov.numDesviation += 1;
                     }
                 } else {
-                    if (mov.numDesviation != 0) {
+                    if (mov.numDesviation > 0) {
                         if (velocity.y > 0) {
                             if (velocity.x > 0) {
                                 desviation = mov.sumDesviation * -1;
@@ -126,6 +126,10 @@ class BallMovementSystem {
             if (groupA == "Goals" && groupB == "Balls") {
                 // Reset velocity if any player is scored
                 collision.world->get<KinematicComponent>(entityB).velocity = Vec2(0, 0);
+
+                // Change sprite of the ball
+                int random = rand() % 4 + 1;
+                collision.world->get<SpriteComponent>(entityB).assetId = "Ball" + std::to_string(random);
 
                 // Reset of the positions and determine the one who serve
                 if (collision.world->get<NameGroupComponent>(entityA).name == "Goal Player 1") {

@@ -56,6 +56,14 @@ textures = {
         filePath = "./assets/sprites/Ball2.png"
     },
     {
+        assetId = "Ball3",
+        filePath = "./assets/sprites/Ball3.png"
+    },
+    {
+        assetId = "Ball4",
+        filePath = "./assets/sprites/Ball4.png"
+    },
+    {
         assetId = "Goal",
         filePath = "./assets/sprites/Goal.png"
     },
