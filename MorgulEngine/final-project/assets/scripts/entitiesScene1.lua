@@ -270,7 +270,7 @@ entities = {
                 height = 32
             },
             sound = {
-                assetId = "Hit",
+                assetId = "Score",
                 sound = "Effect",
                 play = false
             }
@@ -448,7 +448,7 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Ball",
+                assetId = "Ball1",
                 width = 25,
                 height = 25
             },

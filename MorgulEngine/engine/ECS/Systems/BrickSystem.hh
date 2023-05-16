@@ -26,7 +26,7 @@ class BrickSystem {
                     // If the brick is kick but has no lives, it will has an animation and the it will be destroyed
                     if (brick.restingLifes <= 0) {
                         animation.numFrames = 4;
-                        animation.frameSpeedRate = 2;
+                        animation.frameSpeedRate = 3;
                     }
                 }
             } else if (groupA == "Balls" && groupB == "Bonus") {
@@ -38,9 +38,9 @@ class BrickSystem {
                 // Break the Brick
                 if (brick.restingLifes > 0) {
                     brick.restingLifes -= 1;
-                    animation.startFrame += 3;
+                    animation.startFrame += 1;
                     animation.numFrames = 4;
-                    animation.frameSpeedRate = 2;
+                    animation.frameSpeedRate = 3;
 
                     // Give PowerUps / Boosters
                     if (collision.world->get<NameGroupComponent>(entityB).name == "Bonus Racket") {

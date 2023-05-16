@@ -48,8 +48,12 @@ textures = {
         filePath = "./assets/sprites/BonusRestart.png"
     },
     {
-        assetId = "Ball",
-        filePath = "./assets/sprites/Ball.png"
+        assetId = "Ball1",
+        filePath = "./assets/sprites/Ball1.png"
+    },
+    {
+        assetId = "Ball2",
+        filePath = "./assets/sprites/Ball2.png"
     },
     {
         assetId = "Goal",

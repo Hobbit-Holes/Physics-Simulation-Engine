@@ -24,7 +24,7 @@ Here you can see the different sections that have been carried out during the co
 - [Fluid Simulations](#fluid-simulations)
 - [Game Scripting](#game-scripting)
 - [Computer Animation](#computer-animation)
-- [Projections](#projections)
+- [Videogame](#videogame)
 
 ## Introduction
 
@@ -256,7 +256,6 @@ Finaly, we have implement the [Exercise 17](https://github.com/Hobbit-Holes/Phys
 
 <p align="center"><img src="https://github.com/Hobbit-Holes/Physics-Simulation-Engine/blob/main/Screenshots/Exercise17.gif" alt="Exercise 17" height="300"/></p>
 
-## Projections
+## Videogame
 
-...
-
+To finish the course, we have to create a videogame from scratch, using only the game engine we have been creating. The idea of this project, it is to use the different components, systems and functions we have being implementing, to have a great game. To see the game, click in the following [link](https://github.com/Hobbit-Holes/Physics-Simulation-Engine/tree/main/MorgulEngine/final-project).

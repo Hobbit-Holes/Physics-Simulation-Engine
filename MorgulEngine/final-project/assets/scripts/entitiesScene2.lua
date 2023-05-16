@@ -270,7 +270,7 @@ entities = {
                 height = 32
             },
             sound = {
-                assetId = "Hit",
+                assetId = "Score",
                 sound = "Effect",
                 play = false
             }
@@ -448,7 +448,7 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Ball",
+                assetId = "Ball2",
                 width = 25,
                 height = 25
             },
@@ -473,7 +473,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 600, y = 400}
+                position = {x = 600, y = 200}
             },
             kinematic = {},
             collider = {
@@ -512,12 +512,12 @@ entities = {
         }
     },
     {
-        group = "Bricks",
-        name = "Brick 01",
+        group = "Bonus",
+        name = "Bonus Speed",
 
         components = {
             transform = {
-                position = {x = 600, y = 325}
+                position = {x = 600, y = 600}
             },
             kinematic = {},
             collider = {
@@ -542,7 +542,7 @@ entities = {
                 }
             },
             sprite = {
-                assetId = "Bricks",
+                assetId = "BricksSpeed",
                 width = 64,
                 height = 64
             },
@@ -561,7 +561,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 600, y = 475}
+                position = {x = 600, y = 525}
             },
             kinematic = {},
             collider = {
@@ -605,7 +605,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 650, y = 440}
+                position = {x = 550, y = 575}
             },
             kinematic = {},
             collider = {
@@ -649,7 +649,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 650, y = 360}
+                position = {x = 650, y = 575}
             },
             kinematic = {},
             collider = {
@@ -693,51 +693,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 550, y = 440}
-            },
-            kinematic = {},
-            collider = {
-                render = false,
-                resolve = true,
-                aabb = true,
-                shape = {
-                    type = "rectangle",
-                    width = 32,
-                    height = 64,
-                    color = {r = 255, g = 255, b = 255}
-                }
-            },
-            rigidbody = {
-                mass = 0,
-                isStatic = true,
-                shape = {
-                    type = "rectangle",
-                    width = 32,
-                    height = 64,
-                    color = {r = 255, g = 255, b = 255}
-                }
-            },
-            sprite = {
-                assetId = "Bricks",
-                width = 64,
-                height = 64
-            },
-            animation = {
-                numFrames = 1,
-                frameSpeedRate = 1
-            },
-            brick = {
-                numLifes = 3
-            }
-        }
-    },
-    {
-        group = "Bricks",
-        name = "Brick 05",
-
-        components = {
-            transform = {
-                position = {x = 550, y = 360}
+                position = {x = 600, y = 275}
             },
             kinematic = {},
             collider = {
@@ -781,7 +737,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 400, y = 200}
+                position = {x = 550, y = 225}
             },
             kinematic = {},
             collider = {
@@ -825,7 +781,7 @@ entities = {
 
         components = {
             transform = {
-                position = {x = 800, y = 200}
+                position = {x = 650, y = 225}
             },
             kinematic = {},
             collider = {
@@ -865,11 +821,11 @@ entities = {
     },
     {
         group = "Bricks",
-        name = "Brick 08",
+        name = "Defense 1_01",
 
         components = {
             transform = {
-                position = {x = 400, y = 600}
+                position = {x = 260, y = 200}
             },
             kinematic = {},
             collider = {
@@ -903,17 +859,18 @@ entities = {
                 frameSpeedRate = 1
             },
             brick = {
-                numLifes = 3
+                numLifes = 3,
+                restingLifes = 1
             }
         }
     },
     {
         group = "Bricks",
-        name = "Brick 09",
+        name = "Defense 1_02",
 
         components = {
             transform = {
-                position = {x = 800, y = 600}
+                position = {x = 260, y = 275}
             },
             kinematic = {},
             collider = {
@@ -947,7 +904,458 @@ entities = {
                 frameSpeedRate = 1
             },
             brick = {
-                numLifes = 3
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 1_03",
+
+        components = {
+            transform = {
+                position = {x = 260, y = 350}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 1_04",
+
+        components = {
+            transform = {
+                position = {x = 260, y = 450}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 1_05",
+
+        components = {
+            transform = {
+                position = {x = 260, y = 525}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 1_06",
+
+        components = {
+            transform = {
+                position = {x = 260, y = 600}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 2_01",
+
+        components = {
+            transform = {
+                position = {x = 940, y = 200}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 2_02",
+
+        components = {
+            transform = {
+                position = {x = 940, y = 275}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 2_03",
+
+        components = {
+            transform = {
+                position = {x = 940, y = 350}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 2_04",
+
+        components = {
+            transform = {
+                position = {x = 940, y = 450}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 2_05",
+
+        components = {
+            transform = {
+                position = {x = 940, y = 525}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
+            }
+        }
+    },
+    {
+        group = "Bricks",
+        name = "Defense 2_06",
+
+        components = {
+            transform = {
+                position = {x = 940, y = 600}
+            },
+            kinematic = {},
+            collider = {
+                render = false,
+                resolve = true,
+                aabb = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            rigidbody = {
+                mass = 0,
+                isStatic = true,
+                shape = {
+                    type = "rectangle",
+                    width = 32,
+                    height = 64,
+                    color = {r = 255, g = 255, b = 255}
+                }
+            },
+            sprite = {
+                assetId = "Bricks",
+                width = 64,
+                height = 64
+            },
+            animation = {
+                numFrames = 1,
+                frameSpeedRate = 1
+            },
+            brick = {
+                numLifes = 3,
+                restingLifes = 1
             }
         }
     },

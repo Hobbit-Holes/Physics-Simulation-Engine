@@ -229,15 +229,15 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
             overlap_y = (aTransform.position.y + aPolygonShape->heigth * 0.5f) - (bTransform.position.y - bPolygonShape->heigth * 0.5f);
         }
 
+        Vec2 normal = Vec2(0, 0);
         if (overlap_x < overlap_y) {
             contact.depth = overlap_x;
             if (aTransform.position.x > bTransform.position.x) {
-                contact.normal = Vec2(-1.0f, 0.0f);
+                normal += Vec2(-1.0f, 0.0f);
                 contact.start = Vec2(aTransform.position.x - aPolygonShape->width * 0.5f, aTransform.position.y);
                 contact.end = Vec2(bTransform.position.x - bPolygonShape->width * 0.5f, bTransform.position.y);
-            }
-            if (bTransform.position.x > aTransform.position.x) {
-                contact.normal = Vec2(1.0f, 0.0f);
+            } else if (bTransform.position.x > aTransform.position.x) {
+                normal += Vec2(1.0f, 0.0f);
                 contact.start = Vec2(aTransform.position.x + aPolygonShape->width * 0.5f, aTransform.position.y);
                 contact.end = Vec2(bTransform.position.x + bPolygonShape->width * 0.5f, bTransform.position.y);
             }
@@ -246,16 +246,16 @@ bool Collisions::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b,
         if (overlap_y < overlap_x) {
             contact.depth = overlap_y;
             if (aTransform.position.y > bTransform.position.y) {
-                contact.normal = Vec2(0.0f, -1.0f);
+                normal += Vec2(0.0f, -1.0f);
                 contact.start = Vec2(aTransform.position.x, aTransform.position.y - aPolygonShape->heigth * 0.5f);
                 contact.end = Vec2(bTransform.position.x , bTransform.position.y - bPolygonShape->heigth * 0.5f);
-            }
-            if (bTransform.position.y > aTransform.position.y) {
-                contact.normal = Vec2(0.0f, 1.0f);
+            } else if (bTransform.position.y > aTransform.position.y) {
+                normal += Vec2(0.0f, 1.0f);
                 contact.start = Vec2(aTransform.position.x, aTransform.position.y + aPolygonShape->heigth * 0.5f);
                 contact.end = Vec2(bTransform.position.x , bTransform.position.y + bPolygonShape->heigth * 0.5f);
             }
         }
+        contact.normal = normal;
 
         return true;
     }

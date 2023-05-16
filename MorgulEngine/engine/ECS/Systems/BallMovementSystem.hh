@@ -28,7 +28,8 @@ class BallMovementSystem {
                 
                 if (normal.x != 0) {
                     kim.velocity.x *= -1;
-                } else if (normal.y != 0) {
+                } 
+                if (normal.y != 0) {
                     kim.velocity.y *= -1;
                 }
             } else if (groupB == "Balls" && collision.world->get<ColliderComponent>(entityA).resolve == true) {
@@ -42,7 +43,8 @@ class BallMovementSystem {
                 
                 if (normal.x != 0) {
                     kim.velocity.x *= -1;
-                } else if (normal.y != 0) {
+                } 
+                if (normal.y != 0) {
                     kim.velocity.y *= -1;
                 }
             }
