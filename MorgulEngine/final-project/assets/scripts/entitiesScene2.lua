@@ -454,7 +454,7 @@ entities = {
             },
             ballMovement = {
                 initialVelocity = 250,
-                maxVelocity = 450,
+                maxVelocity = 500,
                 maxDesviation = 0.45,
                 sumVelocity = 10,
                 sumDesviation = 0.1,
