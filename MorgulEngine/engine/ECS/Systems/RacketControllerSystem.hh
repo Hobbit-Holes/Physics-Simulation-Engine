@@ -15,6 +15,7 @@ class RacketControllerSystem {
                 auto& racket = view.get<RacketControllerComponent>(entity);
 
                 float speed = 0;
+                // Who you can control the two players, one by pressing the w and s key and the other one by pressing the arrow down and arrow up key
                 if (racket.control == 0) {
                     if (keyboard->upKeyPressed) {
                         speed = racket.speed * -1;
@@ -29,14 +30,17 @@ class RacketControllerSystem {
                     }
                 }
 
+                // Moving the rackets with velocity
                 transform.position.y += speed * dt;
 
+                // Boundarie of the rackets
                 if (transform.position.y < racket.limitUp) {
                     transform.position.y = racket.limitUp;
                 } else if (transform.position.y > racket.limitDown) {
                     transform.position.y = racket.limitDown;
                 }
 
+                // Making a racket bigger and replace the elements of one racket
                 if (racket.extend == true) {
                     RectangleShape box =  RectangleShape(8, 128, Color::White(), false);
                     RectangleShape &box_ref = box;

@@ -5,10 +5,10 @@
 
 struct ColliderComponent {
     Shape* shape;
-    bool renderCollider;
-    bool isColliding;
-    bool resolve;
-    bool aabb;
+    bool renderCollider;    // If the collider component is render or not
+    bool isColliding;       // If the entities are colliding or not
+    bool resolve;           // If we want to resolve the colision or not
+    bool aabb;              // If it is a collision between rectangle and rectangle or not
 
     ColliderComponent(Shape& shape, bool renderCollider = false, bool resolve = true, bool aabb = false) {
         this->shape = shape.Clone();

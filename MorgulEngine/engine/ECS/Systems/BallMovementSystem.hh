@@ -151,8 +151,9 @@ class BallMovementSystem {
                 auto& kim = world.get<KinematicComponent>(entity);
                 auto& ball = world.get<BallMovementComponent>(entity);
 
-                // Player who serve
+                // Player 1 who serve
                 if (ball.serve == 1) {
+                    // The ball will move when the space kay will be press in a ramdon angle and velocity
                     if (keyboard->spaceKeyPressed == true) {
                         ball.serve = 0;
                         float random = (rand() % 61 - 30) * (M_PI / 180);
@@ -160,7 +161,10 @@ class BallMovementSystem {
 
                         ball.lastHit = 1;
                     }
+                
+                // Player 2 who serve
                 } else if (ball.serve == 2) {
+                    // The ball will move when the space kay will be press in a ramdon angle and velocity
                     if (keyboard->spaceKeyPressed == true) {
                         ball.serve = 0;
                         float random = (rand() % 61 - 30) * (M_PI / 180);
